@@ -1,25 +1,37 @@
 import React, { useState } from 'react'
 import * as S from './styles'
-import { type } from 'os'
-
-interface IUser {
-    name: string
-    email: string
-    phone: string
-    cpf: string
-}
+import Button from '@mui/material/Button'
+import TextField from '@mui/material/TextField'; 
 
 type InputTextProps = {
-    user: IUser
-
+    placeholder: string
+    value: string | undefined
+    setState: any
+    id: string
 }
 
-function InputText() {
-    const [user, setUser] = useState<IUser>()
+function InputText({placeholder, value, setState, id}: InputTextProps) {
+    
+    const handleOnChange = (e: { target: any }) => {
+        const { id, value }: string | any = e.target
+        setState((date: any) => ({
+            ...date,
+            [id]: value,
+        }))
+    }
 
     return (
         <S.Contener>
+            <TextField
+                required
+                id={id}
+                label="Nome"
+                defaultValue={value}
+                placeholder= {placeholder}
+                onChange={handleOnChange}
+            />
             <div>e</div>
+            <Button variant="contained">Hello World</Button>
         </S.Contener>
     )
 }

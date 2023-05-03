@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import * as S from '../../../styles/auth/createAccount'
+import InputText from '@/src/components/inputText'
 
 
 interface IUser {
@@ -12,9 +13,12 @@ interface IUser {
 function CreateAccount() {
     const [user, setUser] = useState<IUser>()
 
+    useEffect(() => {console.log(user)},[user])
+
     return (
         <S.Contener>
             <div>e</div>
+            <InputText placeholder={'Diego lindo'} value={user?.name} setState={setUser} id = 'name'/>
         </S.Contener>
     )
 }
