@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import * as S from '../../../styles/auth/createAccount'
 import InputText from '@/src/components/inputText'
 import axios from 'axios'
+import DefaultButton from '@/src/components/defaultButton'
+import { light } from '@fortawesome/fontawesome-svg-core/import.macro'
 
 interface IUser {
     name: string
@@ -18,7 +20,7 @@ function CreateAccount() {
     }, [user])
 
     const handleClick = () => {
-        axios.post('http://localhost:3001/users', user)
+        axios.post('http://localhost:3001/users', user).then((response) => {console.log(response)}).catch((error) => {console.log(error)})
     }
     return (
         <S.Contener>
@@ -30,6 +32,7 @@ function CreateAccount() {
                     id="name"
                     label="Nome"
                 />
+                <br />
                 <InputText
                     placeholder={'E-mail'}
                     value={user?.email}
@@ -37,6 +40,7 @@ function CreateAccount() {
                     id="email"
                     label="E-mail"
                 />
+                <br />
                 <InputText
                     placeholder={'Telefone'}
                     value={user?.phone}
@@ -44,6 +48,7 @@ function CreateAccount() {
                     id="phone"
                     label="Telefone"
                 />
+                <br />
                 <InputText
                     placeholder={'CPF'}
                     value={user?.cpf}
@@ -51,8 +56,15 @@ function CreateAccount() {
                     id="cpf"
                     label="CPF"
                 />
+                <br />
             </div>
-            <button onClick={handleClick}>Criar</button>
+            <S.WrapperButton>
+                <DefaultButton
+                    ctaButton="Criar"
+                    onClick={handleClick}
+                    icon={light('arrow-right')}
+                />
+            </S.WrapperButton>
         </S.Contener>
     )
 }
