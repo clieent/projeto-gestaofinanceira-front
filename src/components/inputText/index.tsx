@@ -1,17 +1,21 @@
 import React, { useState } from 'react'
-import * as S from './styles'
-import Button from '@mui/material/Button'
-import TextField from '@mui/material/TextField'; 
+import TextField from '@mui/material/TextField'
 
 type InputTextProps = {
     placeholder: string
     value: string | undefined
     setState: any
     id: string
+    label: string
 }
 
-function InputText({placeholder, value, setState, id}: InputTextProps) {
-    
+function InputText({
+    placeholder,
+    value,
+    setState,
+    id,
+    label,
+}: InputTextProps) {
     const handleOnChange = (e: { target: any }) => {
         const { id, value }: string | any = e.target
         setState((date: any) => ({
@@ -21,18 +25,14 @@ function InputText({placeholder, value, setState, id}: InputTextProps) {
     }
 
     return (
-        <S.Contener>
-            <TextField
-                required
-                id={id}
-                label="Nome"
-                defaultValue={value}
-                placeholder= {placeholder}
-                onChange={handleOnChange}
-            />
-            <div>e</div>
-            <Button variant="contained">Hello World</Button>
-        </S.Contener>
+        <TextField
+            required
+            id={id}
+            label={label}
+            defaultValue={value}
+            placeholder={placeholder}
+            onChange={handleOnChange}
+        />
     )
 }
 
