@@ -1,7 +1,10 @@
 import styled from "styled-components";
 
-export const Contener = styled.div`
-    width: 100vw;
-    height: 100vh;
+type TextFieldProps = {
+    required: any
+    label: string
+}
+
+export const TextField = styled.div<TextFieldProps>`
 
 `
