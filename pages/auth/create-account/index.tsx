@@ -4,6 +4,30 @@ import InputText from '@/src/components/inputText'
 import axios from 'axios'
 import DefaultButton from '@/src/components/defaultButton'
 import { light } from '@fortawesome/fontawesome-svg-core/import.macro'
+import { z } from 'zod'
+
+const createUserFormSchema = z.object({
+    name: z
+        .string()
+        .nonempty('O nome é obrigatorio')
+        .transform((name) => {
+            return name
+                .trim()
+                .split(' ')
+                .map((word) => {
+                    return word[0].toLocaleUpperCase().concat(word.substring(1))
+                })
+                .join(' ')
+        }),
+    email: z
+        .string()
+        .nonempty('O e-mail é obrigatorio')
+        .email('Formato de e-mail inválido')
+        .toLowerCase(),
+    password: z.string().min(6, 'A senha precisa de no mínimo 6 caracteres'),
+})
+
+type CreateUserFormData = z.infer<typeof createUserFormSchema>
 
 interface IUser {
     name: string
@@ -20,7 +44,14 @@ function CreateAccount() {
     }, [user])
 
     const handleClick = () => {
-        axios.post('http://localhost:3001/users', user).then((response) => {console.log(response)}).catch((error) => {console.log(error)})
+        axios
+            .post('http://localhost:3001/users', user)
+            .then((response) => {
+                console.log(response)
+            })
+            .catch((error) => {
+                console.log(error)
+            })
     }
     return (
         <S.Contener>
