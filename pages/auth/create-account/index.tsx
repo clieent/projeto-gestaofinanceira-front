@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import * as S from '../../../styles/auth/createAccount'
-import InputText from '@/src/components/inputText'
 import axios from 'axios'
-import DefaultButton from '@/src/components/defaultButton'
 import { light } from '@fortawesome/fontawesome-svg-core/import.macro'
 import { z } from 'zod'
+import InputText from '@/src/components/inputText'
+import DefaultButton from '@/src/components/defaultButton'
+import SelectBox from '@/src/components/selectBox'
+
 
 const createUserFormSchema = z.object({
     name: z
@@ -34,6 +36,7 @@ interface IUser {
     email: string
     phone: string
     cpf: string
+    item: string
 }
 
 function CreateAccount() {
@@ -53,9 +56,10 @@ function CreateAccount() {
                 console.log(error)
             })
     }
+
     return (
-        <S.Contener>
-            <div>
+        <S.Container>
+            <S.DataInputs>
                 <InputText
                     placeholder={'Nome completo'}
                     value={user?.name}
@@ -88,7 +92,9 @@ function CreateAccount() {
                     label="CPF"
                 />
                 <br />
-            </div>
+            </S.DataInputs>
+            <br />
+
             <S.WrapperButton>
                 <DefaultButton
                     ctaButton="Criar"
@@ -96,7 +102,20 @@ function CreateAccount() {
                     icon={light('arrow-right')}
                 />
             </S.WrapperButton>
-        </S.Contener>
+            <br />
+
+            <S.ChoiceBox>
+                <SelectBox 
+                    setState={setUser}
+                    value={user?.item}
+                    id={'item'}
+                    label={'item'}                
+                />
+            </S.ChoiceBox>
+            <br />
+            
+        </S.Container>
+
     )
 }
 

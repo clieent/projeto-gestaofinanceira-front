@@ -9,12 +9,17 @@ type DefaultButtonProps = {
     icon?: any
 }
 
-function DefaultButton({ ctaButton, onClick, height, icon }: DefaultButtonProps) {
+function DefaultButton({ 
+    ctaButton,
+    onClick,
+    height,
+    icon
+}: DefaultButtonProps) {
     return (
-        <S.Contener onClick={onClick} h={height}>
+        <S.Container onClick={onClick} h={height}>
             <S.Text>{ctaButton}</S.Text>
             <S.Icon icon={icon}></S.Icon>
-        </S.Contener>
+        </S.Container>
     )
 }
 

@@ -1,11 +1,11 @@
 import styled from "styled-components"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-type ContenerProps = {
+type ContainerProps = {
     h: string | undefined
 }
 
-export const Contener = styled.button<ContenerProps>`
+export const Container = styled.button<ContainerProps>`
     height : ${({ h }) => (h ?? "100%")};
     width: 100%;
     background-color:#6A5ACD;
