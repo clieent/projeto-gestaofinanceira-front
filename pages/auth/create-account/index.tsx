@@ -99,10 +99,8 @@ function CreateAccount() {
                 <DefaultButton
                     ctaButton="Criar"
                     onClick={handleClick}
-                    icon={light('arrow-right')}
                 />
             </S.WrapperButton>
-            <br />
 
             <S.ChoiceBox>
                 <SelectBox 
