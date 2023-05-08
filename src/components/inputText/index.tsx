@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import * as S from './styles'
-import TextField from '@mui/material/TextField'
+
 
 type InputTextProps = {
     placeholder: string
@@ -26,7 +26,7 @@ function InputText({
     }
 
     return (
-        <TextField
+        <S.InputTextField
             required
             id={id}
             label={label}

@@ -106,8 +106,8 @@ function CreateAccount() {
 
             <S.ChoiceBox>
                 <SelectBox 
-                    setState={setUser}
-                    value={user?.item}
+                    setUserItem={setUser}
+                    userItem={user?.item}
                     id={'item'}
                     label={'item'}                
                 />

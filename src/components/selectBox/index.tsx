@@ -1,20 +1,28 @@
 import React, { useEffect, useState } from 'react'
 import * as S from './styles'
 
+interface IUser {
+    name: string
+    email: string
+    phone: string
+    cpf: string
+    item: string
+}
+
 type SelectBoxProps = {
     label: string
-    value: string | undefined
-    setState: any
+    userItem: string | undefined
+    setUserItem: any
     id: string
 }
 
-function SelectBox({ label, value, setState, id }: SelectBoxProps) {
+function SelectBox({ userItem, setUserItem }: SelectBoxProps) {
 
     const handleOnChange = (e: { target: any }) => {
-        const { value }: string | any = e.target
-        setState((data: any) => ({
-            ...data,
-            [id]: value,
+        const { value, name } : string | any = e.target
+        setUserItem((prev: IUser) => ({
+            ...prev,
+            [name]: value
         }))
     }
 
@@ -24,13 +32,13 @@ function SelectBox({ label, value, setState, id }: SelectBoxProps) {
                 <S.ChoicesFormControl fullWidth>
                     <S.ChoicesInputLabel id="input-label">Escolha</S.ChoicesInputLabel>
                     <S.ChoicesSelect
-                        value={value}
+                        value={userItem}
                         label="Item"
-                        onChange={handleOnChange}
+                        name="item"
+                        onChange={(e) => {handleOnChange(e)}}
                     >
                         <S.ChoicesMenuItem value={1}>Entradas</S.ChoicesMenuItem>
                         <S.ChoicesMenuItem value={2}>Saídas</S.ChoicesMenuItem>
-                        <S.ChoicesMenuItem value={3}>  </S.ChoicesMenuItem>
                     </S.ChoicesSelect>
                 </S.ChoicesFormControl>
             </S.ChoicesBox>

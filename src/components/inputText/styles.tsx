@@ -1,10 +1,7 @@
 import styled from "styled-components";
+import TextField from '@mui/material/TextField'
 
-type TextFieldProps = {
-    required: any
-    label: string
-}
 
-export const TextField = styled.div<TextFieldProps>`
+export const InputTextField = styled(TextField)`
 
 `
