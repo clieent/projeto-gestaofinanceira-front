@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 import * as S from './styles'
 
-
 type InputTextProps = {
     placeholder: string
     value: string | undefined
     setState: any
     id: string
     label: string
+    type?: string | 'required'
 }
 
 function InputText({
@@ -16,6 +16,7 @@ function InputText({
     setState,
     id,
     label,
+    type,
 }: InputTextProps) {
     const handleOnChange = (e: { target: any }) => {
         const { id, value }: string | any = e.target
@@ -27,7 +28,7 @@ function InputText({
 
     return (
         <S.InputTextField
-            required
+            type={type}
             id={id}
             label={label}
             defaultValue={value}

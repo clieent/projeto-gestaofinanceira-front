@@ -7,7 +7,6 @@ import InputText from '@/src/components/inputText'
 import DefaultButton from '@/src/components/defaultButton'
 import SelectBox from '@/src/components/selectBox'
 
-
 const createUserFormSchema = z.object({
     name: z
         .string()
@@ -26,7 +25,15 @@ const createUserFormSchema = z.object({
         .nonempty('O e-mail é obrigatorio')
         .email('Formato de e-mail inválido')
         .toLowerCase(),
-    password: z.string().min(6, 'A senha precisa de no mínimo 6 caracteres'),
+    password: z
+        .string()
+        .nonempty('A senha é obrigatoria')
+        .min(6, 'A senha precisa de no mínimo 6 caracteres'),
+    cpf: z
+        .string()
+        .nonempty('O cpf é obrigatorio')
+        .min(11, 'Cpf inválido')
+        .max(11, 'Cpf inválido'),
 })
 
 type CreateUserFormData = z.infer<typeof createUserFormSchema>
@@ -37,29 +44,41 @@ interface IUser {
     phone: string
     cpf: string
     item: string
+    password: string
 }
 
 function CreateAccount() {
     const [user, setUser] = useState<IUser>()
+    const [nameInputError, setNameInputError] = useState(false)
 
     useEffect(() => {
         console.log(user)
     }, [user])
 
     const handleClick = () => {
-        axios
-            .post('http://localhost:3001/users', user)
-            .then((response) => {
-                console.log(response)
-            })
-            .catch((error) => {
-                console.log(error)
-            })
+        const parse = createUserFormSchema.safeParse(user)
+        if (!parse.success) {
+            console.log(parse.error)
+            if (parse.error.issues.find((error) => error.path[0] == 'name')) {
+                setNameInputError(true)
+            }
+        } else {
+            console.log(parse.data)
+            axios
+                .post('http://localhost:3001/users', user)
+                .then((response) => {
+                    console.log(response)
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
+        }
     }
 
     return (
         <S.Container>
             <S.DataInputs>
+                {nameInputError && <h1>Nome em branco</h1>}
                 <InputText
                     placeholder={'Nome completo'}
                     value={user?.name}
@@ -77,6 +96,7 @@ function CreateAccount() {
                 />
                 <br />
                 <InputText
+                    type={'disabled'}
                     placeholder={'Telefone'}
                     value={user?.phone}
                     setState={setUser}
@@ -92,28 +112,32 @@ function CreateAccount() {
                     label="CPF"
                 />
                 <br />
+                <InputText
+                    type={'password'}
+                    placeholder={'Senha'}
+                    value={user?.password}
+                    setState={setUser}
+                    id="password"
+                    label="Senha"
+                />
+                <br />
             </S.DataInputs>
             <br />
 
             <S.WrapperButton>
-                <DefaultButton
-                    ctaButton="Criar"
-                    onClick={handleClick}
-                />
+                <DefaultButton ctaButton="Criar" onClick={handleClick} />
             </S.WrapperButton>
 
             <S.ChoiceBox>
-                <SelectBox 
+                <SelectBox
                     setUserItem={setUser}
                     userItem={user?.item}
                     id={'item'}
-                    label={'item'}                
+                    label={'item'}
                 />
             </S.ChoiceBox>
             <br />
-            
         </S.Container>
-
     )
 }
 

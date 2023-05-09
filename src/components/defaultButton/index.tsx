@@ -6,17 +6,14 @@ type DefaultButtonProps = {
     ctaButton: string
 }
 
-function DefaultButton({
-    onClick,
-    ctaButton,
-}: DefaultButtonProps) {
+function DefaultButton({ onClick, ctaButton }: DefaultButtonProps) {
     return (
-        <S.Container>        
+        <S.Container>
             <S.ClickStack onClick={onClick} spacing={2} direction="row">
-                <S.ClickButton>{ctaButton}</S.ClickButton>
+                <S.ClickButton variant="contained">{ctaButton}</S.ClickButton>
             </S.ClickStack>
         </S.Container>
-    );
+    )
 }
 
 export default DefaultButton
