@@ -5,7 +5,6 @@ import { light } from '@fortawesome/fontawesome-svg-core/import.macro'
 import { z } from 'zod'
 import InputText from '@/src/components/inputText'
 import DefaultButton from '@/src/components/defaultButton'
-import SelectBox from '@/src/components/selectBox'
 
 const createUserFormSchema = z.object({
     name: z
@@ -43,7 +42,6 @@ interface IUser {
     email: string
     phone: string
     cpf: string
-    item: string
     password: string
 }
 
@@ -75,6 +73,8 @@ function CreateAccount() {
         }
     }
 
+
+
     return (
         <S.Container>
             <S.DataInputs>
@@ -96,12 +96,12 @@ function CreateAccount() {
                 />
                 <br />
                 <InputText
-                    type={'disabled'}
                     placeholder={'Telefone'}
                     value={user?.phone}
                     setState={setUser}
                     id="phone"
                     label="Telefone"
+                    mask="(99)99999-9999"
                 />
                 <br />
                 <InputText
@@ -110,6 +110,8 @@ function CreateAccount() {
                     setState={setUser}
                     id="cpf"
                     label="CPF"
+                    mask="999.999.999-99"
+
                 />
                 <br />
                 <InputText
@@ -128,15 +130,7 @@ function CreateAccount() {
                 <DefaultButton ctaButton="Criar" onClick={handleClick} />
             </S.WrapperButton>
 
-            <S.ChoiceBox>
-                <SelectBox
-                    setUserItem={setUser}
-                    userItem={user?.item}
-                    id={'item'}
-                    label={'item'}
-                />
-            </S.ChoiceBox>
-            <br />
+
         </S.Container>
     )
 }

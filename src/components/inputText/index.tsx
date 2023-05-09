@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import InputMask from 'react-input-mask'
 import * as S from './styles'
 
 type InputTextProps = {
@@ -8,16 +9,13 @@ type InputTextProps = {
     id: string
     label: string
     type?: string | 'required'
+    mask?: any
 }
 
-function InputText({
-    placeholder,
-    value,
-    setState,
-    id,
-    label,
-    type,
-}: InputTextProps) {
+function InputText(
+    this: any,
+    { placeholder, value, setState, id, label, type, mask }: InputTextProps
+) {
     const handleOnChange = (e: { target: any }) => {
         const { id, value }: string | any = e.target
         setState((date: any) => ({
@@ -27,14 +25,21 @@ function InputText({
     }
 
     return (
-        <S.InputTextField
-            type={type}
-            id={id}
-            label={label}
-            defaultValue={value}
-            placeholder={placeholder}
-            onChange={handleOnChange}
-        />
+        <S.Container>
+                <S.InputTextField
+                    type={type}
+                    variant="outlined"
+                    id={id}
+                    label={label}
+                    placeholder={placeholder}
+                    InputProps={{
+                        inputComponent: InputMask,
+                        inputProps: {mask},
+                    }}
+                    value={value}
+                    onChange={handleOnChange}
+                />
+        </S.Container>
     )
 }
 

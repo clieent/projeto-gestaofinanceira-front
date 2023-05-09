@@ -14,15 +14,21 @@ type SelectBoxProps = {
     userItem: string | undefined
     setUserItem: any
     id: string
+    ctaBox: any
+    options: string[]
 }
 
-function SelectBox({ userItem, setUserItem }: SelectBoxProps) {
-
+function SelectBox({
+    userItem,
+    setUserItem,
+    options,
+    ctaBox,
+}: SelectBoxProps) {
     const handleOnChange = (e: { target: any }) => {
-        const { value, name } : string | any = e.target
+        const { value, name }: string | any = e.target
         setUserItem((prev: IUser) => ({
             ...prev,
-            [name]: value
+            [name]: value,
         }))
     }
 
@@ -30,15 +36,22 @@ function SelectBox({ userItem, setUserItem }: SelectBoxProps) {
         <S.Container>
             <S.ChoicesBox sx={{ minWidth: 120 }}>
                 <S.ChoicesFormControl fullWidth>
-                    <S.ChoicesInputLabel id="input-label">Escolha</S.ChoicesInputLabel>
+                    <S.ChoicesInputLabel id="input-label">
+                        {ctaBox}
+                    </S.ChoicesInputLabel>
                     <S.ChoicesSelect
                         value={userItem}
                         label="Item"
                         name="item"
-                        onChange={(e) => {handleOnChange(e)}}
+                        onChange={(e) => {
+                            handleOnChange(e)
+                        }}
                     >
-                        <S.ChoicesMenuItem value={1}>Entradas</S.ChoicesMenuItem>
-                        <S.ChoicesMenuItem value={2}>Saídas</S.ChoicesMenuItem>
+                        {options.map((option) => (
+                            <S.ChoicesMenuItem value={option}>
+                                {option}
+                            </S.ChoicesMenuItem>
+                        ))}
                     </S.ChoicesSelect>
                 </S.ChoicesFormControl>
             </S.ChoicesBox>
@@ -47,3 +60,8 @@ function SelectBox({ userItem, setUserItem }: SelectBoxProps) {
 }
 
 export default SelectBox
+
+// const options = ["Entradas", "Saídas"]
+// type Props = {
+//    item?: any
+// }

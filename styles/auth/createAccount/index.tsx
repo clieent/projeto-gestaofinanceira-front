@@ -16,6 +16,6 @@ export const WrapperButton = styled.div`
 
 `
 
-export const ChoiceBox = styled.span`
+export const ChoiceSelect = styled.span`
     display: inline-block;
 `
