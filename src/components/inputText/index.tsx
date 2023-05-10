@@ -41,9 +41,7 @@ function InputText(
     return (
         <S.Container>
             <S.InputTextField
-                onBlur={() => {
-                    onBlur()
-                }}
+                onBlur={onBlur}
                 error={error}
                 type={type}
                 variant="outlined"
