@@ -10,11 +10,25 @@ type InputTextProps = {
     label: string
     type?: string | 'required'
     mask?: any
+    error?: boolean
+    helperText?: string
+    onBlur?: any
 }
 
 function InputText(
     this: any,
-    { placeholder, value, setState, id, label, type, mask }: InputTextProps
+    {
+        placeholder,
+        value,
+        setState,
+        id,
+        label,
+        type,
+        mask,
+        error,
+        helperText,
+        onBlur,
+    }: InputTextProps
 ) {
     const handleOnChange = (e: { target: any }) => {
         const { id, value }: string | any = e.target
@@ -26,19 +40,24 @@ function InputText(
 
     return (
         <S.Container>
-                <S.InputTextField
-                    type={type}
-                    variant="outlined"
-                    id={id}
-                    label={label}
-                    placeholder={placeholder}
-                    InputProps={{
-                        inputComponent: InputMask,
-                        inputProps: {mask},
-                    }}
-                    value={value}
-                    onChange={handleOnChange}
-                />
+            <S.InputTextField
+                onBlur={() => {
+                    onBlur()
+                }}
+                error={error}
+                type={type}
+                variant="outlined"
+                id={id}
+                label={label}
+                helperText={helperText}
+                placeholder={placeholder}
+                InputProps={{
+                    inputComponent: InputMask,
+                    inputProps: { mask },
+                }}
+                value={value}
+                onChange={handleOnChange}
+            />
         </S.Container>
     )
 }

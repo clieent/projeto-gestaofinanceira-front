@@ -2,40 +2,9 @@ import React, { useEffect, useState } from 'react'
 import * as S from '../../../styles/auth/createAccount'
 import axios from 'axios'
 import { light } from '@fortawesome/fontawesome-svg-core/import.macro'
-import { z } from 'zod'
 import InputText from '@/src/components/inputText'
 import DefaultButton from '@/src/components/defaultButton'
-
-const createUserFormSchema = z.object({
-    name: z
-        .string()
-        .nonempty('O nome é obrigatorio')
-        .transform((name) => {
-            return name
-                .trim()
-                .split(' ')
-                .map((word) => {
-                    return word[0].toLocaleUpperCase().concat(word.substring(1))
-                })
-                .join(' ')
-        }),
-    email: z
-        .string()
-        .nonempty('O e-mail é obrigatorio')
-        .email('Formato de e-mail inválido')
-        .toLowerCase(),
-    password: z
-        .string()
-        .nonempty('A senha é obrigatoria')
-        .min(6, 'A senha precisa de no mínimo 6 caracteres'),
-    cpf: z
-        .string()
-        .nonempty('O cpf é obrigatorio')
-        .min(11, 'Cpf inválido')
-        .max(11, 'Cpf inválido'),
-})
-
-type CreateUserFormData = z.infer<typeof createUserFormSchema>
+import ValidateEmail from '../../../src/util/validateEmail'
 
 interface IUser {
     name: string
@@ -47,44 +16,115 @@ interface IUser {
 
 function CreateAccount() {
     const [user, setUser] = useState<IUser>()
-    const [nameInputError, setNameInputError] = useState(false)
+    const [feedBackUser, setfeedBackUser] = useState({
+        name: {
+            error: false,
+            helperText: '',
+        },
+        phone: {
+            error: false,
+            helperText: '',
+        },
+        email: {
+            error: false,
+            helperText: '',
+        },
+        cpf: {
+            error: false,
+            helperText: '',
+        },
+        password: {
+            error: false,
+            helperText: '',
+        },
+    })
+
+    const validateFields = () => {
+        if (user?.name) {
+            if (user.name === '') {
+                setfeedBackUser((data) => ({
+                    ...data,
+                    name: {
+                        error: true,
+                        helperText: 'Insira seu nome aqui',
+                    },
+                }))
+                return
+            }
+            if (!user.name.includes(' ')) {
+                setfeedBackUser((data) => ({
+                    ...data,
+                    name: {
+                        error: true,
+                        helperText: 'Digite nome e sobrenome',
+                    },
+                }))
+                return
+            }
+        } else {
+            setfeedBackUser((data) => ({
+                ...data,
+                name: {
+                    error: false,
+                    helperText: '',
+                },
+            }))
+        }
+        if (user?.email) {
+            if (!ValidateEmail(user.email)) {
+                setfeedBackUser((data) => ({
+                    ...data,
+                    email: {
+                        error: true,
+                        helperText: 'E-mail inválido',
+                    },
+                }))
+            }
+        } else {
+        }
+    }
+    const disabledButton = () => {
+        const arrayProps = Object.keys(feedBackUser)
+        const isValid = Object.values(feedBackUser).find((item) => {
+            return item.error
+        })
+        if (isValid) {
+            return false
+        }
+        return true
+    }
 
     useEffect(() => {
         console.log(user)
+        // validateFields()
     }, [user])
 
-    const handleClick = () => {
-        const parse = createUserFormSchema.safeParse(user)
-        if (!parse.success) {
-            console.log(parse.error)
-            if (parse.error.issues.find((error) => error.path[0] == 'name')) {
-                setNameInputError(true)
-            }
-        } else {
-            console.log(parse.data)
-            axios
-                .post('http://localhost:3001/users', user)
-                .then((response) => {
-                    console.log(response)
-                })
-                .catch((error) => {
-                    console.log(error)
-                })
-        }
+    // useEffect(() => {
+    //     console.log(feedBackUser)
+    // }, [feedBackUser])
+    const handleClick = (user: any) => {
+        axios
+            .post('http://localhost:3001/users', user)
+            .then((response) => {
+                console.log(response)
+            })
+            .catch((error) => {
+                console.log(error)
+            })
     }
-
-
 
     return (
         <S.Container>
             <S.DataInputs>
-                {nameInputError && <h1>Nome em branco</h1>}
                 <InputText
+                    error={feedBackUser.name.error}
+                    helperText={feedBackUser.name.helperText}
                     placeholder={'Nome completo'}
                     value={user?.name}
                     setState={setUser}
                     id="name"
                     label="Nome"
+                    onBlur={validateFields}
                 />
                 <br />
                 <InputText
@@ -111,10 +151,11 @@ function CreateAccount() {
                     id="cpf"
                     label="CPF"
                     mask="999.999.999-99"
-
                 />
                 <br />
                 <InputText
+                    error={true}
+                    helperText="Qualquer coisa ai"
                     type={'password'}
                     placeholder={'Senha'}
                     value={user?.password}
@@ -127,10 +168,12 @@ function CreateAccount() {
             <br />
 
             <S.WrapperButton>
-                <DefaultButton ctaButton="Criar" onClick={handleClick} />
+                <DefaultButton
+                    ctaButton="Criar"
+                    disabled={disabledButton()}
+                    onClick={handleClick}
+                />
             </S.WrapperButton>
-
-
         </S.Container>
     )
 }
