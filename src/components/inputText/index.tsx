@@ -50,7 +50,7 @@ function InputText(
                 helperText={helperText}
                 placeholder={placeholder}
                 InputProps={{
-                    inputComponent: InputMask,
+                    inputComponent: InputMask as any,
                     inputProps: { mask },
                 }}
                 value={value}

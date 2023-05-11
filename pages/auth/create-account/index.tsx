@@ -7,6 +7,8 @@ import DefaultButton from '@/src/components/defaultButton'
 import ValidateEmail from '../../../src/util/validateEmail'
 import validateCpf from '@/src/util/validateCpf'
 import validateName from '@/src/util/validateName'
+import validatePhone from '@/src/util/validatePhone'
+import validatePassword from '@/src/util/validatePassword'
 
 interface IUser {
     name: string
@@ -41,7 +43,7 @@ function CreateAccount() {
         },
     })
 
-    const createValidateFuncion = (
+    const createValidateFunction = (
         key: keyof IUser,
         cb: (value: any) => boolean,
         helperText: string
@@ -77,66 +79,20 @@ function CreateAccount() {
         }
     }
 
-    // const validateFields = () => {
-    //     if (user && user.name) {
-    //         if (!user.name.includes(' ')) {
-    //             setfeedBackUser((data) => ({
-    //                 ...data,
-    //                 name: {
-    //                     error: true,
-    //                     helperText: 'Digite nome e sobrenome',
-    //                 },
-    //             }))
-    //         } else {
-    //             setfeedBackUser((data) => ({
-    //                 ...data,
-    //                 name: {
-    //                     error: false,
-    //                     helperText: '',
-    //                 },
-    //             }))
-    //         }
-    //     } else {
-    //         setfeedBackUser((data) => ({
-    //             ...data,
-    //             name: {
-    //                 error: true,
-    //                 helperText: 'Insira seu nome aqui',
-    //             },
-    //         }))
-    //     }
-    //     if (user?.email) {
-    //         if (!ValidateEmail(user.email)) {
-    //             setfeedBackUser((data) => ({
-    //                 ...data,
-    //                 email: {
-    //                     error: true,
-    //                     helperText: 'E-mail inválido',
-    //                 },
-    //             }))
-    //         }
-    //     } else {
-    //     }
-    // }
     const disabledButton = () => {
-        const arrayProps = Object.keys(feedBackUser)
         const isValid = Object.values(feedBackUser).find((item) => {
             return item.error
         })
         if (isValid) {
-            return false
+            return true
         }
-        return true
+        return false
     }
 
     useEffect(() => {
         console.log(user)
-        // validateFields()
     }, [user])
 
-    // useEffect(() => {
-    //     console.log(feedBackUser)
-    // }, [feedBackUser])
     const handleClick = (user: any) => {
         axios
             .post('http://localhost:3001/users', user)
@@ -159,7 +115,7 @@ function CreateAccount() {
                     setState={setUser}
                     id="name"
                     label="Nome"
-                    onBlur={createValidateFuncion(
+                    onBlur={createValidateFunction(
                         'name',
                         validateName,
                         'Diegite seu nome e sobrenome'
@@ -167,12 +123,14 @@ function CreateAccount() {
                 />
                 <br />
                 <InputText
+                    error={feedBackUser.email.error}
+                    helperText={feedBackUser.email.helperText}
                     placeholder={'E-mail'}
                     value={user?.email}
                     setState={setUser}
                     id="email"
                     label="E-mail"
-                    onBlur={createValidateFuncion(
+                    onBlur={createValidateFunction(
                         'email',
                         ValidateEmail,
                         'E-mail inválido'
@@ -180,12 +138,19 @@ function CreateAccount() {
                 />
                 <br />
                 <InputText
+                    error={feedBackUser.phone.error}
+                    helperText={feedBackUser.phone.helperText}
                     placeholder={'Telefone'}
                     value={user?.phone}
                     setState={setUser}
                     id="phone"
                     label="Telefone"
                     mask="(99)99999-9999"
+                    onBlur={createValidateFunction(
+                        'phone',
+                        validatePhone,
+                        'Numero inválido'
+                    )}
                 />
                 <br />
                 <InputText
@@ -197,7 +162,7 @@ function CreateAccount() {
                     id="cpf"
                     label="CPF"
                     mask="999.999.999-99"
-                    onBlur={createValidateFuncion(
+                    onBlur={createValidateFunction(
                         'cpf',
                         validateCpf,
                         'Cpf inválido'
@@ -213,8 +178,21 @@ function CreateAccount() {
                     setState={setUser}
                     id="password"
                     label="Senha"
+                    onBlur={createValidateFunction(
+                        'password',
+                        validatePassword,
+                        'Senha tem que ter pelo menos 6 caracteres'
+                    )}
                 />
                 <br />
+                <InputText
+                    type={'password'}
+                    placeholder={'Senha'}
+                    value={user?.password}
+                    setState={setUser}
+                    id="password"
+                    label="Confirmar Senha"
+                />
             </S.DataInputs>
             <br />
 
