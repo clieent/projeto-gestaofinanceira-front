@@ -9,6 +9,7 @@ import validateCpf from '@/src/util/validateCpf'
 import validateName from '@/src/util/validateName'
 import validatePhone from '@/src/util/validatePhone'
 import validatePassword from '@/src/util/validatePassword'
+import validateConfirmPassword from '@/src/util/validateConfirmPassword'
 
 interface IUser {
     name: string
@@ -16,6 +17,7 @@ interface IUser {
     phone: string
     cpf: string
     password: string
+    confirmPassword?: string
 }
 
 function CreateAccount() {
@@ -41,16 +43,20 @@ function CreateAccount() {
             error: false,
             helperText: '',
         },
+        confirmPassword: {
+            error: false,
+            helperText: '',
+        }
     })
 
     const createValidateFunction = (
         key: keyof IUser,
-        cb: (value: any) => boolean,
+        cb: (value?: any, value2?: any) => boolean,
         helperText: string
     ) => {
         return () => {
             if (user && user[key]) {
-                if (!cb(user[key])) {
+                if (!cb(user[key], user['password'])) {
                     setfeedBackUser((data) => ({
                         ...data,
                         [key]: {
@@ -93,7 +99,11 @@ function CreateAccount() {
         console.log(user)
     }, [user])
 
-    const handleClick = (user: any) => {
+    const handleClick = (e: any) => {
+        e.preventDefault()
+        console.log('a')
+        delete user?.confirmPassword
+        console.log(user)
         axios
             .post('http://localhost:3001/users', user)
             .then((response) => {
@@ -118,7 +128,7 @@ function CreateAccount() {
                     onBlur={createValidateFunction(
                         'name',
                         validateName,
-                        'Diegite seu nome e sobrenome'
+                        'Digite seu nome e sobrenome'
                     )}
                 />
                 <br />
@@ -186,12 +196,19 @@ function CreateAccount() {
                 />
                 <br />
                 <InputText
+                    error={feedBackUser.confirmPassword.error}
+                    helperText={feedBackUser.confirmPassword.helperText}
                     type={'password'}
                     placeholder={'Senha'}
-                    value={user?.password}
+                    value={user?.confirmPassword}
                     setState={setUser}
-                    id="password"
+                    id="confirmPassword"
                     label="Confirmar Senha"
+                    onBlur={createValidateFunction(
+                        'confirmPassword',
+                        validateConfirmPassword,
+                        'A senhas não batem'
+                    )}
                 />
             </S.DataInputs>
             <br />
@@ -200,7 +217,7 @@ function CreateAccount() {
                 <DefaultButton
                     ctaButton="Criar"
                     disabled={disabledButton()}
-                    onClick={handleClick}
+                    onClick={(e: any) => handleClick(e)}
                 />
             </S.WrapperButton>
         </S.Container>
