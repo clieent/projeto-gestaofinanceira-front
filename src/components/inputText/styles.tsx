@@ -1,7 +1,13 @@
 import styled from "styled-components";
+import TextField from '@mui/material/TextField'
 
-export const Contener = styled.div`
-    width: 100vw;
-    height: 100vh;
+
+export const Container = styled.div`
 
 `
+
+export const InputTextField = styled(TextField)`
+
+`
+
+

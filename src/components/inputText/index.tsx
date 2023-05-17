@@ -1,17 +1,35 @@
 import React, { useState } from 'react'
+import InputMask from 'react-input-mask'
 import * as S from './styles'
-import Button from '@mui/material/Button'
-import TextField from '@mui/material/TextField'; 
 
 type InputTextProps = {
     placeholder: string
     value: string | undefined
     setState: any
     id: string
+    label: string
+    type?: string | 'required'
+    mask?: any
+    error?: boolean
+    helperText?: string
+    onBlur?: any
 }
 
-function InputText({placeholder, value, setState, id}: InputTextProps) {
-    
+function InputText(
+    this: any,
+    {
+        placeholder,
+        value,
+        setState,
+        id,
+        label,
+        type,
+        mask,
+        error,
+        helperText,
+        onBlur,
+    }: InputTextProps
+) {
     const handleOnChange = (e: { target: any }) => {
         const { id, value }: string | any = e.target
         setState((date: any) => ({
@@ -21,18 +39,24 @@ function InputText({placeholder, value, setState, id}: InputTextProps) {
     }
 
     return (
-        <S.Contener>
-            <TextField
-                required
+        <S.Container>
+            <S.InputTextField
+                onBlur={onBlur}
+                error={error}
+                type={type}
+                variant="outlined"
                 id={id}
-                label="Nome"
-                defaultValue={value}
-                placeholder= {placeholder}
+                label={label}
+                helperText={helperText}
+                placeholder={placeholder}
+                InputProps={{
+                    inputComponent: InputMask as any,
+                    inputProps: { mask },
+                }}
+                value={value}
                 onChange={handleOnChange}
             />
-            <div>e</div>
-            <Button variant="contained">Hello World</Button>
-        </S.Contener>
+        </S.Container>
     )
 }
 
