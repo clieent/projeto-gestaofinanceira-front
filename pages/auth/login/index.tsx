@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import * as S from '../../../styles/auth/createAccount'
-import axios from 'axios'
 import InputText from '@/src/components/inputText'
 import DefaultButton from '@/src/components/defaultButton'
+import api from '@/src/api/api'
+import axios from 'axios'
 
 interface ILogin {
     email: string
@@ -12,11 +13,12 @@ interface ILogin {
 export default function Login() {
     const [login, setLogin] = useState<ILogin>()
 
-    const handleClick = (login: any) => {
+    const handleClick = (e: any) => {
+        e.preventDefault()
         axios
-            .get('http://localhost:3001/users', login)
-            .then((response) => {
-                console.log(response)
+            .post('http://localhost:3001/auth/login', login)
+            .then(({data}) => {
+                console.log(data)
             })
             .catch((error) => {
                 console.log(error)
@@ -48,7 +50,7 @@ export default function Login() {
                 <DefaultButton
                     onClick={handleClick}
                     ctaButton="Entrar"
-                    disabled
+                    disabled={false}
                 />
             </S.WrapperButton>
         </S.Container>
