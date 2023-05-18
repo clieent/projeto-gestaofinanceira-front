@@ -7,7 +7,7 @@ type HeaderMenuProps = {
 export default function HeaderMenu({}: HeaderMenuProps) {
     return (
         <S.Container>
-            <div>oi</div>
+            <S.Logo>LOGO</S.Logo>
         </S.Container>
     )
 }
