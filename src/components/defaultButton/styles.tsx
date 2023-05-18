@@ -11,6 +11,5 @@ export const ClickStack = styled(Stack)`
 `
 
 export const ClickButton = styled(Button)`
-    background-color: #6A5ACD;
-    color: #fff;
+
 `

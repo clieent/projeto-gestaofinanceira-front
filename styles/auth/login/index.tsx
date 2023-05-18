@@ -10,8 +10,11 @@ export const DataInputs = styled.div`
 `
 
 export const WrapperButton = styled.div`
-    display: flexbox;
+    display: grid;
     width: 100px;
     height: 50px;
+    border-radius: 5px;
+    align-items: center;
+    justify-content: center;
 
 `
