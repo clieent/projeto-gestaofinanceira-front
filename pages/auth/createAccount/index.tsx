@@ -11,6 +11,7 @@ import validatePhone from '@/src/util/validatePhone'
 import validatePassword from '@/src/util/validatePassword'
 import validateConfirmPassword from '@/src/util/validateConfirmPassword'
 import AuthLayout from '@/src/layouts/authLayout'
+import api from '@/src/api/api'
 
 interface IUser {
     name: string
@@ -47,7 +48,7 @@ export default function CreateAccount() {
         confirmPassword: {
             error: false,
             helperText: '',
-        }
+        },
     })
 
     const createValidateFunction = (
@@ -105,8 +106,7 @@ export default function CreateAccount() {
         console.log('a')
         delete user?.confirmPassword
         console.log(user)
-        axios
-            .post('http://localhost:3001/users', user)
+        api.post('/users', user)
             .then((response) => {
                 console.log(response)
             })
@@ -226,7 +226,5 @@ export default function CreateAccount() {
 }
 
 CreateAccount.getLayout = function GetLayout(page: any) {
-    return(
-        <AuthLayout>{page}</AuthLayout>
-    )
+    return <AuthLayout>{page}</AuthLayout>
 }

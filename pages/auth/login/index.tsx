@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import * as S from '../../../styles/auth/login'
-import axios from 'axios'
 import InputText from '@/src/components/inputText'
 import DefaultButton from '@/src/components/defaultButton'
 import AuthLayout from '@/src/layouts/authLayout'
+import api from '@/src/api/api'
+import { setCookie } from 'cookies-next'
 
 interface ILogin {
     email: string
@@ -13,11 +14,12 @@ interface ILogin {
 export default function Login() {
     const [login, setLogin] = useState<ILogin>()
 
-    const handleClick = (login: any) => {
-        axios
-            .get('http://localhost:3001/users', login)
+    const handleClick = (e: any) => {
+        e.preventDefault()
+        api.post('/auth/login', login)
             .then((response) => {
                 console.log(response)
+                setCookie('key', response)
             })
             .catch((error) => {
                 console.log(error)
@@ -46,18 +48,12 @@ export default function Login() {
                 <br />
             </S.DataInputs>
             <S.WrapperButton>
-                <DefaultButton
-                    onClick={handleClick}
-                    ctaButton="Entrar"
-                    disabled
-                />
+                <DefaultButton onClick={handleClick} ctaButton="Entrar" />
             </S.WrapperButton>
         </S.Container>
     )
 }
 
 Login.getLayout = function GetLayout(page: any) {
-    return(
-        <AuthLayout>{page}</AuthLayout>
-    )
+    return <AuthLayout>{page}</AuthLayout>
 }
