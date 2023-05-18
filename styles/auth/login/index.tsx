@@ -15,7 +15,3 @@ export const WrapperButton = styled.div`
     height: 50px;
 
 `
-
-export const ChoiceSelect = styled.span`
-    display: inline-block;
-`

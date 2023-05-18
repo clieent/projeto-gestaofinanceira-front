@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import * as S from '../../../styles/auth/createAccount'
+import * as S from '../../../styles/auth/login'
 import axios from 'axios'
 import InputText from '@/src/components/inputText'
 import DefaultButton from '@/src/components/defaultButton'
+import AuthLayout from '@/src/layouts/authLayout'
 
 interface ILogin {
     email: string
@@ -52,5 +53,11 @@ export default function Login() {
                 />
             </S.WrapperButton>
         </S.Container>
+    )
+}
+
+Login.getLayout = function GetLayout(page: any) {
+    return(
+        <AuthLayout>{page}</AuthLayout>
     )
 }

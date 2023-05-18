@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { ReactNode, useEffect, useState } from 'react'
 import * as S from '../../../styles/auth/createAccount'
 import axios from 'axios'
 import { light } from '@fortawesome/fontawesome-svg-core/import.macro'
@@ -10,6 +10,7 @@ import validateName from '@/src/util/validateName'
 import validatePhone from '@/src/util/validatePhone'
 import validatePassword from '@/src/util/validatePassword'
 import validateConfirmPassword from '@/src/util/validateConfirmPassword'
+import AuthLayout from '@/src/layouts/authLayout'
 
 interface IUser {
     name: string
@@ -20,7 +21,7 @@ interface IUser {
     confirmPassword?: string
 }
 
-function CreateAccount() {
+export default function CreateAccount() {
     const [user, setUser] = useState<IUser>()
     const [feedBackUser, setfeedBackUser] = useState({
         name: {
@@ -224,4 +225,8 @@ function CreateAccount() {
     )
 }
 
-export default CreateAccount
+CreateAccount.getLayout = function GetLayout(page: any) {
+    return(
+        <AuthLayout>{page}</AuthLayout>
+    )
+}

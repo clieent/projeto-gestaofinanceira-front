@@ -4,11 +4,11 @@ import type { AppProps } from 'next/app'
 import React from 'react'
 import Head from 'next/head'
 import '../styles/globals.css'
-//import { config } from '@fortawesome/fontawesome-svg-core'
-//import '@fortawesome/fontawesome-svg-core/styles.css'
+import { config } from '@fortawesome/fontawesome-svg-core'
+import '@fortawesome/fontawesome-svg-core/styles.css'
 
 
-//config.autoAddCss = false
+config.autoAddCss = false
 
 export type NextPageWithLayout<P = object, IP = P> = NextPage<P, IP> & {
     getLayout?: (page: ReactElement) => ReactNode
@@ -21,6 +21,7 @@ type AppPropsWithLayout = AppProps & {
 export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
     // Use the layout defined at the page level, if available
 
+    const getLayout = Component.getLayout ?? ((page: ReactElement) => page)
     return (
         <>
             <Head>
@@ -28,7 +29,9 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
                 <link rel="icon" href="logoSymbol.svg" />
             </Head>
 
+            {getLayout(
             <Component {...pageProps} />
+            )}
         </>
     )
 }
