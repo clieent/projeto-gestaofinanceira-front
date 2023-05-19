@@ -5,6 +5,7 @@ import DefaultButton from '@/src/components/defaultButton'
 import AuthLayout from '@/src/layouts/authLayout'
 import api from '@/src/api/api'
 import { setCookie } from 'cookies-next'
+import Link from 'next/link'
 
 interface ILogin {
     email: string
@@ -54,12 +55,11 @@ export default function Login() {
                 <footer>
                     <p>
                         Não tem uma conta ainda?
-                        <a
+                        <Link
                             href="http://localhost:3000/auth/createAccount"
-                            target="blank"
                         >
                             Cadastre aqui
-                        </a>
+                        </Link>
                         !
                     </p>
                 </footer>

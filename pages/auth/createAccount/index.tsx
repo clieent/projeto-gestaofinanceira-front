@@ -85,6 +85,9 @@ export default function CreateAccount() {
         }
     }
 
+    // const [activeButton, setActiveButton] = useState(false)
+
+
     const disabledButton = () => {
         const isValid = Object.values(feedBackUser).find((item) => {
             return item.error
@@ -94,6 +97,7 @@ export default function CreateAccount() {
         }
         return false
     }
+
 
     useEffect(() => {
         console.log(user)
