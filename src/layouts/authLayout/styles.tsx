@@ -21,13 +21,12 @@ export const Content = styled.div`
     
     section{
         background-color: #704894;
-        min-height: 70%;
+        min-height: 10%;
         width: 600px;
         display: grid;
         place-items: center;
         border-radius: 10px;
         padding: 30px 0;
-
     }
 `
 

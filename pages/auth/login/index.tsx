@@ -50,6 +50,13 @@ export default function Login() {
             <S.WrapperButton>
                 <DefaultButton onClick={handleClick} ctaButton="Entrar" />
             </S.WrapperButton>
+            <S.WrapperFoot>
+                <footer>
+                    <p>Não tem uma conta ainda?
+                        <a href='http://localhost:3000/auth/createAccount'>Cadastre aqui</a>!
+                    </p>
+                </footer>
+            </S.WrapperFoot>
         </S.Container>
     )
 }
