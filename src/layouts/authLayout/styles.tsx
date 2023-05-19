@@ -21,7 +21,7 @@ export const Content = styled.div`
     
     section{
         background-color: #704894;
-        min-height: 10%;
+        min-height: 40%;
         width: 600px;
         display: grid;
         place-items: center;
