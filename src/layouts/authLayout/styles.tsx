@@ -20,6 +20,7 @@ export const Content = styled.div`
     place-items: center;
     
     section{
+        position: fixed;
         background-color: #704894;
         min-height: 40%;
         width: 600px;
