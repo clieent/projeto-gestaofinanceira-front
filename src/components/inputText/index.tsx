@@ -40,22 +40,30 @@ function InputText(
 
     return (
         <S.Container>
-            <S.InputTextField
-                onBlur={onBlur}
-                error={error}
-                type={type}
-                variant="outlined"
-                id={id}
-                label={label}
-                helperText={helperText}
-                placeholder={placeholder}
-                InputProps={{
-                    inputComponent: InputMask as any,
-                    inputProps: { mask },
+            <S.InputBox
+                sx={{
+                    width: 500,
+                    maxWidth: '100%',
                 }}
-                value={value}
-                onChange={handleOnChange}
-            />
+            >
+                <S.InputTextField
+                    fullWidth
+                    onBlur={onBlur}
+                    error={error}
+                    type={type}
+                    variant="outlined"
+                    id={id}
+                    label={label}
+                    helperText={helperText}
+                    placeholder={placeholder}
+                    InputProps={{
+                        inputComponent: InputMask as any,
+                        inputProps: { mask },
+                    }}
+                    value={value}
+                    onChange={handleOnChange}
+                />
+            </S.InputBox>
         </S.Container>
     )
 }
