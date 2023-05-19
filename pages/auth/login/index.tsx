@@ -53,7 +53,7 @@ export default function Login() {
             <S.WrapperFoot>
                 <footer>
                     <p>Não tem uma conta ainda?
-                        <a href='http://localhost:3000/auth/createAccount'>Cadastre aqui</a>!
+                        <a href='http://localhost:3000/auth/createAccount' target='blank'>Cadastre aqui</a>!
                     </p>
                 </footer>
             </S.WrapperFoot>
