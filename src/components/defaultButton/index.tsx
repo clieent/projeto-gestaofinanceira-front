@@ -1,24 +1,24 @@
 import React, { useState } from 'react'
 import * as S from './styles'
 
-
 type DefaultButtonProps = {
-    ctaButton: string
     onClick: any
-    height?: string
-    icon?: any
+    ctaButton: string
+    disabled?: boolean | true
 }
 
-function DefaultButton({ 
-    ctaButton,
+function DefaultButton({
     onClick,
-    height,
-    icon
+    ctaButton,
+    disabled = false,
 }: DefaultButtonProps) {
     return (
-        <S.Container onClick={onClick} h={height}>
-            <S.Text>{ctaButton}</S.Text>
-            <S.Icon icon={icon}></S.Icon>
+        <S.Container>
+            <S.ClickStack onClick={onClick} spacing={2} direction="row">
+                <S.ClickButton variant="contained" disabled={disabled}>
+                    {ctaButton}
+                </S.ClickButton>
+            </S.ClickStack>
         </S.Container>
     )
 }

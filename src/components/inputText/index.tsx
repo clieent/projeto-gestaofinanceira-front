@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React from 'react'
+import InputMask from 'react-input-mask'
 import * as S from './styles'
-import TextField from '@mui/material/TextField'
 
 type InputTextProps = {
     placeholder: string
@@ -8,15 +8,28 @@ type InputTextProps = {
     setState: any
     id: string
     label: string
+    type?: string | 'required'
+    mask?: any
+    error?: boolean
+    helperText?: string
+    onBlur?: any
 }
 
-function InputText({
-    placeholder,
-    value,
-    setState,
-    id,
-    label,
-}: InputTextProps) {
+function InputText(
+    this: any,
+    {
+        placeholder,
+        value,
+        setState,
+        id,
+        label,
+        type,
+        mask,
+        error,
+        helperText,
+        onBlur,
+    }: InputTextProps
+) {
     const handleOnChange = (e: { target: any }) => {
         const { id, value }: string | any = e.target
         setState((date: any) => ({
@@ -26,14 +39,32 @@ function InputText({
     }
 
     return (
-        <TextField
-            required
-            id={id}
-            label={label}
-            defaultValue={value}
-            placeholder={placeholder}
-            onChange={handleOnChange}
-        />
+        <S.Container>
+            <S.InputBox
+                sx={{
+                    width: 500,
+                    maxWidth: '100%',
+                }}
+            >
+                <S.InputTextField
+                    fullWidth
+                    onBlur={onBlur}
+                    error={error}
+                    type={type}
+                    variant="outlined"
+                    id={id}
+                    label={label}
+                    helperText={helperText}
+                    placeholder={placeholder}
+                    InputProps={{
+                        inputComponent: InputMask as any,
+                        inputProps: { mask },
+                    }}
+                    value={value}
+                    onChange={handleOnChange}
+                />
+            </S.InputBox>
+        </S.Container>
     )
 }
 
