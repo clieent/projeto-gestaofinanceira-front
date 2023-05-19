@@ -19,7 +19,7 @@ export default function Login() {
         api.post('/auth/login', login)
             .then((response) => {
                 console.log(response)
-                setCookie('key', response)
+                setCookie('key', response.data)
             })
             .catch((error) => {
                 console.log(error)
@@ -52,8 +52,15 @@ export default function Login() {
             </S.WrapperButton>
             <S.WrapperFoot>
                 <footer>
-                    <p>Não tem uma conta ainda?
-                        <a href='http://localhost:3000/auth/createAccount' target='blank'>Cadastre aqui</a>!
+                    <p>
+                        Não tem uma conta ainda?
+                        <a
+                            href="http://localhost:3000/auth/createAccount"
+                            target="blank"
+                        >
+                            Cadastre aqui
+                        </a>
+                        !
                     </p>
                 </footer>
             </S.WrapperFoot>

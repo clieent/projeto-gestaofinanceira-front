@@ -1,7 +1,5 @@
 import React, { ReactNode, useEffect, useState } from 'react'
 import * as S from '../../../styles/auth/createAccount'
-import axios from 'axios'
-import { light } from '@fortawesome/fontawesome-svg-core/import.macro'
 import InputText from '@/src/components/inputText'
 import DefaultButton from '@/src/components/defaultButton'
 import ValidateEmail from '../../../src/util/validateEmail'
