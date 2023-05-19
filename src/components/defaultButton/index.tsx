@@ -4,7 +4,7 @@ import * as S from './styles'
 type DefaultButtonProps = {
     onClick: any
     ctaButton: string
-    disabled?: boolean
+    disabled?: boolean | true
 }
 
 function DefaultButton({

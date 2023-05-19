@@ -103,9 +103,7 @@ export default function CreateAccount() {
 
     const handleClick = (e: any) => {
         e.preventDefault()
-        console.log('a')
         delete user?.confirmPassword
-        console.log(user)
         api.post('/users', user)
             .then((response) => {
                 console.log(response)
