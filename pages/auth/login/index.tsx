@@ -5,6 +5,7 @@ import DefaultButton from '@/src/components/defaultButton'
 import AuthLayout from '@/src/layouts/authLayout'
 import api from '@/src/api/api'
 import { setCookie } from 'cookies-next'
+import Link from 'next/link'
 
 interface ILogin {
     email: string
@@ -19,7 +20,7 @@ export default function Login() {
         api.post('/auth/login', login)
             .then((response) => {
                 console.log(response)
-                setCookie('key', response)
+                setCookie('key', response.data)
             })
             .catch((error) => {
                 console.log(error)
@@ -50,6 +51,19 @@ export default function Login() {
             <S.WrapperButton>
                 <DefaultButton onClick={handleClick} ctaButton="Entrar" />
             </S.WrapperButton>
+            <S.WrapperFoot>
+                <footer>
+                    <p>
+                        Não tem uma conta ainda?
+                        <Link
+                            href="http://localhost:3000/auth/createAccount"
+                        >
+                            Cadastre aqui
+                        </Link>
+                        !
+                    </p>
+                </footer>
+            </S.WrapperFoot>
         </S.Container>
     )
 }

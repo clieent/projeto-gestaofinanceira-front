@@ -1,7 +1,5 @@
 import React, { ReactNode, useEffect, useState } from 'react'
 import * as S from '../../../styles/auth/createAccount'
-import axios from 'axios'
-import { light } from '@fortawesome/fontawesome-svg-core/import.macro'
 import InputText from '@/src/components/inputText'
 import DefaultButton from '@/src/components/defaultButton'
 import ValidateEmail from '../../../src/util/validateEmail'
@@ -88,13 +86,17 @@ export default function CreateAccount() {
     }
 
     const disabledButton = () => {
-        const isValid = Object.values(feedBackUser).find((item) => {
-            return item.error
-        })
-        if (isValid) {
-            return true
-        }
-        return false
+        const isAnyFieldEmpty = Object.values(user || {}).some(
+            (value) => !value
+        )
+        const isAnyValidationError = Object.values(feedBackUser).some(
+            (field) => field.error
+        )
+        return (
+            isAnyFieldEmpty ||
+            isAnyValidationError ||
+            Object.keys(user || {}).length !== Object.keys(feedBackUser).length
+        )
     }
 
     useEffect(() => {
