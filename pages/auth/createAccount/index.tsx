@@ -85,19 +85,19 @@ export default function CreateAccount() {
         }
     }
 
-    // const [activeButton, setActiveButton] = useState(false)
-
-
     const disabledButton = () => {
-        const isValid = Object.values(feedBackUser).find((item) => {
-            return item.error
-        })
-        if (isValid) {
-            return true
-        }
-        return false
+        const isAnyFieldEmpty = Object.values(user || {}).some(
+            (value) => !value
+        )
+        const isAnyValidationError = Object.values(feedBackUser).some(
+            (field) => field.error
+        )
+        return (
+            isAnyFieldEmpty ||
+            isAnyValidationError ||
+            Object.keys(user || {}).length !== Object.keys(feedBackUser).length
+        )
     }
-
 
     useEffect(() => {
         console.log(user)
