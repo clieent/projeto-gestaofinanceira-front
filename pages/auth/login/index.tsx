@@ -6,6 +6,7 @@ import AuthLayout from '@/src/layouts/authLayout'
 import api from '@/src/api/api'
 import { setCookie } from 'cookies-next'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 interface ILogin {
     email: string
@@ -14,13 +15,15 @@ interface ILogin {
 
 export default function Login() {
     const [login, setLogin] = useState<ILogin>()
+    const router = useRouter()
 
     const handleClick = (e: any) => {
         e.preventDefault()
         api.post('/auth/login', login)
             .then((response) => {
                 console.log(response)
-                setCookie('key', response.data)
+                setCookie('AcessToken', response.data.user.token)
+                router.push('/home')
             })
             .catch((error) => {
                 console.log(error)
@@ -55,9 +58,7 @@ export default function Login() {
                 <footer>
                     <p>
                         Não tem uma conta ainda?
-                        <Link
-                            href="http://localhost:3000/auth/createAccount"
-                        >
+                        <Link href="http://localhost:3000/auth/createAccount">
                             Cadastre aqui
                         </Link>
                         !
