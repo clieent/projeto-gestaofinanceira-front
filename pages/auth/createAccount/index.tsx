@@ -99,9 +99,9 @@ export default function CreateAccount() {
         )
     }
 
-    useEffect(() => {
-        console.log(user)
-    }, [user])
+    // useEffect(() => {
+    //     console.log(user)
+    // }, [user])
 
     const handleClick = (e: any) => {
         e.preventDefault()
