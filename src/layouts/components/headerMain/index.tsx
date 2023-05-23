@@ -1,13 +1,13 @@
 import React from "react";
 import * as S from './styles'
 
-type HeaderMenuProps = {
+type HeaderMainProps = {
 }
 
-export default function HeaderMenu({}: HeaderMenuProps) {
+export default function HeaderMain({}: HeaderMainProps) {
     return (
         <S.Container>
-            <S.Logo>LOGO</S.Logo>
+            <S.Logo>Logo</S.Logo>
         </S.Container>
     )
 }

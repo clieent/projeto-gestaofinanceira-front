@@ -1,19 +1,15 @@
 import React from 'react'
 import * as S from './styles'
-import HeaderMenu from '../components/headerMenu'
+import HeaderAuth from '../components/headerAuth'
 
 type AuthLayoutProps = {
     children: React.ReactNode
 }
 
-export default function AuthLayout({
-    children,
-}: AuthLayoutProps) {
+export default function AuthLayout({ children }: AuthLayoutProps) {
     return (
         <S.Container>
-            <S.Header>
-                <HeaderMenu />
-            </S.Header>
+            <HeaderAuth/>
             <S.Content>
                 <section>{children}</section>
             </S.Content>
