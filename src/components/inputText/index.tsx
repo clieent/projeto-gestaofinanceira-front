@@ -76,15 +76,19 @@ function InputText(
                 />
                 {type == 'password' ? (
                     inputType == 'password' ? (
-                        <S.Icon
-                            onClick={handleSeePassword}
-                            icon={light('eye')}
-                        />
+                        <S.WrapperIcon>
+                            <S.Icon
+                                onClick={handleSeePassword}
+                                icon={light('eye')}
+                            />
+                        </S.WrapperIcon>
                     ) : (
-                        <S.Icon
-                            onClick={handleSeePassword}
-                            icon={light('eye-slash')}
-                        />
+                        <S.WrapperIcon>
+                            <S.Icon
+                                onClick={handleSeePassword}
+                                icon={light('eye-slash')}
+                            />
+                        </S.WrapperIcon>
                     )
                 ) : null}
             </S.InputBox>

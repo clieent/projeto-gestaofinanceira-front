@@ -10,6 +10,7 @@ import validatePassword from '@/src/util/validatePassword'
 import validateConfirmPassword from '@/src/util/validateConfirmPassword'
 import AuthLayout from '@/src/layouts/authLayout'
 import api from '@/src/api/api'
+import { useRouter } from 'next/router'
 
 interface IUser {
     name: string
@@ -48,6 +49,7 @@ export default function CreateAccount() {
             helperText: '',
         },
     })
+    const router = useRouter()
 
     const createValidateFunction = (
         key: keyof IUser,
@@ -99,9 +101,9 @@ export default function CreateAccount() {
         )
     }
 
-    useEffect(() => {
-        console.log(user)
-    }, [user])
+    // useEffect(() => {
+    //     console.log(user)
+    // }, [user])
 
     const handleClick = (e: any) => {
         e.preventDefault()
@@ -109,6 +111,7 @@ export default function CreateAccount() {
         api.post('/users', user)
             .then((response) => {
                 console.log(response)
+                router.push('/auth/login')
             })
             .catch((error) => {
                 console.log(error)

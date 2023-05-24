@@ -7,7 +7,7 @@ type LateralMenuProps = {
 export default function LateralMenu({}: LateralMenuProps) {
     return (
         <S.Container>
-
+            <div>oi</div>
         </S.Container>
     )
 }
