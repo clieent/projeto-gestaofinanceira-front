@@ -41,15 +41,11 @@ function InputText(
     const [inputType, setInputType] = useState(type)
 
     const handleSeePassword = () => {
-        console.log(inputType)
         if (inputType == 'password') {
             setInputType('text')
-            console.log(inputType)
             return
         }
-
         setInputType('password')
-        console.log(inputType)
     }
 
     return (
