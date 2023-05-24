@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import InputMask from 'react-input-mask'
 import * as S from './styles'
 import { light } from '@fortawesome/fontawesome-svg-core/import.macro'
@@ -41,18 +41,22 @@ function InputText(
     const [inputType, setInputType] = useState(type)
 
     const handleSeePassword = () => {
+        console.log(inputType)
         if (inputType == 'password') {
             setInputType('text')
+            console.log(inputType)
             return
         }
+
         setInputType('password')
+        console.log(inputType)
     }
 
     return (
         <S.Container>
             <S.InputBox
+                type={inputType}
                 sx={{
-                    type = { inputType },
                     width: 500,
                     maxWidth: '100%',
                 }}
@@ -61,7 +65,7 @@ function InputText(
                     fullWidth
                     onBlur={onBlur}
                     error={error}
-                    type={type}
+                    type={inputType}
                     variant="outlined"
                     id={id}
                     label={label}
