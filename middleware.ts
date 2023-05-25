@@ -10,11 +10,11 @@ export async function middleware(req:NextRequest) {
 
     const token = req.cookies.get('AccessToken')?.valueOf() ?? ''
 
-    if(pathname.startsWith('/auth/login') && !(await validateToken(token?.toString()))) {
+    if((pathname.startsWith('/auth/login') || pathname.startsWith('/auth/createAccount')) && !(await validateToken(token?.toString()))) {
         return
     }
-
-    if(req.url.includes('/auth/login') && (await validateToken(token?.toString()))) {
+    
+    if((req.url.includes('/auth/login') || req.url.includes('/auth/createAccount')) && (await validateToken(token?.toString()))) {
         return NextResponse.redirect(new URL('/home', req.url))
     }
     
@@ -24,5 +24,9 @@ export async function middleware(req:NextRequest) {
 }
 
 export const config = {
-    matcher: ['/home', '/auth/login']
+    matcher: ['/home',
+    '/cashFlow',
+    '/auth/login',
+    '/auth/createAccount'
+]
 }
