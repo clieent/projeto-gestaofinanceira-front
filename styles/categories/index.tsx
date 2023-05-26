@@ -5,10 +5,6 @@ export const Container = styled.div`
     place-items: center;
 `
 
-export const Table = styled.table``
-
-export const TableHeadColumn = styled.th``
-
 export const DataInputs = styled.div``
 
 export const WrapperButton = styled.div`

@@ -23,7 +23,6 @@ export default function Login() {
             .then((response) => {
                 console.log(response)
                 setCookie('AccessToken', response.data.user.token)
-
                 router.push('/home')
             })
             .catch((error) => {

@@ -1,55 +1,42 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import * as S from './styles'
 
-interface IUser {
-    name: string
-    email: string
-    phone: string
-    cpf: string
-    item: string
-}
-
 type SelectBoxProps = {
-    label: string
-    userItem: string | undefined
-    setUserItem: any
     id: string
-    ctaBox: any
-    options: string[]
+    name: string
+    value: any
+    label?: string | 'demo-simples-select-label'
+    setState: any
+    values: { value: any; label: string }[]
 }
 
-function SelectBox({
-    userItem,
-    setUserItem,
-    options,
-    ctaBox,
-}: SelectBoxProps) {
+function SelectBox(
+    this: any,
+    { id, name, value, label, values, setState }: SelectBoxProps
+) {
     const handleOnChange = (e: { target: any }) => {
-        const { value, name }: string | any = e.target
-        setUserItem((prev: IUser) => ({
-            ...prev,
-            [name]: value,
+        const { id, value }: string | any = e.target
+        setState((date: any) => ({
+            ...date,
+            [id]: value,
         }))
     }
-
     return (
         <S.Container>
             <S.ChoicesBox sx={{ minWidth: 120 }}>
                 <S.ChoicesFormControl fullWidth>
-                    <S.ChoicesInputLabel id="input-label">
-                        {ctaBox}
+                    <S.ChoicesInputLabel id="demo-simples-select-label">
+                        {name}
                     </S.ChoicesInputLabel>
                     <S.ChoicesSelect
-                        value={userItem}
-                        label="Item"
-                        name="item"
-                        onChange={(e) => {
-                            handleOnChange(e)
-                        }}
+                        labelId={label}
+                        id={id}
+                        value={value}
+                        onChange={handleOnChange}
                     >
-                        {options.map((option) => (
-                            <S.ChoicesMenuItem value={option}>
-                                {option}
+                        {values.map((item) => (
+                            <S.ChoicesMenuItem value={item.value}>
+                                {item.label}
                             </S.ChoicesMenuItem>
                         ))}
                     </S.ChoicesSelect>
@@ -60,8 +47,3 @@ function SelectBox({
 }
 
 export default SelectBox
-
-// const options = ["Entradas", "Saídas"]
-// type Props = {
-//    item?: any
-// }
