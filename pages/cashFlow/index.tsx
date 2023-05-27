@@ -3,6 +3,7 @@ import MainLayout from '../../src/layouts/mainLayout'
 import * as S from '../../styles/cashFlow'
 import InputText from '../../src/components/inputText'
 import SelectBox from '../../src/components/selectBox'
+import DefaultButton from '@/src/components/defaultButton'
 
 interface releaseDataProps {
     tag: string
@@ -14,8 +15,14 @@ interface releaseDataProps {
 export default function CashFlow() {
     const [releaseData, setReleaseData] = useState<releaseDataProps>()
 
+    const handleClick = (e: any) => {
+        e.preventDefault()
+        console.log('handleClick')
+    }
+
     return (
         <S.Container>
+            <S.WrapperSelect>
                 <SelectBox
                     name="Categoria"
                     id="category"
@@ -27,7 +34,8 @@ export default function CashFlow() {
                         { value: true, label: 'Saída' },
                         { value: false, label: 'Entrada' },
                     ]}
-                    />
+                />
+            </S.WrapperSelect>
                 <S.DataInputs>
                     <InputText
                         placeholder={'Título'}
@@ -58,7 +66,9 @@ export default function CashFlow() {
                         label="Data de vencimento"
                     />
             </S.DataInputs>
-            
+            <S.WrapperButton>
+                <DefaultButton onClick={handleClick} ctaButton={'Mostrar Resultados'} />
+            </S.WrapperButton>
         </S.Container>
     )
 }

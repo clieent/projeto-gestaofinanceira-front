@@ -12,6 +12,6 @@ export const WrapperButton = styled.div`
     place-items: center;
 `
 
-export const WrapperFoot = styled.div`
+export const WrapperSelect = styled.div`
     margin-top: 50px;
 `

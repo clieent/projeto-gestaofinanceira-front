@@ -1,21 +1,25 @@
 import styled from 'styled-components'
 
 export const Container = styled.div`
-    display: grid;
-    place-items: center;
+    display: flex;
+    flex-direction: column;
+    padding: 15px 15px;
+    gap: 15px;
 `
-
-export const Table = styled.table``
-
-export const TableHeadColumn = styled.th``
-
-export const DataInputs = styled.div``
 
 export const WrapperButton = styled.div`
-    display: grid;
+    display: flex;
     place-items: center;
-`
+    `
 
-export const WrapperFoot = styled.div`
-    margin-top: 50px;
+export const WrapperSelect = styled.div`
+    display: flex;
+    width: 100%;
+    
+    `
+
+export const DataInputs = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
 `

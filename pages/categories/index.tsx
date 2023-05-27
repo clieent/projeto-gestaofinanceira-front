@@ -3,6 +3,7 @@ import MainLayout from '../../src/layouts/mainLayout'
 import * as S from '../../styles/categories'
 import InputText from '../../src/components/inputText'
 import SelectBox from '@/src/components/selectBox'
+import DefaultButton from '@/src/components/defaultButton'
 
 interface categoriesProps {
     name: string
@@ -12,6 +13,11 @@ interface categoriesProps {
 export default function Categories() {
     const [categories, setCategories] = useState<categoriesProps>()
     const [categoriesOutflow, setCategoriesOutflow] = useState()
+
+    const handleClick = (e: any) => {
+        e.preventDefault()
+        console.log('handleClick')
+    }
 
     return (
         <S.Container>
@@ -23,6 +29,8 @@ export default function Categories() {
                     id="name"
                     label="Categoria"
                 />
+            </S.DataInputs>
+            <S.WrapperSelect>
                 <SelectBox
                     name="Opção"
                     id="outflow"
@@ -33,7 +41,10 @@ export default function Categories() {
                         { value: false, label: 'Entrada' },
                     ]}
                 />
-            </S.DataInputs>
+            </S.WrapperSelect>
+            <S.WrapperButton>
+                <DefaultButton onClick={handleClick} ctaButton={'Mostrar categorias'}  />
+            </S.WrapperButton>
         </S.Container>
     )
 }
