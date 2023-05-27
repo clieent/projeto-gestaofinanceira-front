@@ -52,11 +52,13 @@ export default function CashFlow() {
                         label="Descrção"
                     />
                     <InputText
-                        placeholder={'Valor'}
+                        placeholder={'R$0,00'}
                         value={releaseData?.value}
                         setState={setReleaseData}
                         id="value"
                         label="Valor"
+                        mask="R$"
+                        
                     />
                     <InputText
                         placeholder={'Data de vencimento'}
@@ -64,6 +66,7 @@ export default function CashFlow() {
                         setState={setReleaseData}
                         id="date"
                         label="Data de vencimento"
+                        mask="99/99/9999"
                     />
             </S.DataInputs>
             <S.WrapperButton>
