@@ -5,7 +5,7 @@ import { light } from '@fortawesome/fontawesome-svg-core/import.macro'
 
 type InputTextProps = {
     placeholder: string
-    value: string | undefined
+    value: string | any
     setState: any
     id: string
     label: string

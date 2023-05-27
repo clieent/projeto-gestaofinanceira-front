@@ -4,7 +4,7 @@ import InputText from '@/src/components/inputText'
 import DefaultButton from '@/src/components/defaultButton'
 import AuthLayout from '@/src/layouts/authLayout'
 import api from '@/src/api/api'
-import { setCookie, getCookies, deleteCookie } from 'cookies-next'
+import { setCookie } from 'cookies-next'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
@@ -23,7 +23,6 @@ export default function Login() {
             .then((response) => {
                 console.log(response)
                 setCookie('AccessToken', response.data.user.token)
-
                 router.push('/home')
             })
             .catch((error) => {

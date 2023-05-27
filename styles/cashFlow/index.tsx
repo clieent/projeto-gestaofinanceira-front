@@ -1,0 +1,25 @@
+import styled from 'styled-components'
+
+export const Container = styled.div`
+    display: flex;
+    flex-direction: column;
+    padding: 15px 15px;
+    gap: 15px;
+`
+
+export const WrapperButton = styled.div`
+    display: flex;
+    place-items: center;
+    `
+
+export const WrapperSelect = styled.div`
+    display: flex;
+    width: 100%;
+    
+    `
+
+export const DataInputs = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+`

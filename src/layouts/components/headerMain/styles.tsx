@@ -7,11 +7,11 @@ export const Container = styled.header`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 10%;
+    padding: 0 5%;
 `
 
 export const Logo = styled.div`
-    //grid-column: 2/3;
+    
 `
 
 export const WrapperButton = styled.div``

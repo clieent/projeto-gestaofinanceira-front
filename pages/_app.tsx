@@ -7,7 +7,6 @@ import '../styles/globals.css'
 import { config } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css'
 
-
 config.autoAddCss = false
 
 export type NextPageWithLayout<P = object, IP = P> = NextPage<P, IP> & {
@@ -29,9 +28,7 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
                 <link rel="icon" href="logoSymbol.svg" />
             </Head>
 
-            {getLayout(
-            <Component {...pageProps} />
-            )}
+            {getLayout(<Component {...pageProps} />)}
         </>
     )
 }
