@@ -71,6 +71,7 @@ function InputText(
                         inputComponent: InputMask as any,
                         inputProps: { mask },
                     }}
+                    
                     value={value}
                     onChange={handleOnChange}
                 />
@@ -79,14 +80,14 @@ function InputText(
                         <S.WrapperIcon>
                             <S.Icon
                                 onClick={handleSeePassword}
-                                icon={light('eye')}
+                                icon={light('eye-slash')}
                             />
                         </S.WrapperIcon>
                     ) : (
                         <S.WrapperIcon>
                             <S.Icon
                                 onClick={handleSeePassword}
-                                icon={light('eye-slash')}
+                                icon={light('eye')}
                             />
                         </S.WrapperIcon>
                     )

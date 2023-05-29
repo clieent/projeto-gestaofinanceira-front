@@ -57,7 +57,7 @@ export default function CashFlow() {
                         setState={setReleaseData}
                         id="value"
                         label="Valor"
-                        mask="R$"
+                        mask="R$ "
                         
                     />
                     <InputText
@@ -70,7 +70,7 @@ export default function CashFlow() {
                     />
             </S.DataInputs>
             <S.WrapperButton>
-                <DefaultButton onClick={handleClick} ctaButton={'Mostrar Resultados'} />
+                <DefaultButton onClick={handleClick} ctaButton={'Lançar'} />
             </S.WrapperButton>
         </S.Container>
     )

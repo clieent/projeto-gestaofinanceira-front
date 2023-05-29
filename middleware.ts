@@ -9,7 +9,7 @@ export async function middleware(req: NextRequest) {
     }
 
     const token = req.cookies.get('AccessToken')?.valueOf() ?? ''
-    
+    //if
     if(!token) {
         if(pathname.startsWith('/auth')) {
             return NextResponse.rewrite(req.nextUrl)

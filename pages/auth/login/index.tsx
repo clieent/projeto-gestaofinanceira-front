@@ -34,11 +34,11 @@ export default function Login() {
         <S.Container>
             <S.DataInputs>
                 <InputText
-                    placeholder={'Email'}
+                    placeholder={'E-mail'}
                     value={login?.email}
                     setState={setLogin}
                     id="email"
-                    label="Email"
+                    label="E-mail"
                 />
                 <br />
                 <InputText
@@ -51,19 +51,19 @@ export default function Login() {
                 />
                 <br />
             </S.DataInputs>
-            <S.WrapperButton>
+            
                 <DefaultButton onClick={handleClick} ctaButton="Entrar" />
-            </S.WrapperButton>
+           
             <S.WrapperFoot>
-                <footer>
-                    <p>
+                
+                    <span>
                         Não tem uma conta ainda?
-                        <Link href="http://localhost:3000/auth/createAccount">
-                            Cadastre aqui
-                        </Link>
-                        !
-                    </p>
-                </footer>
+                        <strong onClick={()=>router.push('/auth/createAccount')}>Cadastre aqui</strong>
+                            
+                        
+                        
+                    </span>
+                
             </S.WrapperFoot>
         </S.Container>
     )

@@ -43,7 +43,7 @@ export default function Categories() {
                 />
             </S.WrapperSelect>
             <S.WrapperButton>
-                <DefaultButton onClick={handleClick} ctaButton={'Mostrar categorias'}  />
+                <DefaultButton onClick={handleClick} ctaButton={'Criar'}  />
             </S.WrapperButton>
         </S.Container>
     )
