@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import InputMask from 'react-input-mask'
 import * as S from './styles'
+import { light } from '@fortawesome/fontawesome-svg-core/import.macro'
 
 type InputTextProps = {
     placeholder: string
-    value: string | undefined
+    value: string | any
     setState: any
     id: string
     label: string
@@ -37,25 +38,61 @@ function InputText(
             [id]: value,
         }))
     }
+    const [inputType, setInputType] = useState(type)
+
+    const handleSeePassword = () => {
+        if (inputType == 'password') {
+            setInputType('text')
+            return
+        }
+        setInputType('password')
+    }
 
     return (
         <S.Container>
-            <S.InputTextField
-                onBlur={onBlur}
-                error={error}
-                type={type}
-                variant="outlined"
-                id={id}
-                label={label}
-                helperText={helperText}
-                placeholder={placeholder}
-                InputProps={{
-                    inputComponent: InputMask as any,
-                    inputProps: { mask },
+            <S.InputBox
+                type={inputType}
+                sx={{
+                    width: 500,
+                    maxWidth: '100%',
                 }}
-                value={value}
-                onChange={handleOnChange}
-            />
+            >
+                <S.InputTextField
+                    fullWidth
+                    onBlur={onBlur}
+                    error={error}
+                    type={inputType}
+                    variant="outlined"
+                    id={id}
+                    label={label}
+                    helperText={helperText}
+                    placeholder={placeholder}
+                    InputProps={{
+                        inputComponent: InputMask as any,
+                        inputProps: { mask },
+                    }}
+                    
+                    value={value}
+                    onChange={handleOnChange}
+                />
+                {type == 'password' ? (
+                    inputType == 'password' ? (
+                        <S.WrapperIcon>
+                            <S.Icon
+                                onClick={handleSeePassword}
+                                icon={light('eye-slash')}
+                            />
+                        </S.WrapperIcon>
+                    ) : (
+                        <S.WrapperIcon>
+                            <S.Icon
+                                onClick={handleSeePassword}
+                                icon={light('eye')}
+                            />
+                        </S.WrapperIcon>
+                    )
+                ) : null}
+            </S.InputBox>
         </S.Container>
     )
 }

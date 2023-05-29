@@ -1,8 +1,12 @@
-import React, { useEffect, useState } from 'react'
-import * as S from '../../../styles/auth/createAccount'
-import axios from 'axios'
+import React, { useState } from 'react'
+import * as S from '../../../styles/auth/login'
 import InputText from '@/src/components/inputText'
 import DefaultButton from '@/src/components/defaultButton'
+import AuthLayout from '@/src/layouts/authLayout'
+import api from '@/src/api/api'
+import { setCookie } from 'cookies-next'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 interface ILogin {
     email: string
@@ -11,12 +15,15 @@ interface ILogin {
 
 export default function Login() {
     const [login, setLogin] = useState<ILogin>()
+    const router = useRouter()
 
-    const handleClick = (login: any) => {
-        axios
-            .get('http://localhost:3001/users', login)
+    const handleClick = (e: any) => {
+        e.preventDefault()
+        api.post('/auth/login', login)
             .then((response) => {
                 console.log(response)
+                setCookie('AccessToken', response.data.user.token)
+                router.push('/home')
             })
             .catch((error) => {
                 console.log(error)
@@ -27,11 +34,11 @@ export default function Login() {
         <S.Container>
             <S.DataInputs>
                 <InputText
-                    placeholder={'Email'}
+                    placeholder={'E-mail'}
                     value={login?.email}
                     setState={setLogin}
                     id="email"
-                    label="Email"
+                    label="E-mail"
                 />
                 <br />
                 <InputText
@@ -44,13 +51,24 @@ export default function Login() {
                 />
                 <br />
             </S.DataInputs>
-            <S.WrapperButton>
-                <DefaultButton
-                    onClick={handleClick}
-                    ctaButton="Entrar"
-                    disabled
-                />
-            </S.WrapperButton>
+            
+                <DefaultButton onClick={handleClick} ctaButton="Entrar" />
+           
+            <S.WrapperFoot>
+                
+                    <span>
+                        Não tem uma conta ainda?
+                        <strong onClick={()=>router.push('/auth/createAccount')}>Cadastre aqui</strong>
+                            
+                        
+                        
+                    </span>
+                
+            </S.WrapperFoot>
         </S.Container>
     )
+}
+
+Login.getLayout = function GetLayout(page: any) {
+    return <AuthLayout>{page}</AuthLayout>
 }

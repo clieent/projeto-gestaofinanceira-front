@@ -1,7 +1,5 @@
-import React, { useEffect, useState } from 'react'
+import React, { ReactNode, useEffect, useState } from 'react'
 import * as S from '../../../styles/auth/createAccount'
-import axios from 'axios'
-import { light } from '@fortawesome/fontawesome-svg-core/import.macro'
 import InputText from '@/src/components/inputText'
 import DefaultButton from '@/src/components/defaultButton'
 import ValidateEmail from '../../../src/util/validateEmail'
@@ -10,6 +8,9 @@ import validateName from '@/src/util/validateName'
 import validatePhone from '@/src/util/validatePhone'
 import validatePassword from '@/src/util/validatePassword'
 import validateConfirmPassword from '@/src/util/validateConfirmPassword'
+import AuthLayout from '@/src/layouts/authLayout'
+import api from '@/src/api/api'
+import { useRouter } from 'next/router'
 
 interface IUser {
     name: string
@@ -20,7 +21,7 @@ interface IUser {
     confirmPassword?: string
 }
 
-function CreateAccount() {
+export default function CreateAccount() {
     const [user, setUser] = useState<IUser>()
     const [feedBackUser, setfeedBackUser] = useState({
         name: {
@@ -46,8 +47,9 @@ function CreateAccount() {
         confirmPassword: {
             error: false,
             helperText: '',
-        }
+        },
     })
+    const router = useRouter()
 
     const createValidateFunction = (
         key: keyof IUser,
@@ -86,28 +88,30 @@ function CreateAccount() {
     }
 
     const disabledButton = () => {
-        const isValid = Object.values(feedBackUser).find((item) => {
-            return item.error
-        })
-        if (isValid) {
-            return true
-        }
-        return false
+        const isAnyFieldEmpty = Object.values(user || {}).some(
+            (value) => !value
+        )
+        const isAnyValidationError = Object.values(feedBackUser).some(
+            (field) => field.error
+        )
+        return (
+            isAnyFieldEmpty ||
+            isAnyValidationError ||
+            Object.keys(user || {}).length !== Object.keys(feedBackUser).length
+        )
     }
 
-    useEffect(() => {
-        console.log(user)
-    }, [user])
+    // useEffect(() => {
+    //     console.log(user)
+    // }, [user])
 
     const handleClick = (e: any) => {
         e.preventDefault()
-        console.log('a')
         delete user?.confirmPassword
-        console.log(user)
-        axios
-            .post('http://localhost:3001/users', user)
+        api.post('/users', user)
             .then((response) => {
                 console.log(response)
+                router.push('/auth/login')
             })
             .catch((error) => {
                 console.log(error)
@@ -224,4 +228,6 @@ function CreateAccount() {
     )
 }
 
-export default CreateAccount
+CreateAccount.getLayout = function GetLayout(page: any) {
+    return <AuthLayout>{page}</AuthLayout>
+}
