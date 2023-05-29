@@ -11,7 +11,8 @@ export const Container = styled.header`
 `
 
 export const Logo = styled.div`
-    
+    width: 200px;
 `
 
 export const WrapperButton = styled.div``
+

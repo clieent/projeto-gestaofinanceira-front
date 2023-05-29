@@ -59,9 +59,6 @@ export default function Login() {
                     <span>
                         Não tem uma conta ainda?
                         <strong onClick={()=>router.push('/auth/createAccount')}>Cadastre aqui</strong>
-                            
-                        
-                        
                     </span>
                 
             </S.WrapperFoot>
