@@ -35,8 +35,4 @@ export const WrapperIcon = styled.div`
 export const InputBox = styled(Box)<inputBoxProps>`
     display: flex;
     position: relative;
-    > div > div > input {
-        background-color: #f9f2f2;
-        border-radius: 4px;
-    }
 `

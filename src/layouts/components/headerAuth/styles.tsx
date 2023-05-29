@@ -10,5 +10,6 @@ export const Container = styled.header`
 `
 
 export const Logo = styled.div`
-
+    width: 250px;
+    padding-top: 5px;
 `
