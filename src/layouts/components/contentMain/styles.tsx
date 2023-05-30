@@ -28,7 +28,7 @@ export const Container = styled.div `
 
         input{
             background-color:#0A0B0D !important;
-            color: white !important
+            color: #ffffff !important
         }
     }
 `

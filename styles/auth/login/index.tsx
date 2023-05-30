@@ -21,13 +21,15 @@ export const WrapperButton = styled.div`
 
 export const WrapperFoot = styled.div`
         display: flex;
-        justify-content: flex-end;
+        justify-content: center;
         font-family: Arial, Helvetica, sans-serif;
-        padding-top: 5px;
+        padding: 60px 0 0;
         span{
+            align-items: center;
             display: flex;
-            gap:5px;
-
+            gap:10px;
+            font-weight: 800;
+            
             strong{
                 font-weight: 800;
 

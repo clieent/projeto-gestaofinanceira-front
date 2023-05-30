@@ -12,7 +12,7 @@ export default function LateralMenu({}: LateralMenuProps) {
             
             <strong onClick={()=>router.push('/home')}>Início</strong>
             <strong onClick={()=>router.push('/cashFlow')}>Caixa</strong>
-            <strong onClick={()=>router.push('/categories')}>Cadastro Categoira</strong>
+            <strong onClick={()=>router.push('/categories')}>Cadastrar Categoria</strong>
          
         </S.Container>
     )
