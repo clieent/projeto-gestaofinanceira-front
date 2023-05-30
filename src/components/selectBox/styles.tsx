@@ -14,11 +14,11 @@ export const ChoicesBox = styled(Box)`
 `
 
 export const ChoicesFormControl = styled(FormControl)`
-
+background-color: #0A0B0D;
 `
 
 export const ChoicesInputLabel = styled(InputLabel)`
-    color: white;
+   color: white
 `
 
 export const ChoicesSelect = styled(Select)`

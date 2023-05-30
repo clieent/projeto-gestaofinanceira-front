@@ -4,13 +4,15 @@ import * as S from '../../styles/cashFlow'
 import InputText from '../../src/components/inputText'
 import SelectBox from '../../src/components/selectBox'
 import DefaultButton from '@/src/components/defaultButton'
+import Api from '../../src/api/api'
 
 interface releaseDataProps {
     tag: string
     date: Date
-    category: {}
+    category: string
     description?: string
     value: number
+    type: boolean
 }
 export default function CashFlow() {
     const [releaseData, setReleaseData] = useState<releaseDataProps>()
@@ -20,20 +22,18 @@ export default function CashFlow() {
         console.log('handleClick')
     }
 
+    const selectCategory = Api.get('/categories'/*, user_id*/)
+
     return (
         <S.Container>
             <S.WrapperSelect>
                 <SelectBox
-                    name="Categoria"
-                    id="category"
-                    value={releaseData?.category}
-                    setState={setReleaseData}
-                    values={[
-                        //  Fazer função que busca no backend as categorias criadas pelo usuario
-                        // Teste de funcionamento
-                        { value: true, label: 'Saída' },
-                        { value: false, label: 'Entrada' },
-                    ]}
+                name="Categoria"
+                id="category"
+                value={releaseData?.category}
+                setState={setReleaseData}
+                values={[
+                ]}
                 />
             </S.WrapperSelect>
                 <S.DataInputs>
@@ -69,6 +69,18 @@ export default function CashFlow() {
                         mask="99/99/9999"
                     />
             </S.DataInputs>
+            <S.WrapperSelect>
+                <SelectBox
+                    name="Tipo"
+                    id="type"
+                    value={releaseData?.type}
+                    setState={setReleaseData}
+                    values={[
+                        { value: true, label: 'Saída' },
+                        { value: false, label: 'Entrada' },
+                    ]}
+                />
+            </S.WrapperSelect>
             <S.WrapperButton>
                 <DefaultButton onClick={handleClick} ctaButton={'Lançar'} />
             </S.WrapperButton>

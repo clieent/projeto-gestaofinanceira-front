@@ -8,7 +8,6 @@ export const Container = styled.div `
         background-color: rgba(0,0,0,0.4);
         display: grid;
         place-items: center;
-        border-radius: 10px;
         padding: 30px 0;
 
         button {
@@ -24,6 +23,7 @@ export const Container = styled.div `
 
         select {
             background-color:#0A0B0D !important;
+            
         }
 
         input{

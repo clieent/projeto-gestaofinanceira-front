@@ -8,9 +8,9 @@ export const Container = styled.div`
     height: 100vh;
     grid-area: lateralMenu;
     strong {
-        color: black;
+        color: white;
         &:hover {
-            color: white;
+            color: black;
             cursor: pointer;
         }
     }
