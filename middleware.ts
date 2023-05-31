@@ -1,4 +1,4 @@
-import validateToken from './src/util/validateToken'
+import validateToken from './src/util/validates/validateToken'
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function middleware(req: NextRequest) {

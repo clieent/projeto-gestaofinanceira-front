@@ -2,15 +2,16 @@ import React, { ReactNode, useEffect, useState } from 'react'
 import * as S from '../../../styles/auth/createAccount'
 import InputText from '@/src/components/inputText'
 import DefaultButton from '@/src/components/defaultButton'
-import ValidateEmail from '../../../src/util/validateEmail'
-import validateCpf from '@/src/util/validateCpf'
-import validateName from '@/src/util/validateName'
-import validatePhone from '@/src/util/validatePhone'
-import validatePassword from '@/src/util/validatePassword'
-import validateConfirmPassword from '@/src/util/validateConfirmPassword'
+import ValidateEmail from '../../../src/util/validates/validateEmail'
+import validateCpf from '@/src/util/validates/validateCpf'
+import validateName from '@/src/util/validates/validateName'
+import validatePhone from '@/src/util/validates/validatePhone'
+import validatePassword from '@/src/util/validates/validatePassword'
+import validateConfirmPassword from '@/src/util/validates/validateConfirmPassword'
 import AuthLayout from '@/src/layouts/authLayout'
 import api from '@/src/api/api'
 import { useRouter } from 'next/router'
+import cpfMask from '@/src/util/masks/cpfMask'
 
 interface IUser {
     name: string
@@ -171,11 +172,11 @@ export default function CreateAccount() {
                     error={feedBackUser.cpf.error}
                     helperText={feedBackUser.cpf.helperText}
                     placeholder={'CPF'}
-                    value={user?.cpf}
+                    value={cpfMask(user?.cpf)}
                     setState={setUser}
                     id="cpf"
                     label="CPF"
-                    mask="999.999.999-99"
+                    //mask="999.999.999-99"
                     onBlur={createValidateFunction(
                         'cpf',
                         validateCpf,

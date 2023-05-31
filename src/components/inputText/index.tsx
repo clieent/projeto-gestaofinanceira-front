@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import InputMask from 'react-input-mask'
 import * as S from './styles'
 import { light } from '@fortawesome/fontawesome-svg-core/import.macro'
@@ -13,7 +13,7 @@ type InputTextProps = {
     mask?: any
     error?: boolean
     helperText?: string
-    onBlur?: any
+    onBlur?: any 
 }
 
 function InputText(
@@ -31,6 +31,9 @@ function InputText(
         onBlur,
     }: InputTextProps
 ) {
+
+    const inputRef = useRef(null)
+    
     const handleOnChange = (e: { target: any }) => {
         const { id, value }: string | any = e.target
         setState((date: any) => ({
@@ -39,7 +42,7 @@ function InputText(
         }))
     }
     const [inputType, setInputType] = useState(type)
-
+    
     const handleSeePassword = () => {
         if (inputType == 'password') {
             setInputType('text')
@@ -67,11 +70,13 @@ function InputText(
                     label={label}
                     helperText={helperText}
                     placeholder={placeholder}
+/*                     inputComponent={InputMask}
+                    inputProps={{ mask }} */
                     InputProps={{
                         inputComponent: InputMask as any,
                         inputProps: { mask },
                     }}
-                    
+                    ref={inputRef}
                     value={value}
                     onChange={handleOnChange}
                 />
