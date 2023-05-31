@@ -5,8 +5,8 @@ import DefaultButton from '@/src/components/defaultButton'
 import AuthLayout from '@/src/layouts/authLayout'
 import api from '@/src/api/api'
 import { setCookie } from 'cookies-next'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
+import useStore from '@/src/zustand/store'
 
 interface ILogin {
     email: string
@@ -16,6 +16,7 @@ interface ILogin {
 export default function Login() {
     const [login, setLogin] = useState<ILogin>()
     const router = useRouter()
+    const { setUserId, setName, setCpf, setEmail, setPhone } = useStore()
 
     const handleClick = (e: any) => {
         e.preventDefault()
@@ -23,6 +24,7 @@ export default function Login() {
             .then((response) => {
                 console.log(response)
                 setCookie('AccessToken', response.data.user.token)
+                setUserId(response.data.id)
                 router.push('/home')
             })
             .catch((error) => {
@@ -51,16 +53,16 @@ export default function Login() {
                 />
                 <br />
             </S.DataInputs>
-            
-                <DefaultButton onClick={handleClick} ctaButton="Entrar" />
-           
+
+            <DefaultButton onClick={handleClick} ctaButton="Entrar" />
+
             <S.WrapperFoot>
-                
-                    <span>
-                        Não tem uma conta ainda?
-                        <strong onClick={()=>router.push('/auth/createAccount')}>Cadastre aqui</strong>
-                    </span>
-                
+                <span>
+                    Não tem uma conta ainda?
+                    <strong onClick={() => router.push('/auth/createAccount')}>
+                        Cadastre aqui
+                    </strong>
+                </span>
             </S.WrapperFoot>
         </S.Container>
     )
