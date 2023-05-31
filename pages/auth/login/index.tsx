@@ -22,9 +22,8 @@ export default function Login() {
         e.preventDefault()
         api.post('/auth/login', login)
             .then((response) => {
-                console.log(response)
                 setCookie('AccessToken', response.data.user.token)
-                setUserId(response.data.id)
+                setUserId(response.data.user._id)
                 router.push('/home')
             })
             .catch((error) => {

@@ -16,6 +16,7 @@ type Setters = {
     setCpf: (cpf: string) => void
 }
 
+type at = Store & Setters
 const useStore = create<Store & Setters>()(
     persist(
         (set) => ({
