@@ -15,10 +15,9 @@ function SelectBox(
     { id, name, value, label, values, setState }: SelectBoxProps
 ) {
     const handleOnChange = (e: { target: any }) => {
-        const { id, value }: string | any = e.target
         setState((date: any) => ({
             ...date,
-            [id]: value,
+            [id]: e.target.value,
         }))
     }
     return (
