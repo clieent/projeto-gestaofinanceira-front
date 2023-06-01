@@ -6,14 +6,17 @@ import SelectBox from '../../src/components/selectBox'
 import DefaultButton from '@/src/components/defaultButton'
 import api from '../../src/api/api'
 import useStore from '../../src/zustand/store'
+import dateMask from '@/src/util/masks/dateMask'
+import monetaryMask from '@/src/util/masks/monetaryMask'
 
 interface releaseDataProps {
     tag: string
-    date: Date
+    date: string
     category: string
     description?: string
-    value: number
+    value: any
     type: boolean
+    
 }
 type categoryType = {
     title: string
@@ -67,19 +70,17 @@ export default function CashFlow() {
                 />
                 <InputText
                     placeholder={'R$0,00'}
-                    value={releaseData?.value}
+                    value={monetaryMask(releaseData?.value)}
                     setState={setReleaseData}
                     id="value"
                     label="Valor"
-                    mask="R$ "
                 />
                 <InputText
                     placeholder={'Data de vencimento'}
-                    value={releaseData?.date}
+                    value={dateMask(releaseData?.date)}
                     setState={setReleaseData}
                     id="date"
                     label="Data de vencimento"
-                    mask="99/99/9999"
                 />
             </S.DataInputs>
             <S.WrapperSelect>

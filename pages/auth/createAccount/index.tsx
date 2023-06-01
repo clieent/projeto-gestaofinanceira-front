@@ -12,6 +12,7 @@ import AuthLayout from '@/src/layouts/authLayout'
 import api from '@/src/api/api'
 import { useRouter } from 'next/router'
 import cpfMask from '@/src/util/masks/cpfMask'
+import phoneMask from '@/src/util/masks/phoneMask'
 
 interface IUser {
     name: string
@@ -156,11 +157,10 @@ export default function CreateAccount() {
                     error={feedBackUser.phone.error}
                     helperText={feedBackUser.phone.helperText}
                     placeholder={'Telefone'}
-                    value={user?.phone}
+                    value={phoneMask(user?.phone)}
                     setState={setUser}
                     id="phone"
                     label="Telefone"
-                    mask="(99)99999-9999"
                     onBlur={createValidateFunction(
                         'phone',
                         validatePhone,
@@ -176,7 +176,6 @@ export default function CreateAccount() {
                     setState={setUser}
                     id="cpf"
                     label="CPF"
-                    //mask="999.999.999-99"
                     onBlur={createValidateFunction(
                         'cpf',
                         validateCpf,
