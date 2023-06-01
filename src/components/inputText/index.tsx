@@ -1,5 +1,4 @@
 import React, { useRef, useState } from 'react'
-import InputMask from 'react-input-mask'
 import * as S from './styles'
 import { light } from '@fortawesome/fontawesome-svg-core/import.macro'
 
@@ -31,8 +30,6 @@ function InputText(
         onBlur,
     }: InputTextProps
 ) {
-
-    const inputRef = useRef(null)
     
     const handleOnChange = (e: { target: any }) => {
         const { id, value }: string | any = e.target
@@ -70,13 +67,6 @@ function InputText(
                     label={label}
                     helperText={helperText}
                     placeholder={placeholder}
-/*                     inputComponent={InputMask}
-                    inputProps={{ mask }} */
-                    InputProps={{
-                        inputComponent: InputMask as any,
-                        inputProps: { mask },
-                    }}
-                    ref={inputRef}
                     value={value}
                     onChange={handleOnChange}
                 />
