@@ -22,15 +22,27 @@ export default function Login() {
         e.preventDefault()
         api.post('/auth/login', login)
             .then((response) => {
-                setCookie('AccessToken', response.data.user.token)
-                setUserId(response.data.user._id)
-                router.push('/home')
+                if (createCookie(response)) {
+                    router.push('/home')
+                }
+                console.log('Erro ao logar')
             })
             .catch((error) => {
                 console.log(error)
             })
     }
-
+    function createCookie(resp: any) {
+        setUserId(resp.data.user._id)
+        setCpf(resp.data.user.cpf)
+        setEmail(resp.data.user.email)
+        setName(resp.data.user.name)
+        setPhone(resp.data.user.phone)
+        if (resp != null) {
+            setCookie('AccessToken', resp.data.user.token)
+            return true
+        }
+        return false
+    }
     return (
         <S.Container>
             <S.DataInputs>
