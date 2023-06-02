@@ -45,6 +45,7 @@ export default function Login() {
     }
     return (
         <S.Container>
+            <h3>Login</h3>
             <S.DataInputs>
                 <InputText
                     placeholder={'E-mail'}
