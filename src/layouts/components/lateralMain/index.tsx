@@ -3,10 +3,10 @@ import * as S from './styles'
 import { useRouter } from 'next/router'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
-    faCoffee,
     faHome,
     faRectangleList,
     faChevronDown,
+    faCashRegister,
 } from '@fortawesome/free-solid-svg-icons'
 
 type LateralMenuProps = {}
@@ -15,28 +15,48 @@ export default function LateralMenu({}: LateralMenuProps) {
     const router = useRouter()
     return (
         <S.Container>
-            <ul>
+            <ul className="ul-geral">
                 <li>
-                    <a href="#">
+                    <S.TagA>
+                        <FontAwesomeIcon className="i" icon={faHome} />
                         <span onClick={() => router.push('/home')}>Início</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <span onClick={() => router.push('/cashFlow')}>
-                            Caixa
-                        </span>
-                    </a>
+                    </S.TagA>
                 </li>
                 <li>
                     <div>
-                        <a href="#">
-                            <span>Categorias</span>
-                        </a>
+                        <S.TagA>
+                            <FontAwesomeIcon
+                                className="i"
+                                icon={faCashRegister}
+                            />
+                            <span>Caixa </span>
+                        </S.TagA>
+                        <FontAwesomeIcon className="i" icon={faChevronDown} />
                     </div>
                     <ul className="sub-menu">
                         <li>
-                            <a href="#">
+                            <S.TagA>
+                                <span onClick={() => router.push('/cashFlow')}>
+                                    Caixa
+                                </span>
+                            </S.TagA>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <div>
+                        <S.TagA>
+                            <FontAwesomeIcon
+                                className="i"
+                                icon={faRectangleList}
+                            />
+                            <span>Categorias</span>
+                        </S.TagA>
+                        <FontAwesomeIcon className="i" icon={faChevronDown} />
+                    </div>
+                    <ul className="sub-menu">
+                        <li>
+                            <S.TagA>
                                 <span
                                     onClick={() =>
                                         router.push(
@@ -46,10 +66,10 @@ export default function LateralMenu({}: LateralMenuProps) {
                                 >
                                     Cadastrar Categoria
                                 </span>
-                            </a>
+                            </S.TagA>
                         </li>
                         <li>
-                            <a href="#">
+                            <S.TagA>
                                 <span
                                     onClick={() =>
                                         router.push(
@@ -59,12 +79,12 @@ export default function LateralMenu({}: LateralMenuProps) {
                                 >
                                     Deletar Categoria
                                 </span>
-                            </a>
+                            </S.TagA>
                         </li>
                     </ul>
                 </li>
                 <li>
-                    <a href="#"></a>
+                    <S.TagA></S.TagA>
                 </li>
             </ul>
         </S.Container>
