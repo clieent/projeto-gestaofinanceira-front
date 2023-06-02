@@ -1,4 +1,4 @@
-import styled, { keyframes } from "styled-components";
+import styled, { keyframes } from 'styled-components'
 
 export const Container = styled.div`
     align-items: center;
@@ -8,9 +8,9 @@ export const Container = styled.div`
 `
 
 export const Title = styled.h1`
-    color: #CCC;
+    color: #ccc;
     font-size: 40px;
-    `
+`
 
 export const SubTitle = styled.h2`
     color: #958f8f;
@@ -19,20 +19,20 @@ export const SubTitle = styled.h2`
 
 export const WrapperButton = styled.div`
     padding-top: 15px;
-    margin-top: 15px; 
+    margin-top: 15px;
 `
 
 export const Loading = styled.div`
     animation: is-rotating 1s infinite;
-    border: 6px solid #e5e5e5;
+    border: 6px solid #ccc;
     border-radius: 50%;
-    border-top-color: #8255fc;
+    border-top-color: #008f8c;
     height: 50px;
     width: 50px;
 
     @keyframes is-rotating {
         to {
-            transform: rotate(1turn)
+            transform: rotate(1turn);
         }
     }
 `

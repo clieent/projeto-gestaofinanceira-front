@@ -17,7 +17,6 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
                     <Image src={imageBg}/>
                 </S.Ilustration>
                 <section>
-                    <h3>Faça login</h3>
                     
                     {children}</section>
             </S.Content>
