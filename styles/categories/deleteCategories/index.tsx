@@ -4,22 +4,23 @@ export const Container = styled.div`
     display: flex;
     flex-direction: column;
     padding: 15px 15px;
-    gap: 15px;
-`
-
-export const WrapperButton = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-`
-
-export const WrapperSelect = styled.div`
-    display: flex;
-    width: 100%;
+    gap: 5px;
 `
 
 export const DataInputs = styled.div`
     display: flex;
     flex-direction: column;
-    gap: 5px;
+`
+
+export const WrapperSelect = styled.div`
+    display: flex;
+    width: 100%;
+    padding-top: 5px;
+`
+
+export const WrapperButton = styled.div`
+    display: flex;
+    flex-direction: column;
+    place-items: center;
+    padding: 5px;
 `

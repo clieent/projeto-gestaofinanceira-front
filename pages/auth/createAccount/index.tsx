@@ -122,6 +122,7 @@ export default function CreateAccount() {
 
     return (
         <S.Container>
+            <h3>Crie sua conta</h3>
             <S.DataInputs>
                 <InputText
                     error={feedBackUser.name.error}
