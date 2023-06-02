@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import * as S from './styles'
 
 type DefaultButtonProps = {
@@ -14,7 +14,15 @@ function DefaultButton({
 }: DefaultButtonProps) {
     return (
         <S.Container>
-            <S.ClickStack onClick={onClick} spacing={2} direction="row">
+            <S.ClickStack
+                onClick={(e) => {
+                    if (!disabled) {
+                        onClick(e)
+                    }
+                }}
+                spacing={2}
+                direction="row"
+            >
                 <S.ClickButton variant="contained" disabled={disabled}>
                     {ctaButton}
                 </S.ClickButton>

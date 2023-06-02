@@ -1,17 +1,17 @@
 import styled from 'styled-components'
 
 export const Container = styled.header`
-    background-color: #6041ed;
-    width: 100vw;
+    background-color: #0A0B0D;
+    width: 100%;
     height: 100px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 10%;
+    padding: 0 5%;
+    grid-area: headerMain;
 `
 
 export const Logo = styled.div`
-    //grid-column: 2/3;
+    width: 250px;
+    padding-top: 5px;
 `
-
-export const WrapperButton = styled.div``

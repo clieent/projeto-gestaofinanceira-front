@@ -1,23 +1,18 @@
 import React from 'react'
 import * as S from './styles'
-import DefaultButton from '@/src/components/defaultButton'
-import { useRouter } from 'next/router'
+import Image from 'next/image'
+import ImageLg from '../../../../public/clieent-rectangle@3x-2-1024x388.png'
 
 type HeaderMainProps = {}
 
 export default function HeaderMain({}: HeaderMainProps) {
-    const router = useRouter()
-
-    const handleClick = () => {
-        router.push('/auth/login')
-    }
 
     return (
         <S.Container>
-            <S.Logo>Logo</S.Logo>
-            <S.WrapperButton>
-                <DefaultButton onClick={handleClick} ctaButton="Sair" />
-            </S.WrapperButton>
+            <S.Logo>
+            <Image src={ImageLg}/>
+            </S.Logo>
+
         </S.Container>
     )
 }

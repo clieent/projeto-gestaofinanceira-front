@@ -1,13 +1,21 @@
-import React from "react";
+import React from 'react'
 import * as S from './styles'
+import { useRouter } from 'next/router'
 
-type LateralMenuProps = {
-}
+type LateralMenuProps = {}
 
 export default function LateralMenu({}: LateralMenuProps) {
+    const router = useRouter()
     return (
         <S.Container>
-            <div>oi</div>
+            <strong onClick={() => router.push('/home')}>Início</strong>
+            <strong onClick={() => router.push('/cashFlow')}>Caixa</strong>
+            <strong onClick={() => router.push('/categories/createCategories')}>
+                Cadastrar Categoria
+            </strong>
+            <strong onClick={() => router.push('/categories/deleteCategories')}>
+                Deletar Categoria
+            </strong>
         </S.Container>
     )
 }
