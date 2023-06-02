@@ -7,12 +7,10 @@ import DefaultButton from '@/src/components/defaultButton'
 
 interface categoriesProps {
     name: string
-    outflow: boolean
 }
 
 export default function Categories() {
     const [categories, setCategories] = useState<categoriesProps>()
-    const [categoriesOutflow, setCategoriesOutflow] = useState()
 
     const handleClick = (e: any) => {
         e.preventDefault()
@@ -30,20 +28,8 @@ export default function Categories() {
                     label="Categoria"
                 />
             </S.DataInputs>
-            <S.WrapperSelect>
-                <SelectBox
-                    name="Opção"
-                    id="outflow"
-                    value={categories?.outflow}
-                    setState={setCategories}
-                    values={[
-                        { value: true, label: 'Saída' },
-                        { value: false, label: 'Entrada' },
-                    ]}
-                />
-            </S.WrapperSelect>
             <S.WrapperButton>
-                <DefaultButton onClick={handleClick} ctaButton={'Mostrar categorias'}  />
+                <DefaultButton onClick={handleClick} ctaButton={'Criar'}  />
             </S.WrapperButton>
         </S.Container>
     )

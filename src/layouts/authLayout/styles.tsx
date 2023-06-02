@@ -1,25 +1,49 @@
 import styled from 'styled-components'
 
 export const Container = styled.div`
-    background-image: linear-gradient(to right, #000080, #A9A9A9);
+    width: 100vw;
+    background-color: #1c2026;
 `
-export const Header = styled.header`
-    
-    `
+
+export const Ilustration = styled.div`
+    width: 700px;
+`
 
 export const Content = styled.div`
     height: calc(100vh - 100px);
     width: 100%;
     display: grid;
+    grid-template-columns: auto auto;
     place-items: center;
-    
-    section{
-        background-color: #704894;
-        min-height: 30%;
+    color: white !important;
+    h3 {
+        color: white;
+        font-size: 30px;
+        font-weight: 800;
+        font-family: Arial, Helvetica, sans-serif;
+        text-transform: uppercase;
+    }
+    section {
+        background-color: rgba(0, 0, 0, 0.4);
+        min-height: 500px;
         min-width: 600px;
         display: grid;
         place-items: center;
         border-radius: 10px;
         padding: 30px 0;
+        input {
+            background-color: #0a0b0d !important;
+            color: white !important;
+        }
+        button {
+            font-weight: 800;
+            font-size: 20px;
+            width: 500px;
+            height: 50px;
+            background-color: #008f8c;
+            &:hover {
+                background-color: #015958;
+            }
+        }
     }
 `

@@ -1,4 +1,4 @@
-import validateToken from './src/util/validateToken'
+import validateToken from './src/util/validates/validateToken'
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function middleware(req: NextRequest) {
@@ -9,7 +9,7 @@ export async function middleware(req: NextRequest) {
     }
 
     const token = req.cookies.get('AccessToken')?.valueOf() ?? ''
-    
+
     if(!token) {
         if(pathname.startsWith('/auth')) {
             return NextResponse.rewrite(req.nextUrl)
@@ -25,10 +25,13 @@ export async function middleware(req: NextRequest) {
             return NextResponse.next()
         }
     } else {
-        return NextResponse.redirect(new URL('/auth/expiredSection', req.url))
+        const expiredTokenResponse = NextResponse.redirect(new URL('/auth/expiredSection', req.url))
+        expiredTokenResponse.cookies.set('AccessToken', '', { expires: new Date(0) })
+        return expiredTokenResponse
     }    
 }
     
 export const config = {
     matcher: ['/home', '/cashFlow', '/auth/login', '/auth/createAccount', '/categories', '/auth/expiredSection'],
 }
+

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Container = styled.header`
-    background-color: #6041ed;
+    background-color: #0A0B0D;
     width: 100%;
     height: 100px;
     display: flex;
@@ -10,5 +10,6 @@ export const Container = styled.header`
 `
 
 export const Logo = styled.div`
-
+    width: 250px;
+    padding-top: 5px;
 `

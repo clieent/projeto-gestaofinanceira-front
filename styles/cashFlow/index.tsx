@@ -9,7 +9,8 @@ export const Container = styled.div`
 
 export const WrapperButton = styled.div`
     display: flex;
-    place-items: center;
+    align-items: center;
+    justify-content: center;
     `
 
 export const WrapperSelect = styled.div`
