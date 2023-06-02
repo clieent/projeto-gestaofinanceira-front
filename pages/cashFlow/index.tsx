@@ -10,13 +10,12 @@ import dateMask from '@/src/util/masks/dateMask'
 import monetaryMask from '@/src/util/masks/monetaryMask'
 
 interface releaseDataProps {
-    tag: string
+    title: string
     date: string
     category: string
     description?: string
     value: any
     type: boolean
-    
 }
 type categoryType = {
     title: string
@@ -56,9 +55,9 @@ export default function CashFlow() {
             <S.DataInputs>
                 <InputText
                     placeholder={'Título'}
-                    value={releaseData?.tag}
+                    value={releaseData?.title}
                     setState={setReleaseData}
-                    id="tag"
+                    id="title"
                     label="Título"
                 />
                 <InputText
