@@ -14,24 +14,40 @@ export async function middleware(req: NextRequest) {
         if(pathname.startsWith('/auth')) {
             return NextResponse.rewrite(req.nextUrl)
         } else {
-            return NextResponse.redirect(new URL('/auth/expiredSection', req.url))
+            return NextResponse.redirect(new URL('/auth/login', req.url))
         }
     }
     
-    if(token && (await validateToken(token?.toString()))) {
-        if(pathname.startsWith('/auth')) {
-            return NextResponse.redirect(new URL('/home', req.url))
-        } else {
+    if(token) {
+        if (await validateToken(token?.toString())) {
+            if(pathname.startsWith('/auth')) {
+                return NextResponse.redirect(new URL('/home', req.url))
+            } else {
             return NextResponse.next()
+            }
         }
-    } else {
         const expiredTokenResponse = NextResponse.redirect(new URL('/auth/expiredSection', req.url))
         expiredTokenResponse.cookies.set('AccessToken', '', { expires: new Date(0) })
         return expiredTokenResponse
-    }    
+    } else {
+        const expiredTokenResponse = NextResponse.redirect(new URL('/auth/login', req.url))
+        expiredTokenResponse.cookies.set('AccessToken', '', { expires: new Date(0) })
+        return expiredTokenResponse
+    } 
 }
-    
+
 export const config = {
-    matcher: ['/home', '/cashFlow', '/auth/login', '/auth/createAccount', '/categories', '/auth/expiredSection'],
+    matcher: [
+        '/home',
+        '/cashFlow',
+        '/auth/login',
+        '/auth/createAccount',
+        '/categories',
+        '/auth/expiredSection',
+        '/cashCheck',
+        '/categories',
+        '/categories/createCategories',
+        '/categories/deleteCategories',
+    ]
 }
 

@@ -24,10 +24,10 @@ function InputText(
         id,
         label,
         type,
-        mask,
         error,
         helperText,
         onBlur,
+        //onChange,
     }: InputTextProps
 ) {
     
