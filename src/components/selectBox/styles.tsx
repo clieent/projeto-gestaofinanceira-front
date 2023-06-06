@@ -7,20 +7,25 @@ import MenuItem from '@mui/material/MenuItem'
 
 export const Container = styled.div`
     width: 100%;
-`
+    background-color: #0a0b0d;
+    `
 
-export const ChoicesBox = styled(Box)``
+export const ChoicesBox = styled(Box)`
+`
 
 export const ChoicesFormControl = styled(FormControl)`
-    background-color: #0a0b0d;
-`
+    `
 
 export const ChoicesInputLabel = styled(InputLabel)`
-    color: white;
-`
+    color: #ccc !important;
+    select {
+        color: #ccc !important;
+    }
+    `
 
 export const ChoicesSelect = styled(Select)`
-    color: white;
-`
+    color: #ccc !important;
+    `
 
-export const ChoicesMenuItem = styled(MenuItem)``
+export const ChoicesMenuItem = styled(MenuItem)`
+`

@@ -23,7 +23,7 @@ export async function middleware(req: NextRequest) {
             if(pathname.startsWith('/auth')) {
                 return NextResponse.redirect(new URL('/home', req.url))
             } else {
-            return NextResponse.next()
+                return NextResponse.next()
             }
         }
         const expiredTokenResponse = NextResponse.redirect(new URL('/auth/expiredSection', req.url))

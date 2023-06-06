@@ -11,4 +11,13 @@ export const Container = styled.div`
         place-items: center;
         padding: 30px 0;
     }
+
+    h1 {
+        color: #ccc !important;
+        text-align: center;
+        margin-bottom: 15px;
+        font-size: 30px;
+        font-weight: 800;
+        font-family: Arial, Helvetica, sans-serif;
+    }
 `
