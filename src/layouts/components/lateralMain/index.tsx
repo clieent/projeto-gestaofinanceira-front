@@ -1,13 +1,7 @@
 import React from 'react'
 import * as S from './styles'
 import { useRouter } from 'next/router'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-    faHome,
-    faRectangleList,
-    faChevronDown,
-    faCashRegister,
-} from '@fortawesome/free-solid-svg-icons'
+import { light } from '@fortawesome/fontawesome-svg-core/import.macro'
 
 type LateralMenuProps = {}
 
@@ -16,47 +10,41 @@ export default function LateralMenu({}: LateralMenuProps) {
     return (
         <S.Container>
             <ul className="ul-geral">
-                <li>
+                <S.Li>
                     <S.TagA>
-                        <FontAwesomeIcon className="i" icon={faHome} />
+                        <S.Icon icon={light('house')} />
                         <span onClick={() => router.push('/home')}>Início</span>
                     </S.TagA>
-                </li>
-                <li>
+                </S.Li>
+                <S.Li>
                     <div>
                         <S.TagA>
-                            <FontAwesomeIcon
-                                className="i"
-                                icon={faCashRegister}
-                            />
+                            <S.Icon icon={light('cash-register')} />
                             <span>Caixa </span>
                         </S.TagA>
-                        <FontAwesomeIcon className="i" icon={faChevronDown} />
+                        <S.Icon icon={light('chevron-down')} />
                     </div>
                     <ul className="sub-menu">
-                        <li>
-                            <S.TagA>
+                        <S.Li>
+                            <S.TagA className="a-sub">
                                 <span onClick={() => router.push('/cashFlow')}>
                                     Caixa
                                 </span>
                             </S.TagA>
-                        </li>
+                        </S.Li>
                     </ul>
-                </li>
-                <li>
+                </S.Li>
+                <S.Li>
                     <div>
                         <S.TagA>
-                            <FontAwesomeIcon
-                                className="i"
-                                icon={faRectangleList}
-                            />
+                            <S.Icon icon={light('rectangle-list')} />
                             <span>Categorias</span>
                         </S.TagA>
-                        <FontAwesomeIcon className="i" icon={faChevronDown} />
+                        <S.Icon icon={light('chevron-down')} />
                     </div>
                     <ul className="sub-menu">
-                        <li>
-                            <S.TagA>
+                        <S.Li>
+                            <S.TagA className="a-sub">
                                 <span
                                     onClick={() =>
                                         router.push(
@@ -67,9 +55,9 @@ export default function LateralMenu({}: LateralMenuProps) {
                                     Cadastrar Categoria
                                 </span>
                             </S.TagA>
-                        </li>
-                        <li>
-                            <S.TagA>
+                        </S.Li>
+                        <S.Li>
+                            <S.TagA className="a-sub">
                                 <span
                                     onClick={() =>
                                         router.push(
@@ -80,12 +68,12 @@ export default function LateralMenu({}: LateralMenuProps) {
                                     Deletar Categoria
                                 </span>
                             </S.TagA>
-                        </li>
+                        </S.Li>
                     </ul>
-                </li>
-                <li>
+                </S.Li>
+                <S.Li>
                     <S.TagA></S.TagA>
-                </li>
+                </S.Li>
             </ul>
         </S.Container>
     )

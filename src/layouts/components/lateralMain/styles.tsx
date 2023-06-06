@@ -1,10 +1,28 @@
 import styled from 'styled-components'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export const TagA = styled.a`
     text-decoration: none;
     align-items: center;
     display: flex;
 `
+export const Icon = styled(FontAwesomeIcon)`
+    text-align: center;
+    color: white;
+    font-size: 25px;
+    padding: 10px 6px;
+`
+
+export const Li = styled.li`
+    position: relative;
+    list-style: none;
+    transition: all 0.4s ease;
+    &:hover {
+        background-color: #111316;
+        cursor: pointer;
+    }
+`
+
 export const Container = styled.div`
     display: flex;
     flex-direction: column;
@@ -26,14 +44,8 @@ export const Container = styled.div`
         }
     } */
     .ul-geral {
-        background: red;
         height: 100%;
         padding-top: 15px;
-    }
-
-    .li {
-        position: relative;
-        list-style: none;
     }
 
     .i {
@@ -56,10 +68,15 @@ export const Container = styled.div`
         justify-content: space-between;
     }
     .sub-menu {
-        padding: 6px 6px 14px 60px;
+        padding: 2px 5px 5px 40px;
         margin-top: -5px;
-        .TagA {
-            color: black;
-        }
+        list-style: none;
+        background-color: #15171b;
+        /* display: none; */
+    }
+    .a-sub {
+        color: #fff;
+        font-size: 15px;
+        padding: 5px 0;
     }
 `
