@@ -1,13 +1,7 @@
 import React from 'react'
 import * as S from './styles'
 import { useRouter } from 'next/router'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-    faCoffee,
-    faHome,
-    faRectangleList,
-    faChevronDown,
-} from '@fortawesome/free-solid-svg-icons'
+import { light } from '@fortawesome/fontawesome-svg-core/import.macro'
 
 type LateralMenuProps = {}
 
@@ -15,28 +9,42 @@ export default function LateralMenu({}: LateralMenuProps) {
     const router = useRouter()
     return (
         <S.Container>
-            <ul>
-                <li>
-                    <a href="#">
+            <ul className="ul-geral">
+                <S.Li>
+                    <S.TagA>
+                        <S.Icon icon={light('house')} />
                         <span onClick={() => router.push('/home')}>Início</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <span onClick={() => router.push('/cashFlow')}>
-                            Caixa
-                        </span>
-                    </a>
-                </li>
-                <li>
+                    </S.TagA>
+                </S.Li>
+                <S.Li>
                     <div>
-                        <a href="#">
-                            <span>Categorias</span>
-                        </a>
+                        <S.TagA>
+                            <S.Icon icon={light('cash-register')} />
+                            <span>Caixa </span>
+                        </S.TagA>
+                        <S.Icon icon={light('chevron-down')} />
                     </div>
                     <ul className="sub-menu">
-                        <li>
-                            <a href="#">
+                        <S.Li>
+                            <S.TagA className="a-sub">
+                                <span onClick={() => router.push('/cashFlow')}>
+                                    Caixa
+                                </span>
+                            </S.TagA>
+                        </S.Li>
+                    </ul>
+                </S.Li>
+                <S.Li>
+                    <div>
+                        <S.TagA>
+                            <S.Icon icon={light('rectangle-list')} />
+                            <span>Categorias</span>
+                        </S.TagA>
+                        <S.Icon icon={light('chevron-down')} />
+                    </div>
+                    <ul className="sub-menu">
+                        <S.Li>
+                            <S.TagA className="a-sub">
                                 <span
                                     onClick={() =>
                                         router.push(
@@ -46,10 +54,10 @@ export default function LateralMenu({}: LateralMenuProps) {
                                 >
                                     Cadastrar Categoria
                                 </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
+                            </S.TagA>
+                        </S.Li>
+                        <S.Li>
+                            <S.TagA className="a-sub">
                                 <span
                                     onClick={() =>
                                         router.push(
@@ -59,13 +67,13 @@ export default function LateralMenu({}: LateralMenuProps) {
                                 >
                                     Deletar Categoria
                                 </span>
-                            </a>
-                        </li>
+                            </S.TagA>
+                        </S.Li>
                     </ul>
-                </li>
-                <li>
-                    <a href="#"></a>
-                </li>
+                </S.Li>
+                <S.Li>
+                    <S.TagA></S.TagA>
+                </S.Li>
             </ul>
         </S.Container>
     )
