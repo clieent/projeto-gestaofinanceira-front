@@ -18,10 +18,12 @@ interface releaseDataProps {
     type: boolean
     user_id: string
 }
+
 type categoryType = {
     title: string
     _id: string
 }[]
+
 export default function CashFlow() {
     const [releaseData, setReleaseData] = useState<releaseDataProps>()
     const { userId } = useStore()
