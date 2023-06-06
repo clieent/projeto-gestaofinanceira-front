@@ -32,6 +32,13 @@ export default function LateralMenu({}: LateralMenuProps) {
                                 </span>
                             </S.TagA>
                         </S.Li>
+                        <S.Li>
+                            <S.TagA className="a-sub">
+                                <span onClick={() => router.push('/cashCheck')}>
+                                    Consulta
+                                </span>
+                            </S.TagA>
+                        </S.Li>
                     </ul>
                 </S.Li>
                 <S.Li>

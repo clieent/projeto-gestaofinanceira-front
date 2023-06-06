@@ -38,6 +38,8 @@ export default function Categories() {
 
     return (
         <S.Container>
+            <h1>Cadastrar Categoria</h1>
+
             <S.DataInputs>
                 <InputText
                     placeholder={'Categoria'}

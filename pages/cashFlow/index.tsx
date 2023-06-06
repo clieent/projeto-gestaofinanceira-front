@@ -58,6 +58,8 @@ export default function CashFlow() {
 
     return (
         <S.Container>
+            <h1>Caixa</h1>
+
             <S.WrapperSelect>
                 <SelectBox
                     name="Categoria"

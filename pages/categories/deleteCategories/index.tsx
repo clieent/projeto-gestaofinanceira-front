@@ -40,6 +40,8 @@ export default function DeleteCategories() {
     }
     return (
         <S.Container>
+            <h1>Deletar Categoria</h1>
+
             <S.WrapperSelect>
                 <SelectBox
                     name="Categoria"

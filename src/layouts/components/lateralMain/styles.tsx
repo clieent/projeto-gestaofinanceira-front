@@ -9,7 +9,7 @@ export const TagA = styled.a`
 export const Icon = styled(FontAwesomeIcon)`
     text-align: center;
     color: white;
-    font-size: 25px;
+    font-size: 20px;
     padding: 10px 6px;
 `
 
@@ -58,7 +58,7 @@ export const Container = styled.div`
     }
 
     span {
-        font-size: 25px;
+        font-size: 22px;
         font-weight: 400;
         color: white;
     }
