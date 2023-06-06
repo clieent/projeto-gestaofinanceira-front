@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from "styled-components"
 
 export const Container = styled.div`
     //width: 100%;
@@ -8,19 +8,14 @@ export const Container = styled.div`
     gap: 15px;
 `
 
+export const WrapperSelect = styled.div`
+    display: flex;
+    width: 100%;
+    gap: 5px;
+`
+
 export const WrapperButton = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-`
-
-export const WrapperSelect = styled.div`
-    display: flex;
-    width: 100%;
-`
-
-export const DataInputs = styled.div`
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
 `

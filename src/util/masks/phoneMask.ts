@@ -1,4 +1,8 @@
-export default function phoneMask(phone: string | undefined) {
+export default function phoneMask(phone: any) {
+    return phone?.slice(0, 14)
+        .replace(/\D/g, '')
+        .replace(/(\d{2})(\d{1})/, '($1)$2')
+        .replace(/(\d{4})(\d{4})$/, '$1-$2')
 
-    return phone?.replace(/\D/g, '').slice(0, 11).replace(/(\d{2})(\d{1})(\d{4})(\d{4})/, '($1) $2 $3-$4')
 }
+

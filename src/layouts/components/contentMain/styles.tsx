@@ -1,34 +1,23 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
-export const Container = styled.div `
+export const Container = styled.div`
+    width: 100%;
     grid-area: content;
-    background-color: #1C2026;
-    
+    background-color: #1c2026;
+
     section {
-        background-color: rgba(0,0,0,0.4);
+        background-color: rgba(0, 0, 0, 0.4);
         display: grid;
         place-items: center;
         padding: 30px 0;
+    }
 
-        button {
-            font-weight: 800;
-            font-size: 20px;
-            width: 500px;
-            height: 50px;
-            background-color: #008F8C;
-            &:hover{
-                background-color: #015958;
-            }
-        }
-
-        select {
-            background-color:#0A0B0D !important;
-            
-        }
-
-        input{
-            background-color:#0A0B0D !important;
-            color: #ffffff !important
-        }
+    h1 {
+        color: #ccc !important;
+        text-align: center;
+        margin-bottom: 15px;
+        font-size: 30px;
+        font-weight: 800;
+        font-family: Arial, Helvetica, sans-serif;
     }
 `

@@ -8,16 +8,21 @@ type inputBoxProps = {
 }
 
 export const Container = styled.div`
+    width: 100%;
+    input {
+        background-color: #0a0b0d !important;
+        color: white !important;
+    } // passei a config do input para cá
 `
 
 export const InputTextField = styled(TextField)`
-color: white!important;
-&::placeholder{
     color: white !important;
-}
-label{
-    color: white;
-}
+    &::placeholder {
+        color: white !important;
+    }
+    label {
+        color: white;
+    }
 `
 
 export const Icon = styled(FontAwesomeIcon)`

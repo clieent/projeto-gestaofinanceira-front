@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import MainLayout from '../../../src/layouts/mainLayout'
-import * as S from '../../../styles/categories'
+import * as S from '../../../styles/categories/deleteCategories'
 import SelectBox from '@/src/components/selectBox'
 import DefaultButton from '@/src/components/defaultButton'
 import api from '@/src/api/api'
