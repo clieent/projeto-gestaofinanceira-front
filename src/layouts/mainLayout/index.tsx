@@ -11,11 +11,10 @@ type MainLayoutProps = {
 export default function MainLayout({ children }: MainLayoutProps) {
     return (
         <S.Container>
-            <HeaderMain />
             <LateralMain />
-            <ContentMain children={children} />
-            
-            
+            <S.Page>
+                <article>{children}</article>
+            </S.Page>
         </S.Container>
     )
 }

@@ -1,87 +1,54 @@
-import React from 'react'
+import React, { useState } from 'react'
 import * as S from './styles'
 import { useRouter } from 'next/router'
 import { light } from '@fortawesome/fontawesome-svg-core/import.macro'
+import { MenuOptions } from '@/src/config/api/menuOptions'
+import SubMenu from '../subMenu'
 
-type LateralMenuProps = {}
-
-export default function LateralMenu({}: LateralMenuProps) {
+interface ISubMenu {
+    showSubMenu: boolean
+    options: IOptions[]
+    subMenuInFocus: number
+}
+interface IOptions {
+    id: string
+    title: string
+    route: string
+}
+export default function LateralMenu() {
     const router = useRouter()
+    const [subMenu, setSubMenu] = useState<ISubMenu>()
+
+    function handleSubMenu(options: IOptions[], index: number) {
+        console.log(options)
+        setSubMenu((data) => ({
+            ...data,
+            showSubMenu:
+                data?.subMenuInFocus === index ? !data?.showSubMenu : true,
+            subMenuInFocus: index,
+            options,
+        }))
+    }
     return (
         <S.Container>
-            <ul className="ul-geral">
-                <S.Li>
-                    <S.TagA>
-                        <S.Icon icon={light('house')} />
-                        <span onClick={() => router.push('/home')}>Início</span>
-                    </S.TagA>
-                </S.Li>
-                <S.Li>
-                    <div>
-                        <S.TagA>
-                            <S.Icon icon={light('cash-register')} />
-                            <span>Caixa </span>
-                        </S.TagA>
-                        <S.Icon icon={light('chevron-down')} />
-                    </div>
-                    <ul className="sub-menu">
-                        <S.Li>
-                            <S.TagA className="a-sub">
-                                <span onClick={() => router.push('/cashFlow')}>
-                                    Caixa
-                                </span>
-                            </S.TagA>
-                        </S.Li>
-                        <S.Li>
-                            <S.TagA className="a-sub">
-                                <span onClick={() => router.push('/cashCheck')}>
-                                    Consulta
-                                </span>
-                            </S.TagA>
-                        </S.Li>
-                    </ul>
-                </S.Li>
-                <S.Li>
-                    <div>
-                        <S.TagA>
-                            <S.Icon icon={light('rectangle-list')} />
-                            <span>Categorias</span>
-                        </S.TagA>
-                        <S.Icon icon={light('chevron-down')} />
-                    </div>
-                    <ul className="sub-menu">
-                        <S.Li>
-                            <S.TagA className="a-sub">
-                                <span
-                                    onClick={() =>
-                                        router.push(
-                                            '/categories/createCategories'
-                                        )
-                                    }
-                                >
-                                    Cadastrar Categoria
-                                </span>
-                            </S.TagA>
-                        </S.Li>
-                        <S.Li>
-                            <S.TagA className="a-sub">
-                                <span
-                                    onClick={() =>
-                                        router.push(
-                                            '/categories/deleteCategories'
-                                        )
-                                    }
-                                >
-                                    Deletar Categoria
-                                </span>
-                            </S.TagA>
-                        </S.Li>
-                    </ul>
-                </S.Li>
-                <S.Li>
-                    <S.TagA></S.TagA>
-                </S.Li>
-            </ul>
+            <SubMenu config={subMenu} />
+            <S.Header>CLIEENT</S.Header>
+            <S.MenuOptionsList>
+                {MenuOptions.map((item: any, index: number) => (
+                    <li>
+                        <S.Icon icon={item.icon} />
+                        <span
+                            onClick={() => {
+                                item.subMenu
+                                    ? handleSubMenu(item.subMenu.options, index)
+                                    : router.push(item.route)
+                            }}
+                        >
+                            {item.title}
+                        </span>
+                    </li>
+                ))}
+            </S.MenuOptionsList>
         </S.Container>
     )
 }
