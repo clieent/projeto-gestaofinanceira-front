@@ -29,7 +29,7 @@ export default function CashFlow() {
 
     const handleClick = (e: any) => {
         e.preventDefault()
-        api.post('/cash-flows', releaseData)
+        api.post('/cashFlows', releaseData)
             .then((data) => {
                 console.log(data)
             })
