@@ -72,6 +72,7 @@ export default function ConsultListByDate({}: ConsultListByDateProps) {
             date: currentDate.toString(),
         }))
     }
+    
 
     const handleNextMonth = () => {
         let [year, month] = atualDate.date.split('-')
