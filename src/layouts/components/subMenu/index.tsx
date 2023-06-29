@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 
 interface ISubMenu {
     showSubMenu: boolean
-    options: IOptions[]
+    options: IOptions[] | null
     subMenuInFocus: number
 }
 interface IOptions {
@@ -19,7 +19,6 @@ type SubMenuProps = {
 
 export default function SubMenu({ config }: SubMenuProps) {
     const router = useRouter()
-    console.log(config)
     return (
         <S.Container showSubMenu={config?.showSubMenu ?? false}>
             <S.OptionsList>
@@ -27,8 +26,9 @@ export default function SubMenu({ config }: SubMenuProps) {
                     ? config?.options.map((option: IOptions, index: number) => {
                           return (
                               <li
+                                  key={option.id}
                                   onClick={() => {
-                                      option.route
+                                      router.push(`${option.route}`)
                                   }}
                               >
                                   {option.title}

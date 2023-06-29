@@ -58,12 +58,12 @@ export const MenuOptions: IMenuOptions[] = [
                 {
                     id: 'option-sub-menu-create-category',
                     title: 'Criar Categoria',
-                    route: '/createCategories',
+                    route: '/categories/createCategories',
                 },
                 {
                     id: 'option-sub-menu-delete-category',
                     title: 'Deletar Categoria',
-                    route: '/deleteCategories',
+                    route: '/categories/deleteCategories',
                 },
             ],
         },

@@ -1,13 +1,74 @@
 import React from 'react'
 import MainLayout from '@/src/layouts/mainLayout'
-import HeaderMain from '@/src/layouts/components/headerMain'
+import * as S from '../../styles/home'
 
 export default function Home() {
     return (
-        <>
-            <HeaderMain />
+        <S.Container>
             <h1> Início </h1>
-        </>
+            <h1> Início </h1>
+            <h1> Início </h1>
+            <h1> Início </h1>
+            <h1> Início </h1>
+            <h1> Início </h1>
+            <h1> Início </h1>
+            <h1> Início </h1>
+            <h1> Início </h1>
+            <h1> Início </h1>
+            <h1> Início </h1>
+            <h1> Início </h1>
+            <h1> Início </h1>
+            <h1> Início </h1>
+            <h1> Início </h1>
+            <h1> Início </h1>
+            <h1> Início </h1>
+            <h1> Início </h1>
+            <h1> Início </h1>
+            <h1> Início </h1>
+            <h1> Início </h1>
+            <h1> Início </h1>
+            <h1> Início </h1>
+            <h1> Início </h1>
+            <h1> Início </h1>
+            <h1> Início </h1>
+            <h1> Início </h1>
+            <h1> Início </h1>
+            <h1> Início </h1>
+            <h1> Início </h1>
+            <h1> Início </h1>
+            <h1> Início </h1>
+            <h1> Início </h1>
+            <h1> Início </h1>
+            <h1> Início </h1>
+            <h1> Início </h1>
+            <h1> Início </h1>
+            <h1> Início </h1>
+            <h1> Início </h1>
+            <h1> Início </h1>
+            <h1> Início </h1>
+            <h1> Início </h1>
+            <h1> Início </h1>
+            <h1> Início </h1>
+            <h1> Início </h1>
+            <h1> Início </h1>
+            <h1> Início </h1>
+            <h1> Início </h1>
+            <h1> Início </h1>
+            <h1> Início </h1>
+            <h1> Início </h1>
+            <h1> Início </h1>
+            <h1> Início </h1>
+            <h1> Início </h1>
+            <h1> Início </h1>
+            <h1> Início </h1>
+            <h1> Início </h1>
+            <h1> Início </h1>
+            <h1> Início </h1>
+            <h1> Início </h1>
+            <h1> Início </h1>
+            <h1> Início </h1>
+            <h1> Início </h1>
+        </S.Container>
     )
 }
 
