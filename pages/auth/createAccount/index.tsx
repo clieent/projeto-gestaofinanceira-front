@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import * as S from '../../../styles/auth/createAccount'
 import InputText from '@/src/components/inputText'
 import DefaultButton from '@/src/components/defaultButton'
@@ -9,7 +9,7 @@ import validatePhone from '@/src/util/validates/validatePhone'
 import validatePassword from '@/src/util/validates/validatePassword'
 import validateConfirmPassword from '@/src/util/validates/validateConfirmPassword'
 import AuthLayout from '@/src/layouts/authLayout'
-import api from '@/src/api/api'
+import api from '@/src/config/api/api'
 import { useRouter } from 'next/router'
 import cpfMask from '@/src/util/masks/cpfMask'
 import phoneMask from '@/src/util/masks/phoneMask'
@@ -103,10 +103,6 @@ export default function CreateAccount() {
         )
     }
 
-    // useEffect(() => {
-    //     console.log(user)
-    // }, [user])
-
     const handleClick = (e: any) => {
         e.preventDefault()
         delete user?.confirmPassword
@@ -122,6 +118,7 @@ export default function CreateAccount() {
 
     return (
         <S.Container>
+            <h3>Crie sua conta</h3>
             <S.DataInputs>
                 <InputText
                     error={feedBackUser.name.error}

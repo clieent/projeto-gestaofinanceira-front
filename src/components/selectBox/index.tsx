@@ -34,7 +34,10 @@ function SelectBox(
                         onChange={handleOnChange}
                     >
                         {values.map((item) => (
-                            <S.ChoicesMenuItem value={item.value}>
+                            <S.ChoicesMenuItem
+                                key={item.value}
+                                value={item.value}
+                            >
                                 {item.label}
                             </S.ChoicesMenuItem>
                         ))}

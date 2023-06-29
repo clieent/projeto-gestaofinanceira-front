@@ -4,33 +4,53 @@ import * as S from '../../styles/cashFlow'
 import InputText from '../../src/components/inputText'
 import SelectBox from '../../src/components/selectBox'
 import DefaultButton from '@/src/components/defaultButton'
-import api from '../../src/api/api'
+import api from '../../src/config/api/api'
 import useStore from '../../src/zustand/store'
 import dateMask from '@/src/util/masks/dateMask'
 import monetaryMask from '@/src/util/masks/monetaryMask'
 
 interface releaseDataProps {
     title: string
-    date: string
-    category: string
+    dueDate: string
+    category_id: string
     description?: string
     value: any
     type: boolean
+    user_id: string
 }
+
 type categoryType = {
     title: string
+    _id: string
 }[]
+
 export default function CashFlow() {
     const [releaseData, setReleaseData] = useState<releaseDataProps>()
     const { userId } = useStore()
     let [selectCategory, setSelectCategory] = useState<categoryType>([])
+
     const handleClick = (e: any) => {
         e.preventDefault()
-        console.log('handleClick')
+        api.post('/cash-flows', releaseData)
+            .then((data) => {
+                console.log(data)
+            })
+            .catch((error) => {
+                console.log(error)
+            })
     }
     useEffect(() => {
+        console.log(releaseData)
+    }, [releaseData])
+
+    useEffect(() => {
         loadDate()
+        setReleaseData((date: any) => ({
+            ...date,
+            user_id: userId,
+        }))
     }, [])
+
     async function loadDate() {
         const { data } = await api.get<categoryType>('/categories', {
             params: { userId },
@@ -40,14 +60,16 @@ export default function CashFlow() {
 
     return (
         <S.Container>
+            <h1>Caixa</h1>
+
             <S.WrapperSelect>
                 <SelectBox
                     name="Categoria"
-                    id="category"
-                    value={releaseData?.category}
+                    id="category_id"
+                    value={releaseData?.category_id}
                     setState={setReleaseData}
-                    values={selectCategory.map(({ title }) => ({
-                        value: title,
+                    values={selectCategory.map(({ title, _id }) => ({
+                        value: _id,
                         label: title,
                     }))}
                 />
@@ -76,9 +98,9 @@ export default function CashFlow() {
                 />
                 <InputText
                     placeholder={'Data de vencimento'}
-                    value={dateMask(releaseData?.date)}
+                    value={dateMask(releaseData?.dueDate)}
                     setState={setReleaseData}
-                    id="date"
+                    id="dueDate"
                     label="Data de vencimento"
                 />
             </S.DataInputs>

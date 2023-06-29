@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 import MainLayout from '../../../src/layouts/mainLayout'
-import * as S from '../../../styles/categories'
+import * as S from '../../../styles/categories/deleteCategories'
 import SelectBox from '@/src/components/selectBox'
 import DefaultButton from '@/src/components/defaultButton'
-import api from '@/src/api/api'
+import api from '@/src/config/api/api'
 import { useRouter } from 'next/router'
 import useStore from '../../../src/zustand/store'
 
@@ -40,6 +40,8 @@ export default function DeleteCategories() {
     }
     return (
         <S.Container>
+            <h1>Deletar Categoria</h1>
+
             <S.WrapperSelect>
                 <SelectBox
                     name="Categoria"

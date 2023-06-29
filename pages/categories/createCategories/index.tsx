@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 import MainLayout from '../../../src/layouts/mainLayout'
-import * as S from '../../../styles/categories'
+import * as S from '../../../styles/categories/createCategories'
 import InputText from '../../../src/components/inputText'
 import DefaultButton from '@/src/components/defaultButton'
-import api from '@/src/api/api'
+import api from '@/src/config/api/api'
 import { useRouter } from 'next/router'
 import useStore from '../../../src/zustand/store'
 
@@ -38,6 +38,8 @@ export default function Categories() {
 
     return (
         <S.Container>
+            <h1>Cadastrar Categoria</h1>
+
             <S.DataInputs>
                 <InputText
                     placeholder={'Categoria'}

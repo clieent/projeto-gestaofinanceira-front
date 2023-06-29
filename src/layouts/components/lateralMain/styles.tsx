@@ -1,65 +1,52 @@
 import styled from 'styled-components'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-export const TagA = styled.a`
-    text-decoration: none;
-    align-items: center;
-    display: flex;
+type ContainerProps = {
+    showMenu: boolean
+}
+
+export const Icon = styled(FontAwesomeIcon)`
+    text-align: center;
+    color: #d4d4d4;
+    font-size: 30px;
 `
-export const Container = styled.div`
+
+export const Container = styled.div<ContainerProps>`
     display: flex;
+    width: ${({ showMenu }) => (showMenu ? 200 : 60)}px;
     flex-direction: column;
-    background-color: #181a1d;
-    min-width: auto;
+    background-color: #190526;
     height: 100vh;
-    grid-area: lateralMenu;
     font-size: 20px;
-    gap: 5px;
+    position: relative;
+`
 
-    /* strong {
-        color: #c0bbbb;
-        background-color: #111316;
-        border: #767373 solid 1px;
+export const MenuOptionsList = styled.ul`
+    padding: 5px;
+    color: #d4d4d4;
+    &:hover {
+        cursor: pointer;
+    }
+`
+
+export const Header = styled.div`
+    height: 70px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`
+export const WrapperLi = styled.div`
+    display: grid;
+    grid-template: 50px auto;
+    height: auto;
+    li {
+        border-radius: 10px;
         padding: 10px;
-        &:hover {
-            color: #ffffff;
-            cursor: pointer;
-        }
-    } */
-    .ul-geral {
-        background: red;
-        height: 100%;
-        padding-top: 15px;
-    }
-
-    .li {
-        position: relative;
         list-style: none;
-    }
-
-    .i {
-        height: 25px;
-        min-width: 50px;
-        text-align: center;
-        line-height: 30px;
-        color: white;
-        font-size: 20px;
-    }
-
-    span {
-        font-size: 25px;
-        font-weight: 400;
-        color: white;
-    }
-    div {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
-    .sub-menu {
-        padding: 6px 6px 14px 60px;
-        margin-top: -5px;
-        .TagA {
-            color: black;
+        transition: 0.5s;
+        &:hover {
+            background: #3d1259;
         }
     }
 `

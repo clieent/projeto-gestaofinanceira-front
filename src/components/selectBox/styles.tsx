@@ -6,21 +6,23 @@ import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
 
 export const Container = styled.div`
-    width: 100%;
+    width: 50%;
+    background-color: #0a0b0d;
 `
 
 export const ChoicesBox = styled(Box)``
 
-export const ChoicesFormControl = styled(FormControl)`
-    background-color: #0a0b0d;
-`
+export const ChoicesFormControl = styled(FormControl)``
 
 export const ChoicesInputLabel = styled(InputLabel)`
-    color: white;
+    color: #ccc !important;
+    select {
+        color: #ccc !important;
+    }
 `
 
 export const ChoicesSelect = styled(Select)`
-    color: white;
+    color: #ccc !important;
 `
 
 export const ChoicesMenuItem = styled(MenuItem)``

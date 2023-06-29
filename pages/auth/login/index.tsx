@@ -3,7 +3,7 @@ import * as S from '../../../styles/auth/login'
 import InputText from '@/src/components/inputText'
 import DefaultButton from '@/src/components/defaultButton'
 import AuthLayout from '@/src/layouts/authLayout'
-import api from '@/src/api/api'
+import api from '@/src/config/api/api'
 import { setCookie } from 'cookies-next'
 import { useRouter } from 'next/router'
 import useStore from '@/src/zustand/store'
@@ -45,6 +45,7 @@ export default function Login() {
     }
     return (
         <S.Container>
+            <h3>Login</h3>
             <S.DataInputs>
                 <InputText
                     placeholder={'E-mail'}
