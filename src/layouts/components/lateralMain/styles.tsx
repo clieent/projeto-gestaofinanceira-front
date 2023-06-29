@@ -44,7 +44,7 @@ export const WrapperLi = styled.div`
         border-radius: 10px;
         padding: 10px;
         list-style: none;
-        transition: background 0.5s;
+        transition: 0.5s;
         &:hover {
             background: #3d1259;
         }
