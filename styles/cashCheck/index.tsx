@@ -1,7 +1,7 @@
 import styled from "styled-components"
 
 export const Container = styled.div`
-    //width: 100%;
+    width: 90%;
     display: flex;
     flex-direction: column;
     padding: 15px 15px;
@@ -15,6 +15,18 @@ export const WrapperSelect = styled.div`
 `
 
 export const WrapperButton = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`
+
+export const WrapperDate = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`
+
+export const WrapperTable = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
