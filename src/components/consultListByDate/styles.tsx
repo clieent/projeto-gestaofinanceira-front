@@ -24,10 +24,19 @@ export const Icon = styled(FontAwesomeIcon)`
 
 `
 
+export const WrapperBalanceFilter = styled.div`
+    display: flex;
+    margin-left: 15px;
+`
+
 export const MonthTitle = styled.p`
     color: #CCC;
     font-weight: 700;
     font-size: 20px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 `
 
 export const List = styled.div`

@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import * as S from './styles'
 
 interface IConsultListByDate {
@@ -19,10 +20,14 @@ type ItemListProps = {
 }
 
 export default function ItemList({ item }: ItemListProps) {
-    console.log(item)
+
+    const date = item.createdAt.toString().split('T')[0]
+    const currentDay = date.split('-')[2]
+
+
     return (
         <S.Container>
-            <S.Day>Dia<span>29</span></S.Day>
+            <S.Day>Dia<span>{currentDay}</span></S.Day>
             <S.Item>
 
             <S.TypeColor value={item?.type} />

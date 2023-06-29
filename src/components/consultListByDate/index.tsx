@@ -1,9 +1,10 @@
 import { light } from '@fortawesome/fontawesome-svg-core/import.macro'
 import * as S from './styles'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import api from '@/src/api/api'
 import useStore from '@/src/zustand/store'
 import ItemList from './components/ItemList'
+import DefaultToggle from '../defaultToggle'
 
 interface IConsultListByDate {
     _id: string
@@ -72,8 +73,6 @@ export default function ConsultListByDate({}: ConsultListByDateProps) {
             date: currentDate.toString(),
         }))
     }
-    
-    
 
     const handleNextMonth = () => {
         let [year, month] = atualDate.date.split('-')
@@ -99,6 +98,11 @@ export default function ConsultListByDate({}: ConsultListByDateProps) {
                         icon={light('arrow-alt-circle-left')}
                     />
                 </S.WrapperIcon>
+                <S.WrapperBalanceFilter>
+                    <DefaultToggle ctaToggle={'Entradas'} />
+                    <DefaultToggle ctaToggle={'Todos'} />
+                    <DefaultToggle ctaToggle={'Saídas'} />
+                </S.WrapperBalanceFilter>
                 <S.MonthTitle>{atualDate.maskDate}</S.MonthTitle>
                 <S.WrapperIcon>
                     <S.Icon
@@ -121,7 +125,6 @@ export default function ConsultListByDate({}: ConsultListByDateProps) {
                         }) ? (
                         <ItemList item={item} key={index} />
                     ) : null
-
                 })}
             </S.List>
         </S.Container>
