@@ -3,7 +3,7 @@ import MainLayout from '../../../src/layouts/mainLayout'
 import * as S from '../../../styles/categories/createCategories'
 import InputText from '../../../src/components/inputText'
 import DefaultButton from '@/src/components/defaultButton'
-import api from '@/src/api/api'
+import api from '@/src/config/api/api'
 import { useRouter } from 'next/router'
 import useStore from '../../../src/zustand/store'
 

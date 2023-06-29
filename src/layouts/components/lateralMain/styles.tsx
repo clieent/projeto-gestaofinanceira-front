@@ -1,82 +1,55 @@
 import styled from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-export const TagA = styled.a`
-    text-decoration: none;
-    align-items: center;
-    display: flex;
-`
+type ContainerProps = {
+    showMenu: boolean
+}
+
 export const Icon = styled(FontAwesomeIcon)`
     text-align: center;
-    color: white;
-    font-size: 20px;
-    padding: 10px 6px;
+    color: #d4d4d4;
+    font-size: 30px;
 `
 
-export const Li = styled.li`
+export const Container = styled.div<ContainerProps>`
+    display: flex;
+    width: ${({ showMenu }) => (showMenu ? 200 : 60)}px;
+    flex-direction: column;
+    background-color: #190526;
+    height: 100vh;
+    font-size: 20px;
     position: relative;
-    list-style: none;
-    transition: all 0.4s ease;
+`
+
+export const MenuOptionsList = styled.ul`
+    padding: 5px;
+    color: #d4d4d4;
     &:hover {
-        background-color: #111316;
         cursor: pointer;
     }
 `
 
-export const Container = styled.div`
+export const Header = styled.div`
+    height: 70px;
+    width: 100%;
     display: flex;
-    flex-direction: column;
-    background-color: #181a1d;
-    min-width: auto;
-    height: 100vh;
-    grid-area: lateralMenu;
-    font-size: 20px;
-    gap: 5px;
-
-    /* strong {
-        color: #c0bbbb;
-        background-color: #111316;
-        border: #767373 solid 1px;
+    align-items: center;
+    justify-content: center;
+`
+export const WrapperLi = styled.div`
+    display: grid;
+    grid-template: 50px auto;
+    height: auto;
+    li {
+        border-radius: 10px;
         padding: 10px;
-        &:hover {
-            color: #ffffff;
-            cursor: pointer;
-        }
-    } */
-    .ul-geral {
-        height: 100%;
-        padding-top: 15px;
-    }
-
-    .i {
-        height: 25px;
-        min-width: 50px;
-        text-align: center;
-        line-height: 30px;
-        color: white;
-        font-size: 20px;
-    }
-
-    span {
-        font-size: 22px;
-        font-weight: 400;
-        color: white;
-    }
-    div {
+        gap: 10px;
         display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
-    .sub-menu {
-        padding: 2px 5px 5px 40px;
-        margin-top: -5px;
+        flex-direction: row;
         list-style: none;
-        background-color: #15171b;
-        /* display: none; */
-    }
-    .a-sub {
-        color: #fff;
-        font-size: 15px;
-        padding: 5px 0;
+        transition: 0.5s;
+        &:hover {
+            background: #3d1259;
+        }
     }
 `

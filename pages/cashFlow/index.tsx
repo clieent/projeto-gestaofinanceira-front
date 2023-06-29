@@ -4,7 +4,7 @@ import * as S from '../../styles/cashFlow'
 import InputText from '../../src/components/inputText'
 import SelectBox from '../../src/components/selectBox'
 import DefaultButton from '@/src/components/defaultButton'
-import api from '../../src/api/api'
+import api from '../../src/config/api/api'
 import useStore from '../../src/zustand/store'
 import dateMask from '@/src/util/masks/dateMask'
 import monetaryMask from '@/src/util/masks/monetaryMask'
@@ -18,10 +18,12 @@ interface releaseDataProps {
     type: boolean
     user_id: string
 }
+
 type categoryType = {
     title: string
     _id: string
 }[]
+
 export default function CashFlow() {
     const [releaseData, setReleaseData] = useState<releaseDataProps>()
     const { userId } = useStore()

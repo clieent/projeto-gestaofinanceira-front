@@ -6,13 +6,5 @@ import ImageLg from '../../../../public/clieent-rectangle@3x-2-1024x388.png'
 type HeaderMainProps = {}
 
 export default function HeaderMain({}: HeaderMainProps) {
-
-    return (
-        <S.Container>
-            <S.Logo>
-            <Image src={ImageLg}/>
-            </S.Logo>
-
-        </S.Container>
-    )
+    return <S.Container>HEADER AQUI</S.Container>
 }
