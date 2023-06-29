@@ -43,7 +43,7 @@ export const MenuOptions: IMenuOptions[] = [
                 {
                     id: 'option-sub-menu-launch',
                     title: 'Lançamentos',
-                    route: '/cashFlow',
+                    route: '/cashCheck',
                 },
             ],
         },

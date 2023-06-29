@@ -1,7 +1,7 @@
 import { light } from '@fortawesome/fontawesome-svg-core/import.macro'
+import api from '../../config/api/api'
 import * as S from './styles'
 import { useState } from 'react'
-import api from '@/src/api/api'
 import useStore from '@/src/zustand/store'
 import ItemList from './components/ItemList'
 import DefaultToggle from '../defaultToggle'
@@ -91,6 +91,11 @@ export default function ConsultListByDate({}: ConsultListByDateProps) {
 
     return (
         <S.Container>
+                <S.WrapperBalanceFilter>
+                    <DefaultToggle ctaToggle={'Entradas'} />
+                    <DefaultToggle ctaToggle={'Todos'} />
+                    <DefaultToggle ctaToggle={'Saídas'} />
+                </S.WrapperBalanceFilter>
             <S.Header>
                 <S.WrapperIcon>
                     <S.Icon
@@ -98,11 +103,6 @@ export default function ConsultListByDate({}: ConsultListByDateProps) {
                         icon={light('arrow-alt-circle-left')}
                     />
                 </S.WrapperIcon>
-                <S.WrapperBalanceFilter>
-                    <DefaultToggle ctaToggle={'Entradas'} />
-                    <DefaultToggle ctaToggle={'Todos'} />
-                    <DefaultToggle ctaToggle={'Saídas'} />
-                </S.WrapperBalanceFilter>
                 <S.MonthTitle>{atualDate.maskDate}</S.MonthTitle>
                 <S.WrapperIcon>
                     <S.Icon
