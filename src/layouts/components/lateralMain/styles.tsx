@@ -43,6 +43,9 @@ export const WrapperLi = styled.div`
     li {
         border-radius: 10px;
         padding: 10px;
+        gap: 10px;
+        display: flex;
+        flex-direction: row;
         list-style: none;
         transition: 0.5s;
         &:hover {
