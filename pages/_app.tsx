@@ -3,7 +3,7 @@ import type { NextPage } from 'next'
 import type { AppProps } from 'next/app'
 import React from 'react'
 import Head from 'next/head'
-import '../styles/globals.css'
+import GlobalStyle from '@/styles/globalsStyles'
 import { config } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css'
 
@@ -24,9 +24,19 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
             <Head>
                 <title>Gestão Financeira</title>
                 <link rel="icon" href="logoSymbol.svg" />
+                <link rel="preconnect" href="https://fonts.googleapis.com" />
+                <link
+                    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Open+Sans:wght@300;400;700;800&display=swap"
+                    rel="stylesheet"
+                />
             </Head>
 
-            {getLayout(<Component {...pageProps} />)}
+            {getLayout(
+                <>
+                    <GlobalStyle />
+                    <Component {...pageProps} />
+                </>
+            )}
         </>
     )
 }

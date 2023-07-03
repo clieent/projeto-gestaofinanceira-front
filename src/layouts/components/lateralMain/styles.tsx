@@ -8,17 +8,36 @@ type ContainerProps = {
 export const Icon = styled(FontAwesomeIcon)`
     text-align: center;
     color: #d4d4d4;
-    font-size: 30px;
+    font-size: 18px;
+`
+export const Item = styled.li`
+    border-radius: 10px;
+    display: grid;
+    grid-template-columns: 50px auto;
+    height: 50px;
+    min-width: 50px;
+    max-width: 200px;
+    list-style: none;
+    transition-duration: 1500ms;
+    overflow: hidden;
+    &:hover {
+        background: #3d1259;
+    }
 `
 
 export const Container = styled.div<ContainerProps>`
-    display: flex;
-    width: ${({ showMenu }) => (showMenu ? 200 : 60)}px;
-    flex-direction: column;
-    background-color: #190526;
-    height: 100vh;
-    font-size: 20px;
-    position: relative;
+    display: grid;
+    height: 100%;
+    width: 100%;
+    max-height: 100vh;
+    transition-duration: 500ms;
+    grid-template-rows: 70px auto;
+    ${Item} {
+        width: ${({ showMenu }) => (showMenu ? '190px' : '50px')};
+    }
+    .title {
+        width: ${({ showMenu }) => (showMenu ? 140 : 0)}px !important;
+    }
 `
 
 export const MenuOptionsList = styled.ul`
@@ -36,20 +55,31 @@ export const Header = styled.div`
     align-items: center;
     justify-content: center;
 `
-export const WrapperLi = styled.div`
-    display: grid;
-    grid-template: 50px auto;
-    height: auto;
-    li {
-        border-radius: 10px;
-        padding: 10px;
-        gap: 10px;
+
+export const WrapperIcon = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+`
+export const Title = styled.span`
+    min-height: 16px;
+    line-height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    position: relative;
+    overflow: hidden;
+    transition-duration: 500ms;
+
+    p {
+        min-width: 140px;
         display: flex;
-        flex-direction: row;
-        list-style: none;
-        transition: 0.5s;
-        &:hover {
-            background: #3d1259;
-        }
+        align-items: center;
+        width: 140px;
+        line-height: 16px;
+        position: absolute;
+        height: 16px;
     }
 `

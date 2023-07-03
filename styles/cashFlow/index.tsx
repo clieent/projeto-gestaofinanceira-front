@@ -1,10 +1,12 @@
 import styled from 'styled-components'
 
 export const Container = styled.div`
-    //width: 100%;
+    width: 100%;
     display: flex;
     flex-direction: column;
-    padding: 15px 15px;
+    justify-content: center;
+    align-items: center;
+    padding-top: 15px;
     gap: 15px;
 `
 
@@ -20,7 +22,18 @@ export const WrapperSelect = styled.div`
 `
 
 export const DataInputs = styled.div`
+    width: 100%;
     display: flex;
     flex-direction: column;
     gap: 5px;
+`
+export const WrapperRegister = styled.div`
+    display: flex;
+    width: 80%;
+    flex-direction: column;
+    gap: 5px;
+    padding: 20px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+        rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+        rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 `

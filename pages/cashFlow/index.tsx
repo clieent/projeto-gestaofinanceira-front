@@ -8,6 +8,7 @@ import api from '../../src/config/api/api'
 import useStore from '../../src/zustand/store'
 import dateMask from '@/src/util/masks/dateMask'
 import monetaryMask from '@/src/util/masks/monetaryMask'
+import { useRouter } from 'next/router'
 
 interface releaseDataProps {
     title: string
@@ -28,12 +29,13 @@ export default function CashFlow() {
     const [releaseData, setReleaseData] = useState<releaseDataProps>()
     const { userId } = useStore()
     let [selectCategory, setSelectCategory] = useState<categoryType>([])
-
+    const router = useRouter()
     const handleClick = (e: any) => {
         e.preventDefault()
         api.post('/cashFlows', releaseData)
             .then((data) => {
                 console.log(data)
+                router.push('/home')
             })
             .catch((error) => {
                 console.log(error)
@@ -61,64 +63,66 @@ export default function CashFlow() {
     return (
         <S.Container>
             <h1>Caixa</h1>
+            <S.WrapperRegister>
+                <S.WrapperSelect>
+                    <SelectBox
+                        name="Categoria"
+                        id="category_id"
+                        value={releaseData?.category_id}
+                        setState={setReleaseData}
+                        values={selectCategory.map(({ title, _id }) => ({
+                            value: _id,
+                            label: title,
+                        }))}
+                    />
+                </S.WrapperSelect>
+                <S.DataInputs>
+                    <InputText
+                        placeholder={'Título'}
+                        value={releaseData?.title}
+                        setState={setReleaseData}
+                        id="title"
+                        label="Título"
+                    />
+                    <InputText
+                        placeholder={'Descrição'}
+                        value={releaseData?.description}
+                        setState={setReleaseData}
+                        id="description"
+                        label="Descrção"
+                    />
+                    <InputText
+                        placeholder={'R$0,00'}
+                        value={monetaryMask(releaseData?.value)}
+                        setState={setReleaseData}
+                        id="value"
+                        label="Valor"
+                    />
+                    <InputText
+                        placeholder={'Data de vencimento'}
+                        value={dateMask(releaseData?.dueDate)}
+                        setState={setReleaseData}
+                        id="dueDate"
+                        label="Data de vencimento"
+                    />
+                </S.DataInputs>
+                <S.WrapperSelect>
+                    <SelectBox
+                        name="Tipo"
+                        id="type"
+                        value={releaseData?.type}
+                        setState={setReleaseData}
+                        values={[
+                            { value: true, label: 'Saída' },
+                            { value: false, label: 'Entrada' },
+                        ]}
+                    />
+                </S.WrapperSelect>
 
-            <S.WrapperSelect>
-                <SelectBox
-                    name="Categoria"
-                    id="category_id"
-                    value={releaseData?.category_id}
-                    setState={setReleaseData}
-                    values={selectCategory.map(({ title, _id }) => ({
-                        value: _id,
-                        label: title,
-                    }))}
-                />
-            </S.WrapperSelect>
-            <S.DataInputs>
-                <InputText
-                    placeholder={'Título'}
-                    value={releaseData?.title}
-                    setState={setReleaseData}
-                    id="title"
-                    label="Título"
-                />
-                <InputText
-                    placeholder={'Descrição'}
-                    value={releaseData?.description}
-                    setState={setReleaseData}
-                    id="description"
-                    label="Descrção"
-                />
-                <InputText
-                    placeholder={'R$0,00'}
-                    value={monetaryMask(releaseData?.value)}
-                    setState={setReleaseData}
-                    id="value"
-                    label="Valor"
-                />
-                <InputText
-                    placeholder={'Data de vencimento'}
-                    value={dateMask(releaseData?.dueDate)}
-                    setState={setReleaseData}
-                    id="dueDate"
-                    label="Data de vencimento"
-                />
-            </S.DataInputs>
-            <S.WrapperSelect>
-                <SelectBox
-                    name="Tipo"
-                    id="type"
-                    value={releaseData?.type}
-                    setState={setReleaseData}
-                    values={[
-                        { value: true, label: 'Saída' },
-                        { value: false, label: 'Entrada' },
-                    ]}
-                />
-            </S.WrapperSelect>
-            <S.WrapperButton>
-                <DefaultButton onClick={handleClick} ctaButton={'Lançar'} />
-            </S.WrapperButton>
+                <S.WrapperButton>
+                    <DefaultButton onClick={handleClick} ctaButton={'Lançar'} />
+                </S.WrapperButton>
+            </S.WrapperRegister>
         </S.Container>
     )
 }

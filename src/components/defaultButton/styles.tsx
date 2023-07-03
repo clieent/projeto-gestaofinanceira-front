@@ -7,7 +7,7 @@ export const Container = styled.div`
     button {
         font-weight: 800;
         font-size: 20px;
-        width: 500px;
+        width: 100%;
         height: 50px;
         background-color: #008f8c;
         &:hover {

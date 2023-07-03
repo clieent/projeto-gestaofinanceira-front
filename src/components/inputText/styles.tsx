@@ -8,7 +8,9 @@ type inputBoxProps = {
 }
 
 export const Container = styled.div`
-    width: 100%;
+    max-width: 100%;
+    min-width: 100%;
+
     input {
         background-color: #0a0b0d !important;
         color: white !important;

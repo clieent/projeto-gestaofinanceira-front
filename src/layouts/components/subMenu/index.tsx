@@ -28,6 +28,7 @@ export default function SubMenu({ config }: SubMenuProps) {
                               <li
                                   key={option.id}
                                   onClick={() => {
+                                      config.showSubMenu = false
                                       router.push(`${option.route}`)
                                   }}
                               >

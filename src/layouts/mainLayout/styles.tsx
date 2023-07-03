@@ -1,17 +1,28 @@
 import styled from 'styled-components'
 
-type PagePros = {
+type PageProps = {
     showMenu: boolean
 }
 
 export const Container = styled.div`
     height: 100vh;
-    display: grid;
+    display: flex;
     width: 100vw;
     overflow: hidden;
-    grid-template-columns: auto auto;
 `
-export const Page = styled.div<PagePros>`
+
+export const WrapperLateralMain = styled.div<PageProps>`
+    display: flex;
+    width: ${({ showMenu }) => (showMenu ? 200 : 60)}px;
+    flex-direction: column;
+    background-color: var(--color-menu);
+    height: 100vh;
+    font-size: 16px;
+    position: relative;
+    transition-duration: 500ms;
+`
+
+export const Page = styled.div<PageProps>`
     height: 100%;
     width: 100%;
     overflow-x: hidden;
