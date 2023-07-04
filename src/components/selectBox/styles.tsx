@@ -6,7 +6,7 @@ import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
 
 export const Container = styled.div`
-    width: 50%;
+    width: 100%;
     background-color: #0a0b0d;
 `
 

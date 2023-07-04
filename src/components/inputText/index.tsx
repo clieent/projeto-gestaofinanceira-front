@@ -12,7 +12,7 @@ type InputTextProps = {
     mask?: any
     error?: boolean
     helperText?: string
-    onBlur?: any 
+    onBlur?: any
 }
 
 function InputText(
@@ -27,10 +27,9 @@ function InputText(
         error,
         helperText,
         onBlur,
-        //onChange,
-    }: InputTextProps
+    }: //onChange,
+    InputTextProps
 ) {
-    
     const handleOnChange = (e: { target: any }) => {
         const { id, value }: string | any = e.target
         setState((date: any) => ({
@@ -39,7 +38,7 @@ function InputText(
         }))
     }
     const [inputType, setInputType] = useState(type)
-    
+
     const handleSeePassword = () => {
         if (inputType == 'password') {
             setInputType('text')
@@ -53,7 +52,6 @@ function InputText(
             <S.InputBox
                 type={inputType}
                 sx={{
-                    width: 500,
                     maxWidth: '100%',
                 }}
             >

@@ -5,16 +5,16 @@ type ContainerProps = {
 }
 
 export const Container = styled.div<ContainerProps>`
-    background-color: #190526;
+    background-color: #030105f8;
     width: ${({ showSubMenu }) => (showSubMenu ? 200 : 0)}px;
-    height: calc(100vh - 60px);
-    top: 60px;
+    height: 100vh;
     position: absolute;
     left: 100%;
-    z-index: 9999;
+    z-index: 2;
     display: flex;
     justify-content: flex-start;
     flex-direction: column;
+    align-items: center;
     transition-duration: 500ms;
     ul {
         display: ${({ showSubMenu }) => (showSubMenu ? 'flex' : 'none')};
@@ -27,10 +27,10 @@ export const OptionsList = styled.ul`
     gap: 5px;
     li {
         border-radius: 4px;
-        border: solid 1.5px;
+        /* border: solid 1.5px #381152; */
         padding: 10px 5px;
         list-style: none;
-        transition: background 0.5s;
+        transition: 0.5s;
         &:hover {
             background: #3d1259;
             cursor: pointer;

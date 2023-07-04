@@ -72,8 +72,8 @@ export default function LateralMenu({
                 )}
             </S.Header>
             <S.MenuOptionsList>
-                <S.WrapperLi>
-                    <li key={'Menu-Show'}>
+                <S.Item key={'Menu-Show'}>
+                    <S.WrapperIcon>
                         <S.Icon
                             className="select-menu"
                             icon={light('bars')}
@@ -83,37 +83,40 @@ export default function LateralMenu({
                                     : setShowMenu(true)
                             }}
                         />
-                        {showMenu === true ? (
-                            <span
-                                onClick={() => {
-                                    setShowMenu(false)
-                                }}
-                            >
-                                Recolher Menu
-                            </span>
-                        ) : null}
-                    </li>
-                </S.WrapperLi>
+                    </S.WrapperIcon>
+                    {showMenu === true ? (
+                        <S.Title
+                            className="title"
+                            onClick={() => {
+                                setShowMenu(false)
+                            }}
+                        >
+                            <p>Recolher Menu</p>
+                        </S.Title>
+                    ) : null}
+                </S.Item>
+
                 {MenuOptions.map((item: any, index: number) => (
-                    <S.WrapperLi>
-                        <li key={item.id}>
+                    <S.Item key={item.id}>
+                        <S.WrapperIcon>
                             <S.Icon
                                 icon={item.icon}
                                 onClick={() => {
                                     handleSubMenu(item, index)
                                 }}
                             />
-                            {showMenu === true ? (
-                                <span
-                                    onClick={() => {
-                                        handleSubMenu(item, index)
-                                    }}
-                                >
-                                    {item.title}
-                                </span>
-                            ) : null}
-                        </li>
-                    </S.WrapperLi>
+                        </S.WrapperIcon>
+                        {showMenu === true ? (
+                            <S.Title
+                                className="title"
+                                onClick={() => {
+                                    handleSubMenu(item, index)
+                                }}
+                            >
+                                <p> {item.title} </p>
+                            </S.Title>
+                        ) : null}
+                    </S.Item>
                 ))}
             </S.MenuOptionsList>
         </S.Container>

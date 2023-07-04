@@ -12,8 +12,9 @@ export default function MainLayout({ children }: MainLayoutProps) {
     const [showMenu, setShowMenu] = useState(true)
     return (
         <S.Container>
-            <LateralMain showMenu={showMenu} setShowMenu={setShowMenu} />
-
+            <S.WrapperLateralMain showMenu={showMenu}>
+                <LateralMain showMenu={showMenu} setShowMenu={setShowMenu} />
+            </S.WrapperLateralMain>
             <S.Body>
                 <HeaderMain />
                 <S.Page showMenu={showMenu}>
