@@ -1,30 +1,27 @@
+import { useState } from 'react'
 import * as S from './styles'
 import * as React from 'react'
 
 type DefaultToggleProps = {
     ctaToggle: string
+    status: boolean
+    setState: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export default function DefaultToggle({ctaToggle, }: DefaultToggleProps) {
-    const [alignment, setAlignment] = React.useState('web')
-
-    const handleChange = (
-        event: React.MouseEvent<HTMLElement>,
-        newAlignment: string
-    ) => {
-        setAlignment(newAlignment)
-    }
+export default function DefaultToggle({
+    ctaToggle, setState, status
+}: DefaultToggleProps) {
 
     return (
-        <S.Container>
-            <S.ButtonGroupToggle
-                color="primary"
-                value={alignment}
-                exclusive
-                onChange={handleChange}
-            >
-                <S.ButtonToggle value="web">{ctaToggle}</S.ButtonToggle>
-            </S.ButtonGroupToggle>
+        <S.Container
+            onClick={() => {
+                setState((prev: boolean) => !prev)
+            }}
+            status={status}
+        >
+        <S.ButtonToggle value={"on"}>
+            {ctaToggle}
+        </S.ButtonToggle>
         </S.Container>
     )
 }
