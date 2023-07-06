@@ -1,8 +1,8 @@
 import { light } from '@fortawesome/fontawesome-svg-core/import.macro'
 import api from '../../config/api/api'
 import * as S from './styles'
-import { useState } from 'react'
-import useStore from '@/src/zustand/store'
+import { SetStateAction, useEffect, useState } from 'react'
+import useStore from '../../zustand/store'
 import ItemList from './components/ItemList'
 import DefaultToggle from '../defaultToggle'
 
@@ -26,11 +26,11 @@ interface IConsultListByDate {
 type ConsultListByDateProps = {}
 
 export default function ConsultListByDate({}: ConsultListByDateProps) {
-    const { userId } = useStore()
+    const userId = useStore((value) => value.userId)
     const [cashFlow, setCashFlow] = useState<IConsultListByDate[]>()
 
-    const [showOnlyOutputs, setshowOnlyOutputs] = useState(false)
-    const [showOnlyInputs, setShowOnlyInputs] = useState(false)
+    const [showValues, setShowValues] = useState({inputs: false, outputs: false})
+    //const [showValues, setShowValues] = useState({inputs: false, outputs: false})
 
     const getCashFlow = async () => {
         await api
@@ -38,7 +38,7 @@ export default function ConsultListByDate({}: ConsultListByDateProps) {
             .then((response) => {
                 if (response.status === 201 || response.status === 200) {
                     setCashFlow(response.data)
-                    console.log(response)
+                    console.log(response.data)
                 }
             })
             .catch((error) => {
@@ -60,10 +60,12 @@ export default function ConsultListByDate({}: ConsultListByDateProps) {
         }))
     }
 
-    if (!atualDate.date) {
+    if (!atualDate.date && userId) {
         initialValue()
-        getCashFlow()
+        //getCashFlow()
     }
+
+    useEffect(() => {getCashFlow()}, [userId])
 
     const handlePrevMonth = () => {
         let [year, month] = atualDate.date.split('-')
@@ -95,11 +97,28 @@ export default function ConsultListByDate({}: ConsultListByDateProps) {
         }))
     }
 
+    function showItems(item: IConsultListByDate, index: number, itemDate: Date) {
+        return atualDate.maskDate ==
+            itemDate.toLocaleDateString('pt-BR', {
+                month: 'long',
+                year: 'numeric',
+            }) ? (
+            <ItemList item={item} key={index} />
+        ) : null
+    }
+
+    const options = [{name: "Entradas", value: false, id: "input"}, {name: "Saídas", value: true, id: "output"}]
+
     return (
         <S.Container>
             <S.WrapperBalanceFilter>
-                <DefaultToggle setState={setShowOnlyInputs} ctaToggle={'Entradas'} status={showOnlyInputs} />
-                <DefaultToggle setState={setshowOnlyOutputs} ctaToggle={'Saídas'} status={showOnlyOutputs} />
+                <DefaultToggle 
+                    options={options}
+                    id="checkboxes-tags-demo"
+                    placeholder={'Escolha'}
+                    label={'Tipo'}
+                    setState={setShowValues}
+                    />
             </S.WrapperBalanceFilter>
 
             <S.Header>
@@ -131,21 +150,22 @@ export default function ConsultListByDate({}: ConsultListByDateProps) {
                     const currentMonth = date[1]
                     const currentYear = date[2]
                     const itemDate = new Date(`${currentYear} ${currentMonth}`)
-
                     
-                    //(showOnlyInputs == false && showOnlyOutputs == false) && (showOnlyInputs == true && showOnlyOutputs == true) ? 
+                    //return showItems(item, index, itemDate)
 
-                    return atualDate.maskDate ==
-                        itemDate.toLocaleDateString('pt-BR', {
-                            month: 'long',
-                            year: 'numeric',
-                        }) ? (
-                        <ItemList item={item} key={index} />
-                    ) : null
-                    //: return 
-                })}
+
+                    return (showValues.inputs == false && showValues.outputs == false) || (showValues.inputs == true && showValues.outputs == true)
+                    ? showItems(item, index, itemDate)
+                    : (showValues.inputs == true && item.type == false)
+
+                    ? showItems(item, index, itemDate)
+                    : (showValues.outputs == true && item.type == true)
+
+                    ? showItems(item, index, itemDate)
+                    : null
+
+                    })}
             </S.List>
-        
         </S.Container>
     )
 }

@@ -2,7 +2,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 
 export const Container = styled.div`
-    background-color: black;
+    background-color: #ccc;
+    //background-color: black;
     width: 100%;
 `
 export const WrapperBalanceFilter = styled.div`
@@ -18,9 +19,9 @@ export const Header = styled.div`
     background-color: rgba(0, 0, 0, 0.4);
     display: flex;
     justify-content: center;
-    gap: 35px;
     align-items: center;
     padding: 15px;
+    gap: 35px;
     `
 
 export const WrapperIcon = styled.div`
@@ -40,6 +41,7 @@ export const MonthTitle = styled.p`
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 250px;
 `
 
 export const List = styled.div`
