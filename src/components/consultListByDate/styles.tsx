@@ -4,34 +4,42 @@ import styled from "styled-components";
 export const Container = styled.div`
     background-color: black;
     width: 100%;
-`
-export const WrapperBalanceFilter = styled.div`
-    align-items: center;
-    display: flex;
-    justify-content: center;
-    gap: 25px;
-    padding: 10px 0 0;
-
-`
+    `
 
 export const Header = styled.div`
     background-color: rgba(0, 0, 0, 0.4);
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    padding: 15px;
-    gap: 35px;
+    margin: 15px;
+    padding: 0 20px;
     `
+
+export const WrapperBalanceFilter = styled.div`
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+`
 
 export const WrapperIcon = styled.div`
     color: #ccc;
+    font-size: 25px;
     
     `
 
 export const Icon = styled(FontAwesomeIcon)`
-    font-size: 25px;
     `
 
+export const WrapperDateGroup = styled.div`
+    display: flex;
+    width: 300px;
+`
+
+export const WrapperSelect = styled.div`
+    display: flex;
+    width: 300px;
+`
 
 export const MonthTitle = styled.p`
     color: #CCC;
