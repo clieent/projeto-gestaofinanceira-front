@@ -19,7 +19,6 @@ export default function Categories() {
 
     const handleClick = (e: any) => {
         e.preventDefault()
-        console.log(categories)
         api.post('/categories', categories)
             .then((response) => {
                 router.push('/home')

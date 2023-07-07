@@ -1,7 +1,7 @@
 import { light } from '@fortawesome/fontawesome-svg-core/import.macro'
 import * as S from './styles'
 import { useEffect, useState } from 'react'
-import api from '@/src/api/api'
+import api from '../../config/api/api'
 import useStore from '@/src/zustand/store'
 import ItemList from './components/ItemList'
 
@@ -72,8 +72,6 @@ export default function ConsultListByDate({}: ConsultListByDateProps) {
             date: currentDate.toString(),
         }))
     }
-    
-    
 
     const handleNextMonth = () => {
         let [year, month] = atualDate.date.split('-')
@@ -121,7 +119,6 @@ export default function ConsultListByDate({}: ConsultListByDateProps) {
                         }) ? (
                         <ItemList item={item} key={index} />
                     ) : null
-
                 })}
             </S.List>
         </S.Container>

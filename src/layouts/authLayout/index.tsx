@@ -11,14 +11,12 @@ type AuthLayoutProps = {
 export default function AuthLayout({ children }: AuthLayoutProps) {
     return (
         <S.Container>
-            <HeaderAuth/>
+            <HeaderAuth />
             <S.Content>
                 <S.Ilustration>
-                    <Image src={imageBg}/>
+                    <Image src={imageBg} />
                 </S.Ilustration>
-                <section>
-                    
-                    {children}</section>
+                <S.WrapperSection>{children}</S.WrapperSection>
             </S.Content>
         </S.Container>
     )
