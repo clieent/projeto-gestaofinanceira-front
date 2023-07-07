@@ -2,8 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 
 export const Container = styled.div`
-    background-color: #ccc;
-    //background-color: black;
+    background-color: black;
     width: 100%;
 `
 export const WrapperBalanceFilter = styled.div`

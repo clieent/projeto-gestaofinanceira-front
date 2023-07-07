@@ -29,8 +29,8 @@ export default function ConsultListByDate({}: ConsultListByDateProps) {
     const userId = useStore((value) => value.userId)
     const [cashFlow, setCashFlow] = useState<IConsultListByDate[]>()
 
-    const [showValues, setShowValues] = useState({inputs: false, outputs: false})
-    //const [showValues, setShowValues] = useState({inputs: false, outputs: false})
+    const [showOnlyOutputs, setshowOnlyOutputs] = useState(false)
+    const [showOnlyInputs, setShowOnlyInputs] = useState(false)
 
     const getCashFlow = async () => {
         await api
@@ -112,13 +112,8 @@ export default function ConsultListByDate({}: ConsultListByDateProps) {
     return (
         <S.Container>
             <S.WrapperBalanceFilter>
-                <DefaultToggle 
-                    options={options}
-                    id="checkboxes-tags-demo"
-                    placeholder={'Escolha'}
-                    label={'Tipo'}
-                    setState={setShowValues}
-                    />
+            <DefaultToggle setState={setShowOnlyInputs} ctaToggle={'Entradas'} status={showOnlyInputs} />
+                <DefaultToggle setState={setshowOnlyOutputs} ctaToggle={'Saídas'} status={showOnlyOutputs} />
             </S.WrapperBalanceFilter>
 
             <S.Header>
@@ -154,12 +149,12 @@ export default function ConsultListByDate({}: ConsultListByDateProps) {
                     //return showItems(item, index, itemDate)
 
 
-                    return (showValues.inputs == false && showValues.outputs == false) || (showValues.inputs == true && showValues.outputs == true)
+                    return (showOnlyInputs == false && showOnlyOutputs == false) || (showOnlyInputs == true && showOnlyOutputs == true)
                     ? showItems(item, index, itemDate)
-                    : (showValues.inputs == true && item.type == false)
+                    : (showOnlyInputs == true && item.type == false)
 
                     ? showItems(item, index, itemDate)
-                    : (showValues.outputs == true && item.type == true)
+                    : (showOnlyOutputs == true && item.type == true)
 
                     ? showItems(item, index, itemDate)
                     : null
