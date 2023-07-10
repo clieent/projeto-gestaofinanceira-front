@@ -27,7 +27,9 @@ export default function DeleteCategories() {
         api.delete(`/categories/${deleteCategories.categoryId}`)
         router.push('/home')
     }
-
+    useEffect(() => {
+        console.log(deleteCategories)
+    }, [deleteCategories])
     useEffect(() => {
         loadDate()
     }, [])

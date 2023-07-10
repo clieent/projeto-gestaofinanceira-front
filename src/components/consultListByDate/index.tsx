@@ -6,6 +6,7 @@ import useStore from '../../zustand/store'
 import ItemList from './components/ItemList'
 import DefaultToggle from '../defaultToggle'
 import SelectBox from '../selectBox'
+import { release } from 'os'
 
 interface IConsultListByDate {
     _id: string
@@ -24,6 +25,10 @@ interface IConsultListByDate {
     __v: number
 }
 
+interface IReleaseData {
+    categoryId: string 
+}
+
 type categoryType = {
     title: string
     _id: string
@@ -34,7 +39,8 @@ type ConsultListByDateProps = {}
 export default function ConsultListByDate({}: ConsultListByDateProps) {
     const userId = useStore((value) => value.userId)
     const [cashFlow, setCashFlow] = useState<IConsultListByDate[]>()
-
+    const [releaseData, setReleaseData] = useState<IReleaseData>({ categoryId: '' })
+    let [selectCategory, setSelectCategory] = useState<categoryType>([])
     const [atualDate, setAtualDate] = useState({ date: '', maskDate: '' })
 
     const getCashFlow = async () => {
@@ -118,8 +124,24 @@ export default function ConsultListByDate({}: ConsultListByDateProps) {
         ) : null
     }
 
-    const [releaseData, setReleaseData] = useState<IConsultListByDate>()
-    let [selectCategory, setSelectCategory] = useState<categoryType>([])
+    function showByCategories( item: IConsultListByDate,
+        index: number,
+        itemDate: Date) {
+    
+            if(showOnlyInputs == true && item.type == false && releaseData?.categoryId === item.category_id._id){
+                console.log("ENTRADA")
+                return showItems(item, index, itemDate)
+            }else if(showOnlyOutputs == true && item.type == true && releaseData?.categoryId === item.category_id._id){
+                console.log("SAIDA")
+               return showItems(item, index, itemDate)
+            }else if( releaseData?.categoryId === item.category_id._id){
+                console.log("CATEGORIA")
+               return showItems(item, index, itemDate)
+            }
+            return null
+    }
+
+
 
     useEffect(() => {
         console.log(releaseData)
@@ -127,10 +149,10 @@ export default function ConsultListByDate({}: ConsultListByDateProps) {
 
     useEffect(() => {
         loadDate()
-        setReleaseData((date: any) => ({
-            ...date,
-            user_id: userId,
-        }))
+        // setReleaseData((date: any) => ({
+        //     ...date,
+        //     user_id: userId,
+        // }))
     }, [])
 
     async function loadDate() {
@@ -176,8 +198,8 @@ export default function ConsultListByDate({}: ConsultListByDateProps) {
                 <S.WrapperSelect>
                     <SelectBox
                         name="Categoria"
-                        id="category_id"
-                        value={releaseData?.category_id}
+                        id="categoryId"
+                        value={releaseData.categoryId}
                         setState={setReleaseData}
                         values={selectCategory.map(({ title, _id }) => ({
                             value: _id,
@@ -203,16 +225,18 @@ export default function ConsultListByDate({}: ConsultListByDateProps) {
                     //return showItems(item, index, itemDate)
 
                     return (showOnlyInputs == false &&
-                        showOnlyOutputs == false) ||
-                        (showOnlyInputs == true && showOnlyOutputs == true)
+                        showOnlyOutputs == false && releaseData?.categoryId == '') ||
+                        (showOnlyInputs == true && showOnlyOutputs == true && releaseData?.categoryId == '' )
                         ? showItems(item, index, itemDate)
-                        : showOnlyInputs == true && item.type == false
+                        : showOnlyInputs == true && item.type == false && releaseData?.categoryId == ''
                         ? showItems(item, index, itemDate)
-                        : showOnlyOutputs == true && item.type == true
+                        : showOnlyOutputs == true && item.type == true && releaseData?.categoryId == ''
                         ? showItems(item, index, itemDate)
-                        : null
+                        : showByCategories(item,index,itemDate)
                 })}
             </S.List>
         </S.Container>
     )
 }
+
+
