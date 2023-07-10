@@ -122,6 +122,14 @@ export default function CreateAccount() {
         }
     }
 
+    const disabledFirstButton = () => {
+        if( feedBackName.error === true ||  feedBackEmail.error === true ||
+            feedBackPhone.error === true){
+                return true
+        }
+        return false
+    }
+
     const disabledButton = () => {
         if (
             feedBackName.error === true ||
@@ -220,7 +228,7 @@ export default function CreateAccount() {
                     <S.WrapperButton>
                         <DefaultButton
                             ctaButton="Continuar"
-                            disabled={disabledButton()}
+                            disabled={disabledFirstButton()}
                             onClick={() => setFirstStep(true)}
                         />
                     </S.WrapperButton>

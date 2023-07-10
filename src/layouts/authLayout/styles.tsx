@@ -47,7 +47,7 @@ export const Content = styled.div`
     }
     margin: 0px;
     padding: 30px 10px 80px 10px;
-
+    height: calc(100vh - 50px);
     width: 100vw;
     display: grid;
     grid-template-columns: 50% 400px;
