@@ -12,7 +12,10 @@ interface categoriesProps {
     user_id: string
 }
 
-export default function Categories() {
+type CreateCategoriesProps ={
+    create: boolean
+}
+export default function CreateCategories({create}: CreateCategoriesProps) {
     const [categories, setCategories] = useState<categoriesProps>()
     const router = useRouter()
     const { userId } = useStore()
@@ -21,7 +24,7 @@ export default function Categories() {
         e.preventDefault()
         api.post('/categories', categories)
             .then((response) => {
-                router.push('/home')
+                router.reload()
             })
             .catch((error) => {
                 console.log(error)
@@ -36,10 +39,9 @@ export default function Categories() {
     }, [setCategories])
 
     return (
-        <S.Container>
-            <h1>Cadastrar Categoria</h1>
-
-            <S.DataInputs>
+        <S.Container create = {create ?? false}>
+            <S.Content create = {create ?? false}>
+            <S.DataInputs >
                 <InputText
                     placeholder={'Categoria'}
                     value={categories?.title}
@@ -51,9 +53,7 @@ export default function Categories() {
             <S.WrapperButton>
                 <DefaultButton onClick={handleClick} ctaButton={'Criar'} />
             </S.WrapperButton>
+            </S.Content>
         </S.Container>
     )
-}
-Categories.getLayout = function GetLayout(page: any) {
-    return <MainLayout>{page}</MainLayout>
 }
