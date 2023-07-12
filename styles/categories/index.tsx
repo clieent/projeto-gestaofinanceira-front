@@ -17,7 +17,7 @@ export const WrapperList = styled.div `
 `
 
 export const Content = styled.div `
-    background-color: blue;
+    background-color: white;
     display:flex;
     align-items: center;
     flex-direction: row;
@@ -39,7 +39,16 @@ export const WrapperIcon = styled.div `
 
 export const Header = styled.div `
     display:grid;
-   grid-template-columns: 50% 200px;
+    background-color: green;
+   grid-template-columns: 50% 50%;
+   align-items: center;
+    position: relative;
+
 `
 
-export const wrapperButton = styled.div``
+export const wrapperButton = styled.div`
+display: flex;
+max-width: 100px;
+left: 92%;
+position: absolute;
+`

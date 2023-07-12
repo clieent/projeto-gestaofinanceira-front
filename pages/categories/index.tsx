@@ -21,85 +21,169 @@ export default function Categories() {
     const { userId } = useStore()
     let [selectCategory, setSelectCategory] = useState<categoryType>([])
     const [create, setCreate] = useState<boolean>(false)
-    const [edit, setEdit] = useState<boolean>(false)
-    const [trash, setTrash]=useState<Boolean>(false)
+    const [edit, setEdit] = useState<boolean[]>([])
+    const [trash, setTrash] = useState<boolean[]>([])
     const [update, setUpdate] = useState<ICategories>()
     const [refresh, setRefresh] = useState<boolean>(false)
-    
+ 
 
-    function handleClickDelete(id:string) {
-        api.delete(`/categories/${id}`).then((reponse) =>{
-            loadDate()
-            console.log(reponse.status)
-        }).catch((error)=>{
-            console.log(error)
-        })
-        setTrash(false)
+    function handleClickDelete(id: string) {
+        api.delete(`/categories/${id}`)
+            .then((reponse) => {
+                loadDate()
+                console.log(reponse.status)
+            })
+            .catch((error) => {
+                console.log(error)
+            })
     }
-
-    function handleClickPatch(id:string) {
-        api.patch(`/categories/${id}`, update).then((reponse) =>{
-            loadDate()
-            console.log(reponse.status)
-        }).catch((error)=>{
-            console.log(error)
-        })
-        setEdit(false)
-    }
-
-    const handleClickButton = () => {
-      setCreate(!create)
-    }
-
-    const handleClickEdit = () => {
-        setEdit(!edit)
-    }
-
-    const handleClickTrash = () => {
-        setTrash(!trash)
-    }
-
-    useEffect(() => {
-        if(refresh){
-            loadDate()
-            setRefresh(false)
-        }
-        
-    }, [refresh])
 
     useEffect(() => {
         loadDate()
     }, [])
 
+  
+
     async function loadDate() {
-        const { data } = await api.get<categoryType>('/categories', {
+         await api.get<categoryType>('/categories', {
             params: { userId },
+        }).then((response) => {
+            setSelectCategory(response.data)
+            setArray(response.data)
+        }).catch((error)=>{
+            console.log(error)
         })
-        setSelectCategory(data)
     }
+
+    function setArray(data:any){
+        setTrash(new Array(data.length).fill(false))
+        setEdit(new Array(data.length).fill(false))
+    }
+
+    const handleClickPatch = (id: string, index:number) => {
+        api.patch(`/categories/${id}`, update)
+            .then((reponse) => {
+                loadDate()
+                console.log(reponse.status)
+                edit[index] = false
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+        // setEdit(false)
+    }
+
+    const handleClickButton = () => {
+        setCreate(!create)
+    }
+
+    const handleClickEdit = (index:number) => {
+        let arrayEditCoppy = [...edit]
+        arrayEditCoppy.map((boolean, i)=>{
+            if(index === i){
+                arrayEditCoppy[i]= !boolean
+            }else{
+                arrayEditCoppy[i]= false
+            }
+        })
+        setEdit(arrayEditCoppy)
+        
+    }
+
+    function handleClickTrash(index: number){
+        let arrayTrashCoppy = [...trash]
+        arrayTrashCoppy.map((boolean, i)=>{
+            if(index === i){
+                arrayTrashCoppy[i]= !boolean
+            }else{
+                arrayTrashCoppy[i]= false
+            }
+        })
+        setTrash(arrayTrashCoppy)
+    }
+
+    useEffect(() => {
+        if (refresh) {
+            loadDate()
+            setRefresh(false)
+        }
+    }, [refresh])
+   
     return (
         <S.Container>
-        <CreateCategories create ={create}  setRefresh={setRefresh} setCreate={setCreate} />
-        <S.Header>
-       <h3>lista de categorias</h3>
-       <S.wrapperButton>
-       <DefaultButton onClick={handleClickButton} ctaButton={'Criar'} />
-       </S.wrapperButton>
-       </S.Header>
-       <S.WrapperList>
-       <h3>Nome da categoria</h3>
-        {selectCategory.map(({title, _id})=> (
-            <S.Content>
-                
-                {edit ?<InputText id='title' label={title} placeholder={title} setState={setUpdate} value={update?.title} /> : <span>{title}</span>}
-                <S.WrapperIcon>
-                    {edit ? <><S.Icon icon={light('check')} onClick={() => {handleClickPatch(_id)}} /> <S.Icon icon={light('xmark')} onClick={handleClickEdit} /> </>:<S.Icon icon={light('pencil')} onClick={handleClickEdit} />}
-                    {trash ? <><S.Icon icon={light('check')} onClick={()=>{handleClickDelete(_id)}} /> <S.Icon icon={light('xmark')} onClick={handleClickTrash} /> </>:<S.Icon icon={light('trash')} onClick={handleClickTrash} />}
-              </S.WrapperIcon>
-            </S.Content>
-        ))}
-        </S.WrapperList>
-       </S.Container>
+            <CreateCategories
+                create={create}
+                setRefresh={setRefresh}
+                setCreate={setCreate}
+            />
+            <S.Header>
+                <h3>lista de categorias</h3>
+                <S.wrapperButton>
+                    <DefaultButton
+                        onClick={handleClickButton}
+                        ctaButton={'Criar'}
+                    />
+                </S.wrapperButton>
+            </S.Header>
+            <S.WrapperList>
+                <h3>Nome da categoria</h3>
+                {selectCategory.map(({ title, _id }, index) => (
+                    <S.Content>
+                        {edit[index] ? (
+                            <InputText
+                                id="title"
+                                label={title}
+                                placeholder={title}
+                                setState={setUpdate}
+                                value={update?.title}
+                            />
+                        ) : (
+                            <span>{title}</span>
+                        )}
+                        <S.WrapperIcon>
+                            {edit[index] ? (
+                                <>
+                                    <S.Icon
+                                        icon={light('check')}
+                                        onClick={() => {
+                                            handleClickPatch(_id, index)
+                                        }}
+                                    />{' '}
+                                    <S.Icon
+                                        icon={light('xmark')}
+                                        onClick={() => handleClickEdit(index)}
+                                    />{' '}
+                                </>
+                            ) : (
+                                <S.Icon
+                                    icon={light('pencil')}
+                                    onClick={() =>handleClickEdit(index)}
+                                />
+                            )}
+                            {trash[index] ? (
+                                <>
+                                    <S.Icon
+                                        icon={light('check')}
+                                        onClick={() => 
+                                            handleClickDelete(_id)
+                                        }
+                                    />{' '}
+                                    <S.Icon
+                                        icon={light('xmark')}
+                                        onClick={() => handleClickTrash(index)}
+                                    />{' '}
+                                </>
+                            ) : (
+                                <S.Icon
+                                    icon={light('trash')}
+                                    onClick={() => {handleClickTrash(index)}}
+                                />
+                            )}
+                        </S.WrapperIcon>
+                    </S.Content>
+                ))}
+            </S.WrapperList>
+        </S.Container>
     )
 }
 Categories.getLayout = function GetLayout(page: any) {
