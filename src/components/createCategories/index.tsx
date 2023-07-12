@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react'
-import MainLayout from '../../../src/layouts/mainLayout'
-import * as S from '../../../styles/categories/createCategories'
-import InputText from '../../../src/components/inputText'
+import { SetStateAction, useEffect, useState } from 'react'
+import MainLayout from '../../layouts/mainLayout'
+import * as S from './styles'
+import InputText from '../inputText'
 import DefaultButton from '@/src/components/defaultButton'
 import api from '@/src/config/api/api'
 import { useRouter } from 'next/router'
-import useStore from '../../../src/zustand/store'
+import useStore from '../../zustand/store'
 
 interface categoriesProps {
     title: string
@@ -14,8 +14,10 @@ interface categoriesProps {
 
 type CreateCategoriesProps ={
     create: boolean
+    setRefresh: React.Dispatch<SetStateAction<boolean>>
+    setCreate:React.Dispatch<SetStateAction<boolean>>
 }
-export default function CreateCategories({create}: CreateCategoriesProps) {
+export default function CreateCategories({create, setRefresh, setCreate}: CreateCategoriesProps) {
     const [categories, setCategories] = useState<categoriesProps>()
     const router = useRouter()
     const { userId } = useStore()
@@ -24,7 +26,9 @@ export default function CreateCategories({create}: CreateCategoriesProps) {
         e.preventDefault()
         api.post('/categories', categories)
             .then((response) => {
-                router.reload()
+                console.log(response.status)
+                setRefresh(true)
+                setCreate(false)
             })
             .catch((error) => {
                 console.log(error)

@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react'
-import MainLayout from '../../../src/layouts/mainLayout'
-import * as S from '../../../styles/categories/listCategories'
+import MainLayout from '../../src/layouts/mainLayout'
+import * as S from '../../styles/categories'
 import DefaultButton from '@/src/components/defaultButton'
 import api from '@/src/config/api/api'
-import { useRouter } from 'next/router'
-import useStore from '../../../src/zustand/store'
+import useStore from '../../src/zustand/store'
 import { light } from '@fortawesome/fontawesome-svg-core/import.macro'
 import InputText from '@/src/components/inputText'
-import CreateCategories from '../createCategories'
+import CreateCategories from '../../src/components/createCategories'
 
 type categoryType = {
     title: string
@@ -18,24 +17,33 @@ interface ICategories {
     title: string
 }
 
-export default function ListCategories() {
+export default function Categories() {
     const { userId } = useStore()
-    const router = useRouter()
     let [selectCategory, setSelectCategory] = useState<categoryType>([])
     const [create, setCreate] = useState<boolean>(false)
     const [edit, setEdit] = useState<boolean>(false)
     const [trash, setTrash]=useState<Boolean>(false)
     const [update, setUpdate] = useState<ICategories>()
+    const [refresh, setRefresh] = useState<boolean>(false)
+    
 
     function handleClickDelete(id:string) {
-        api.delete(`/categories/${id}`)
+        api.delete(`/categories/${id}`).then((reponse) =>{
+            loadDate()
+            console.log(reponse.status)
+        }).catch((error)=>{
+            console.log(error)
+        })
         setTrash(false)
-        router.reload()
     }
 
-    const handleClickCheck = (e: any) => {
-        e.preventDefault()
-        api.patch('/categories', update)
+    function handleClickPatch(id:string) {
+        api.patch(`/categories/${id}`, update).then((reponse) =>{
+            loadDate()
+            console.log(reponse.status)
+        }).catch((error)=>{
+            console.log(error)
+        })
         setEdit(false)
     }
 
@@ -52,6 +60,14 @@ export default function ListCategories() {
     }
 
     useEffect(() => {
+        if(refresh){
+            loadDate()
+            setRefresh(false)
+        }
+        
+    }, [refresh])
+
+    useEffect(() => {
         loadDate()
     }, [])
 
@@ -63,7 +79,7 @@ export default function ListCategories() {
     }
     return (
         <S.Container>
-        <CreateCategories create = {create} />
+        <CreateCategories create ={create}  setRefresh={setRefresh} setCreate={setCreate} />
         <S.Header>
        <h3>lista de categorias</h3>
        <S.wrapperButton>
@@ -74,9 +90,10 @@ export default function ListCategories() {
        <h3>Nome da categoria</h3>
         {selectCategory.map(({title, _id})=> (
             <S.Content>
-                {edit ? <InputText id='title' label={title} placeholder={title} setState={setUpdate} value={update?.title} /> : <span>{title}</span>}
+                
+                {edit ?<InputText id='title' label={title} placeholder={title} setState={setUpdate} value={update?.title} /> : <span>{title}</span>}
                 <S.WrapperIcon>
-                    {edit ? <><S.Icon icon={light('check')} onClick={handleClickCheck} /> <S.Icon icon={light('xmark')} onClick={handleClickEdit} /> </>:<S.Icon icon={light('pencil')} onClick={handleClickEdit} />}
+                    {edit ? <><S.Icon icon={light('check')} onClick={() => {handleClickPatch(_id)}} /> <S.Icon icon={light('xmark')} onClick={handleClickEdit} /> </>:<S.Icon icon={light('pencil')} onClick={handleClickEdit} />}
                     {trash ? <><S.Icon icon={light('check')} onClick={()=>{handleClickDelete(_id)}} /> <S.Icon icon={light('xmark')} onClick={handleClickTrash} /> </>:<S.Icon icon={light('trash')} onClick={handleClickTrash} />}
               </S.WrapperIcon>
             </S.Content>
@@ -85,6 +102,6 @@ export default function ListCategories() {
        </S.Container>
     )
 }
-ListCategories.getLayout = function GetLayout(page: any) {
+Categories.getLayout = function GetLayout(page: any) {
     return <MainLayout>{page}</MainLayout>
 }
