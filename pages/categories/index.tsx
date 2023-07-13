@@ -23,7 +23,7 @@ export default function Categories() {
     const [create, setCreate] = useState<boolean>(false)
     const [edit, setEdit] = useState<boolean[]>([])
     const [trash, setTrash] = useState<boolean[]>([])
-    const [update, setUpdate] = useState<ICategories>()
+    const [update, setUpdate] = useState<ICategories[]>([])
     const [refresh, setRefresh] = useState<boolean>(false)
  
 
@@ -58,6 +58,7 @@ export default function Categories() {
     function setArray(data:any){
         setTrash(new Array(data.length).fill(false))
         setEdit(new Array(data.length).fill(false))
+        setUpdate(new Array(data.length).fill(''))
     }
 
     const handleClickPatch = (id: string, index:number) => {
@@ -129,17 +130,9 @@ export default function Categories() {
                 <h3>Nome da categoria</h3>
                 {selectCategory.map(({ title, _id }, index) => (
                     <S.Content>
-                        {edit[index] ? (
-                            <InputText
-                                id="title"
-                                label={title}
-                                placeholder={title}
-                                setState={setUpdate}
-                                value={update?.title}
-                            />
-                        ) : (
-                            <span>{title}</span>
-                        )}
+                       
+                            <input type='text' id={_id} placeholder={title} value={update[index]?.title} onBlur={()=> handleClickEdit(index)} />
+                         
                         <S.WrapperIcon>
                             {edit[index] ? (
                                 <>
