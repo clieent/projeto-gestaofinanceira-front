@@ -1,28 +1,31 @@
-import { useEffect, useState } from 'react'
-import MainLayout from '../../../src/layouts/mainLayout'
-import * as S from '../../../styles/categories/createCategories'
-import InputText from '../../../src/components/inputText'
+import { SetStateAction, useEffect, useState } from 'react'
+import * as S from './styles'
+import InputText from '../inputText'
 import DefaultButton from '@/src/components/defaultButton'
 import api from '@/src/config/api/api'
-import { useRouter } from 'next/router'
-import useStore from '../../../src/zustand/store'
+import useStore from '../../zustand/store'
 
 interface categoriesProps {
     title: string
     user_id: string
 }
 
-export default function Categories() {
+type CreateCategoriesProps ={
+    create: boolean
+    setRefresh: React.Dispatch<SetStateAction<boolean>>
+    setCreate:React.Dispatch<SetStateAction<boolean>>
+}
+export default function CreateCategories({create, setRefresh, setCreate}: CreateCategoriesProps) {
     const [categories, setCategories] = useState<categoriesProps>()
-    const router = useRouter()
     const { userId } = useStore()
 
     const handleClick = (e: any) => {
         e.preventDefault()
-        console.log(categories)
         api.post('/categories', categories)
             .then((response) => {
-                router.push('/home')
+                console.log(response.status)
+                setRefresh(true)
+                setCreate(false)
             })
             .catch((error) => {
                 console.log(error)
@@ -37,10 +40,9 @@ export default function Categories() {
     }, [setCategories])
 
     return (
-        <S.Container>
-            <h1>Cadastrar Categoria</h1>
-
-            <S.DataInputs>
+        <S.Container create = {create ?? false}>
+            <S.Content create = {create ?? false}>
+            <S.DataInputs >
                 <InputText
                     placeholder={'Categoria'}
                     value={categories?.title}
@@ -52,9 +54,7 @@ export default function Categories() {
             <S.WrapperButton>
                 <DefaultButton onClick={handleClick} ctaButton={'Criar'} />
             </S.WrapperButton>
+            </S.Content>
         </S.Container>
     )
-}
-Categories.getLayout = function GetLayout(page: any) {
-    return <MainLayout>{page}</MainLayout>
 }

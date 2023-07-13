@@ -10,7 +10,6 @@ type inputBoxProps = {
 export const Container = styled.div`
     max-width: 100%;
     min-width: 100%;
-
     input {
         background-color: #0a0b0d !important;
         color: white !important;
@@ -18,6 +17,7 @@ export const Container = styled.div`
 `
 
 export const InputTextField = styled(TextField)`
+    
     color: white !important;
     &::placeholder {
         color: white !important;

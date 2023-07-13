@@ -52,20 +52,6 @@ export const MenuOptions: IMenuOptions[] = [
         id: 'lateral-main-category',
         title: 'Categorias',
         icon: light('rectangle-history'),
-        subMenu: {
-            id: 'sub-menu-category',
-            options: [
-                {
-                    id: 'option-sub-menu-create-category',
-                    title: 'Criar Categoria',
-                    route: '/categories/createCategories',
-                },
-                {
-                    id: 'option-sub-menu-delete-category',
-                    title: 'Deletar Categoria',
-                    route: '/categories/deleteCategories',
-                },
-            ],
-        },
+       route: '/categories'
     },
 ]
