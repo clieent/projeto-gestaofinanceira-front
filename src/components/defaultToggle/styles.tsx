@@ -13,7 +13,8 @@ export const Container = styled.div<DefaultToggleProps>`
         width: 100px;
         height: 40px;
         &:hover {
-            background-color: #015958;
+            background-color: var(--color-d);
+            //background-color: #015958;
         }
         
         display: flex;

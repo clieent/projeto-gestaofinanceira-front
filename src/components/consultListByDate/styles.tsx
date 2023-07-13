@@ -2,12 +2,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 
 export const Container = styled.div`
-    background-color: black;
+    //background-color: black;
+    background-color: var(--color-a);
     width: 100%;
     `
 
 export const Header = styled.div`
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: var(--color-a);
+    //background-color: rgba(0, 0, 0, 0.4);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -52,7 +54,8 @@ export const MonthTitle = styled.p`
 `
 
 export const List = styled.div`
-    background-color: #0a0b0d;
+    //background-color: #0a0b0d;
+    background-color: var(--color-a);
     display: flex;
     flex-direction: column;
     gap: 15px;

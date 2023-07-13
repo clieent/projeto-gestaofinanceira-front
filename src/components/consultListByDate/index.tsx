@@ -8,7 +8,7 @@ import DefaultToggle from '../defaultToggle'
 import SelectBox from '../selectBox'
 import { release } from 'os'
 
-interface IConsultListByDate {
+interface ICashFlow {
     _id: string
     title: string
     description?: string
@@ -26,7 +26,7 @@ interface IConsultListByDate {
 }
 
 interface IReleaseData {
-    categoryId: string 
+    categoryId: string
 }
 
 type categoryType = {
@@ -38,9 +38,13 @@ type ConsultListByDateProps = {}
 
 export default function ConsultListByDate({}: ConsultListByDateProps) {
     const userId = useStore((value) => value.userId)
-    const [cashFlow, setCashFlow] = useState<IConsultListByDate[]>()
-    const [releaseData, setReleaseData] = useState<IReleaseData>({ categoryId: '' })
-    let [selectCategory, setSelectCategory] = useState<categoryType>([])
+    const [cashFlow, setCashFlow] = useState<ICashFlow[]>()
+    const [releaseData, setReleaseData] = useState<IReleaseData>({
+        categoryId: '',
+    })
+    const [selectCategory, setSelectCategory] = useState<categoryType>([])
+    const [selectAllCategories, setSelectAllCategories] =
+        useState<categoryType>([])
     const [atualDate, setAtualDate] = useState({ date: '', maskDate: '' })
 
     const getCashFlow = async () => {
@@ -110,11 +114,7 @@ export default function ConsultListByDate({}: ConsultListByDateProps) {
     const [showOnlyOutputs, setshowOnlyOutputs] = useState(false)
     const [showOnlyInputs, setShowOnlyInputs] = useState(false)
 
-    function showItems(
-        item: IConsultListByDate,
-        index: number,
-        itemDate: Date
-    ) {
+    function showItems(item: ICashFlow, index: number, itemDate: Date) {
         return atualDate.maskDate ==
             itemDate.toLocaleDateString('pt-BR', {
                 month: 'long',
@@ -124,42 +124,87 @@ export default function ConsultListByDate({}: ConsultListByDateProps) {
         ) : null
     }
 
-    function showByCategories( item: IConsultListByDate,
-        index: number,
-        itemDate: Date) {
-    
-            if(showOnlyInputs == true && item.type == false && releaseData?.categoryId === item.category_id._id){
-                console.log("ENTRADA")
-                return showItems(item, index, itemDate)
-            }else if(showOnlyOutputs == true && item.type == true && releaseData?.categoryId === item.category_id._id){
-                console.log("SAIDA")
-               return showItems(item, index, itemDate)
-            }else if( releaseData?.categoryId === item.category_id._id){
-                console.log("CATEGORIA")
-               return showItems(item, index, itemDate)
-            }
-            return null
-    }
-
-
-
-    useEffect(() => {
-        console.log(releaseData)
-    }, [releaseData])
+    /*     function showByCategories(item: ICashFlow, index: number, itemDate: Date) {
+        if (
+            showOnlyInputs == true &&
+            item.type == false &&
+            (releaseData?.categoryId === item.category_id._id ||
+                releaseData.categoryId == 'Todos')
+        ) {
+            return showItems(item, index, itemDate)
+        } else if (
+            showOnlyOutputs == true &&
+            item.type == true &&
+            (releaseData?.categoryId === item.category_id._id ||
+                releaseData.categoryId == 'Todos')
+        ) {
+            return showItems(item, index, itemDate)
+        } else if (
+            releaseData?.categoryId === item.category_id._id ||
+            releaseData.categoryId === 'Todos'
+        ) {
+            return showItems(item, index, itemDate)
+        }
+        return null
+    } */
 
     useEffect(() => {
         loadDate()
-        // setReleaseData((date: any) => ({
-        //     ...date,
-        //     user_id: userId,
-        // }))
     }, [])
 
     async function loadDate() {
         const { data } = await api.get<categoryType>('/categories', {
             params: { userId },
         })
+        setSelectAllCategories(data)
         setSelectCategory(data)
+    }
+
+    const [searchCashFlow, setSearchCashFlow] = useState<Partial<ICashFlow>>({})
+
+    console.log(searchCashFlow, 'AAAAAAAAAAAAAAAAAAAA')
+
+    function filterCashFlows(takeCashflow: Partial<ICashFlow>) {
+        if (showOnlyOutputs && showOnlyInputs) {
+            if (searchCashFlow.category_id?._id) {
+                return (
+                    takeCashflow.category_id?._id == searchCashFlow.category_id?._id
+                )
+            }
+            return true
+        }
+
+        if (showOnlyInputs) {
+            if (searchCashFlow.category_id?._id) {
+                return (
+                    takeCashflow.category_id?._id ==
+                        searchCashFlow.category_id?._id &&
+                    takeCashflow.type == !showOnlyInputs
+                )
+            }
+            return takeCashflow.type == !showOnlyInputs
+        }
+
+        if (showOnlyOutputs) {
+            if (searchCashFlow.category_id?._id) {
+                return (
+                    takeCashflow.category_id?._id ==
+                        searchCashFlow.category_id?._id &&
+                    takeCashflow.type == showOnlyOutputs
+                )
+            }
+            return takeCashflow.type == showOnlyOutputs
+        }
+
+        if (!(showOnlyOutputs && showOnlyInputs)) {
+            if (searchCashFlow.category_id?._id) {
+                return (
+                    takeCashflow.category_id?._id == searchCashFlow.category_id?._id
+                )
+            }
+            return true
+        }
+        return true
     }
 
     return (
@@ -182,12 +227,14 @@ export default function ConsultListByDate({}: ConsultListByDateProps) {
                         />
                     </S.WrapperIcon>
                 </S.WrapperDateGroup>
+
                 <S.WrapperBalanceFilter>
                     <DefaultToggle
                         setState={setShowOnlyInputs}
                         ctaToggle={'Entradas'}
                         status={showOnlyInputs}
                     />
+
                     <DefaultToggle
                         setState={setshowOnlyOutputs}
                         ctaToggle={'Saídas'}
@@ -197,14 +244,18 @@ export default function ConsultListByDate({}: ConsultListByDateProps) {
 
                 <S.WrapperSelect>
                     <SelectBox
-                        name="Categoria"
+                        title_name="Categoria"
                         id="categoryId"
                         value={releaseData.categoryId}
                         setState={setReleaseData}
-                        values={selectCategory.map(({ title, _id }) => ({
-                            value: _id,
-                            label: title,
-                        }))}
+                        values={[
+                            { value: undefined, label: 'Todos' },
+                            ...selectAllCategories.map(({ title, _id }) => ({
+                                value: _id,
+                                label: title,
+                            })),
+                        ]}
+                        filterAction={setSearchCashFlow}
                     />
                 </S.WrapperSelect>
             </S.Header>
@@ -216,15 +267,19 @@ export default function ConsultListByDate({}: ConsultListByDateProps) {
                     <h3>Data de Val.</h3>
                     <h3>Valor</h3>
                 </S.WrapperTitles>
-                {cashFlow?.map((item, index) => {
-                    const date = item.dueDate.split('/')
-                    const currentMonth = date[1]
-                    const currentYear = date[2]
-                    const itemDate = new Date(`${currentYear} ${currentMonth}`)
 
-                    //return showItems(item, index, itemDate)
+                {cashFlow
+                    ?.filter((item) => filterCashFlows(item))
+                    .map((item, index) => {
+                        const date = item.dueDate.split('/')
+                        const currentMonth = date[1]
+                        const currentYear = date[2]
+                        const itemDate = new Date(
+                            `${currentYear} ${currentMonth}`
+                        )
+                        return showItems(item, index, itemDate)
 
-                    return (showOnlyInputs == false &&
+                        /*                     return (showOnlyInputs == false &&
                         showOnlyOutputs == false && releaseData?.categoryId == '') ||
                         (showOnlyInputs == true && showOnlyOutputs == true && releaseData?.categoryId == '' )
                         ? showItems(item, index, itemDate)
@@ -232,11 +287,9 @@ export default function ConsultListByDate({}: ConsultListByDateProps) {
                         ? showItems(item, index, itemDate)
                         : showOnlyOutputs == true && item.type == true && releaseData?.categoryId == ''
                         ? showItems(item, index, itemDate)
-                        : showByCategories(item,index,itemDate)
-                })}
+                        : showByCategories(item,index,itemDate) */
+                    })}
             </S.List>
         </S.Container>
     )
 }
-
-

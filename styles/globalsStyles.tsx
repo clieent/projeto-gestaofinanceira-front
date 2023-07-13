@@ -10,7 +10,17 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
   }
   :root{
-    --color-menu: #190526f6 ;
+    //--color-menu: #3d1259;
+    --color-a: #0D0D0D;
+    --color-ab: #0b0b0b;
+    --color-a-plus: #181818;
+    --color-b: #014034;
+    --color-c: #02735E;
+    --color-d: #038C73;
+    --color-e: #36BFB1;
+    --color-f: #ccc;
+    --color-f-plus: #d4d4d4;
+
   }
 `
 

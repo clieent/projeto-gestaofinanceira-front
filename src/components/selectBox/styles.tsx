@@ -7,7 +7,8 @@ import MenuItem from '@mui/material/MenuItem'
 
 export const Container = styled.div`
     width: 100%;
-    background-color: #0a0b0d;
+    background-color: var(--color-a);
+    //background-color: #0a0b0d;
 `
 
 export const ChoicesBox = styled(Box)``

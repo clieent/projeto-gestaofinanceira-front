@@ -13,7 +13,7 @@ export const Container = styled.div`
 `
 export const WrapperData = styled.div`
     span {
-        color: #fff;
+        color: var(--color-c);
         font-size: 20px;
     }
     `
@@ -44,7 +44,8 @@ export const Day = styled.div`
 
 export const Item = styled.div`
     width: 100%;
-    background-color: #1c2026;
+    //background-color: #1c2026;
+    background-color: var(--color-a-plus);
     border-bottom-right-radius: 8px;
     border-top-right-radius: 8px;
     display: grid;
