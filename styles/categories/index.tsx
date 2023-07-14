@@ -28,6 +28,9 @@ export const Content = styled.div `
 export const Icon = styled(FontAwesomeIcon)`
 
 `
+export const Input = styled.input`
+outline: none;
+`
 
 export const WrapperIcon = styled.div `
    display: flex;

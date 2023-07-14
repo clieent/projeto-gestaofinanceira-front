@@ -5,7 +5,6 @@ import DefaultButton from '@/src/components/defaultButton'
 import api from '@/src/config/api/api'
 import useStore from '../../src/zustand/store'
 import { light } from '@fortawesome/fontawesome-svg-core/import.macro'
-import InputText from '@/src/components/inputText'
 import CreateCategories from '../../src/components/createCategories'
 
 type categoryType = {
@@ -25,7 +24,6 @@ export default function Categories() {
     const [trash, setTrash] = useState<boolean[]>([])
     const [update, setUpdate] = useState<ICategories[]>([])
     const [refresh, setRefresh] = useState<boolean>(false)
- 
 
     function handleClickDelete(id: string) {
         api.delete(`/categories/${id}`)
@@ -42,26 +40,31 @@ export default function Categories() {
         loadDate()
     }, [])
 
-  
+    useEffect(() => {
+        console.log(update)
+    }, [update])
 
     async function loadDate() {
-         await api.get<categoryType>('/categories', {
-            params: { userId },
-        }).then((response) => {
-            setSelectCategory(response.data)
-            setArray(response.data)
-        }).catch((error)=>{
-            console.log(error)
-        })
+        await api
+            .get<categoryType>('/categories', {
+                params: { userId },
+            })
+            .then((response) => {
+                setSelectCategory(response.data)
+                setArray(response.data)
+            })
+            .catch((error) => {
+                console.log(error)
+            })
     }
 
-    function setArray(data:any){
+    function setArray(data: any) {
         setTrash(new Array(data.length).fill(false))
         setEdit(new Array(data.length).fill(false))
         setUpdate(new Array(data.length).fill(''))
     }
 
-    const handleClickPatch = (id: string, index:number) => {
+    const handleClickPatch = (id: string, index: number) => {
         api.patch(`/categories/${id}`, update)
             .then((reponse) => {
                 loadDate()
@@ -78,26 +81,33 @@ export default function Categories() {
         setCreate(!create)
     }
 
-    const handleClickEdit = (index:number) => {
+    const handleOnChange = (e: { target: any }) => {
+        const { value }: string | any = e.target
+        setUpdate((prev: any) => ({
+            ...prev,
+            title: value,
+        }))
+    }
+
+    const handleClickEdit = (index: number) => {
         let arrayEditCoppy = [...edit]
-        arrayEditCoppy.map((boolean, i)=>{
-            if(index === i){
-                arrayEditCoppy[i]= !boolean
-            }else{
-                arrayEditCoppy[i]= false
+        arrayEditCoppy.map((boolean, i) => {
+            if (index === i) {
+                arrayEditCoppy[i] = !boolean
+            } else {
+                arrayEditCoppy[i] = false
             }
         })
         setEdit(arrayEditCoppy)
-        
     }
 
-    function handleClickTrash(index: number){
+    function handleClickTrash(index: number) {
         let arrayTrashCoppy = [...trash]
-        arrayTrashCoppy.map((boolean, i)=>{
-            if(index === i){
-                arrayTrashCoppy[i]= !boolean
-            }else{
-                arrayTrashCoppy[i]= false
+        arrayTrashCoppy.map((boolean, i) => {
+            if (index === i) {
+                arrayTrashCoppy[i] = !boolean
+            } else {
+                arrayTrashCoppy[i] = false
             }
         })
         setTrash(arrayTrashCoppy)
@@ -109,7 +119,7 @@ export default function Categories() {
             setRefresh(false)
         }
     }, [refresh])
-   
+
     return (
         <S.Container>
             <CreateCategories
@@ -130,9 +140,16 @@ export default function Categories() {
                 <h3>Nome da categoria</h3>
                 {selectCategory.map(({ title, _id }, index) => (
                     <S.Content>
-                       
-                            <input type='text' id={_id} placeholder={title} value={update[index]?.title} onBlur={()=> handleClickEdit(index)} />
-                         
+                        <S.Input
+                            type="text"
+                            id={_id}
+                            placeholder={title}
+                            value={update[index]?.title}
+                            onFocus={() => handleClickEdit(index)}
+                            onBlur={() => handleClickPatch(_id, index)}
+                            onChange={(e) => handleOnChange(e)}
+                        />
+                        {/* outline: none;*/}
                         <S.WrapperIcon>
                             {edit[index] ? (
                                 <>
@@ -150,16 +167,14 @@ export default function Categories() {
                             ) : (
                                 <S.Icon
                                     icon={light('pencil')}
-                                    onClick={() =>handleClickEdit(index)}
+                                    onClick={() => handleClickEdit(index)}
                                 />
                             )}
                             {trash[index] ? (
                                 <>
                                     <S.Icon
                                         icon={light('check')}
-                                        onClick={() => 
-                                            handleClickDelete(_id)
-                                        }
+                                        onClick={() => handleClickDelete(_id)}
                                     />{' '}
                                     <S.Icon
                                         icon={light('xmark')}
@@ -169,7 +184,9 @@ export default function Categories() {
                             ) : (
                                 <S.Icon
                                     icon={light('trash')}
-                                    onClick={() => {handleClickTrash(index)}}
+                                    onClick={() => {
+                                        handleClickTrash(index)
+                                    }}
                                 />
                             )}
                         </S.WrapperIcon>
