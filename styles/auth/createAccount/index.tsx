@@ -13,20 +13,20 @@ export const DataInputs = styled.div`
     align-items: center;
     flex-direction: column;
     width: 100%;
-    gap: 3px;
-`
+    `
 export const DataInputs2 = styled.div`
+    padding-top: 30px;
     display: flex;
     align-items: center;
     flex-direction: column;
     width: 100%;
-    gap: 3px;
+    gap: 15px;
 `
 
 export const WrapperButton = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    padding-top: 15px;
+    padding-top: 50px;
     width: 50%;
 `

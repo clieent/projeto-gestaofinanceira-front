@@ -7,8 +7,8 @@ export const Container = styled.div`
     max-height: 100vh;
     overflow-y: hidden;
     overflow-x: hidden;
-    background-color: #1c2026;
-`
+    background-color: var(--color-a-plus);
+    `
 
 export const Ilustration = styled.div``
 
@@ -17,7 +17,8 @@ export const WrapperSection = styled.div`
     width: 100%;
     height: 100%;
     max-height: 480px;
-    /* background-color: rgba(0, 0, 0, 0.4); */
+    background-color: var(--color-abc);
+
 
     flex-direction: column;
     position: relative;
@@ -31,7 +32,7 @@ export const WrapperSection = styled.div`
 
     h3 {
         margin-top: 10px;
-        color: white;
+        color:var(--color-f);
         font-size: 25px;
         font-weight: 800;
         text-transform: uppercase;
@@ -52,5 +53,5 @@ export const Content = styled.div`
     display: grid;
     grid-template-columns: 50% 400px;
     place-items: center;
-    color: white !important;
+    color:var(--color-f);
 `

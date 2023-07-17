@@ -7,7 +7,8 @@ type ContainerProps = {
 
 export const Icon = styled(FontAwesomeIcon)`
     text-align: center;
-    color: #d4d4d4;
+    color: var(--color-d);
+    //color: #d4d4d4;
     font-size: 18px;
 `
 export const Item = styled.li`
@@ -21,7 +22,8 @@ export const Item = styled.li`
     transition-duration: 1500ms;
     overflow: hidden;
     &:hover {
-        background: #3d1259;
+        background: var(--color-e);
+        //background: #3d1259;
     }
 `
 

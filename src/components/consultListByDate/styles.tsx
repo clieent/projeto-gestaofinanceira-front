@@ -2,48 +2,61 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 
 export const Container = styled.div`
-    background-color: black;
+    //background-color: black;
+    background-color: var(--color-ab);
     width: 100%;
-`
+    `
+
+export const Header = styled.div`
+    background-color: var(--color-ab);
+    //background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 15px;
+    padding: 0 20px;
+    `
+
 export const WrapperBalanceFilter = styled.div`
     align-items: center;
     display: flex;
     justify-content: center;
-    gap: 25px;
-    padding: 10px 0 0;
-
+    gap: 20px;
 `
 
-export const Header = styled.div`
-    background-color: rgba(0, 0, 0, 0.4);
-    display: flex;
-    justify-content: center;
-    gap: 35px;
-    align-items: center;
-    padding: 15px;
-    `
-
 export const WrapperIcon = styled.div`
-    color: #ccc;
+    color: var(--color-f);
+    //color: #ccc;
+    font-size: 25px;
     
     `
 
 export const Icon = styled(FontAwesomeIcon)`
-    font-size: 25px;
     `
 
+export const WrapperDateGroup = styled.div`
+    display: flex;
+    width: 300px;
+`
+
+export const WrapperSelect = styled.div`
+    display: flex;
+    width: 300px;
+`
 
 export const MonthTitle = styled.p`
-    color: #CCC;
+    color: var(--color-f);
     font-weight: 700;
     font-size: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 250px;
 `
 
 export const List = styled.div`
-    background-color: #0a0b0d;
+    //background-color: #0a0b0d;
+    background-color: var(--color-a);
     display: flex;
     flex-direction: column;
     gap: 15px;
@@ -57,7 +70,8 @@ export const WrapperTitles = styled.div`
     text-align: center;
     position: relative;
     h3 {
-        color: #CCC;
+        color: var(--color-f);
+        //color: #CCC;
         font-size: 14px;
         font-weight: 700;
         text-transform: uppercase;

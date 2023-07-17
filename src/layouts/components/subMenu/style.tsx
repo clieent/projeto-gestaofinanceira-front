@@ -5,7 +5,8 @@ type ContainerProps = {
 }
 
 export const Container = styled.div<ContainerProps>`
-    background-color: #030105f8;
+    background-color: var(--color-a-plus);
+    //background-color: #030105f8;
     width: ${({ showSubMenu }) => (showSubMenu ? 200 : 0)}px;
     height: 100vh;
     position: absolute;
@@ -22,7 +23,8 @@ export const Container = styled.div<ContainerProps>`
 `
 export const OptionsList = styled.ul`
     padding: 5px;
-    color: #d4d4d4;
+    color: var(--color-f-plus);
+    //color: #d4d4d4;
     flex-direction: column;
     gap: 5px;
     li {
@@ -32,7 +34,8 @@ export const OptionsList = styled.ul`
         list-style: none;
         transition: 0.5s;
         &:hover {
-            background: #3d1259;
+            background: var(--color-e);
+            //background: #3d1259;
             cursor: pointer;
         }
     }

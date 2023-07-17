@@ -66,7 +66,9 @@ export default function Login() {
                 <br />
             </S.DataInputs>
 
-            <DefaultButton onClick={handleClick} ctaButton="Entrar" />
+            <S.WrapperButton>
+                <DefaultButton onClick={handleClick} ctaButton="Entrar" />
+            </S.WrapperButton>
 
             <S.WrapperFoot>
                 <span>
