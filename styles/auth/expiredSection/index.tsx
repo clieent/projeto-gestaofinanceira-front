@@ -8,25 +8,27 @@ export const Container = styled.div`
 `
 
 export const Title = styled.h1`
-    color: #ccc;
+    padding-top: 50px;
+    color: var(--color-f);
     font-size: 40px;
 `
 
 export const SubTitle = styled.h2`
-    color: #958f8f;
-    padding-bottom: 25px;
+    color: var(--color-f-plus);
+    padding-top: 10px;
+    margin-bottom: 80px;
 `
 
 export const WrapperButton = styled.div`
-    padding-top: 15px;
-    margin-top: 15px;
+    padding-top: 77px;
+    width: 70%;
 `
 
 export const Loading = styled.div`
     animation: is-rotating 1s infinite;
-    border: 6px solid #ccc;
+    border: 6px solid var(--color-f);
     border-radius: 50%;
-    border-top-color: #008f8c;
+    border-top-color: var(--color-d);
     height: 50px;
     width: 50px;
 

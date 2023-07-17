@@ -9,9 +9,11 @@ export const Container = styled.div`
         font-size: 20px;
         width: 100%;
         height: 50px;
-        background-color: #008f8c;
+        background-color: var(--color-d);
+        //background-color: #008f8c;
         &:hover {
-            background-color: #015958;
+            background-color: var(--color-c);
+            //background-color: #015958;
         }
 
         display: flex;

@@ -3,12 +3,12 @@ import styled from "styled-components";
 
 export const Container = styled.div`
     //background-color: black;
-    background-color: var(--color-a);
+    background-color: var(--color-ab);
     width: 100%;
     `
 
 export const Header = styled.div`
-    background-color: var(--color-a);
+    background-color: var(--color-ab);
     //background-color: rgba(0, 0, 0, 0.4);
     display: flex;
     justify-content: space-between;
@@ -25,7 +25,8 @@ export const WrapperBalanceFilter = styled.div`
 `
 
 export const WrapperIcon = styled.div`
-    color: #ccc;
+    color: var(--color-f);
+    //color: #ccc;
     font-size: 25px;
     
     `
@@ -44,7 +45,7 @@ export const WrapperSelect = styled.div`
 `
 
 export const MonthTitle = styled.p`
-    color: #CCC;
+    color: var(--color-f);
     font-weight: 700;
     font-size: 20px;
     display: flex;
@@ -69,7 +70,8 @@ export const WrapperTitles = styled.div`
     text-align: center;
     position: relative;
     h3 {
-        color: #CCC;
+        color: var(--color-f);
+        //color: #CCC;
         font-size: 14px;
         font-weight: 700;
         text-transform: uppercase;

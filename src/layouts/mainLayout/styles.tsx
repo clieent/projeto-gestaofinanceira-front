@@ -28,7 +28,8 @@ export const Page = styled.div<PageProps>`
     overflow-x: hidden;
     overflow-y: auto;
     display: flex;
-    background-color: #030105dc;
+    background-color: var(--color-a-plus);
+    //background-color: #030105dc;
     article {
         width: ${({ showMenu }) =>
             showMenu ? 'calc(100vw - 200px)' : 'calc(100vw - 40px)'};

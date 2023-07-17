@@ -7,7 +7,7 @@ type DefaultToggleProps = {
 
 export const Container = styled.div<DefaultToggleProps>`
     button {
-        background-color: ${({status}) => (!status ? '#008f8c' : '#022928')};
+        background-color: ${({status}) => (!status ? '#02735E' : '#014034')};
         font-weight: 700;
         font-size: 15px;
         width: 100px;

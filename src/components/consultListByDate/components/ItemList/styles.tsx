@@ -13,7 +13,7 @@ export const Container = styled.div`
 `
 export const WrapperData = styled.div`
     span {
-        color: var(--color-c);
+        color: var(--color-d);
         font-size: 20px;
     }
     `
@@ -36,7 +36,8 @@ export const Day = styled.div`
     flex-direction: column;
     font-weight: 600;
     font-size: 20px;
-    color: #ccc;
+    color: var(--color-f);
+    //color: #ccc;
     text-transform: uppercase;
     padding-right: 30px;
     padding-left: 20px;

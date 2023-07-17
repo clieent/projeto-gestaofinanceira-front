@@ -124,30 +124,6 @@ export default function ConsultListByDate({}: ConsultListByDateProps) {
         ) : null
     }
 
-    /*     function showByCategories(item: ICashFlow, index: number, itemDate: Date) {
-        if (
-            showOnlyInputs == true &&
-            item.type == false &&
-            (releaseData?.categoryId === item.category_id._id ||
-                releaseData.categoryId == 'Todos')
-        ) {
-            return showItems(item, index, itemDate)
-        } else if (
-            showOnlyOutputs == true &&
-            item.type == true &&
-            (releaseData?.categoryId === item.category_id._id ||
-                releaseData.categoryId == 'Todos')
-        ) {
-            return showItems(item, index, itemDate)
-        } else if (
-            releaseData?.categoryId === item.category_id._id ||
-            releaseData.categoryId === 'Todos'
-        ) {
-            return showItems(item, index, itemDate)
-        }
-        return null
-    } */
-
     useEffect(() => {
         loadDate()
     }, [])
