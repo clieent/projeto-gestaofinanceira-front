@@ -10,13 +10,20 @@ interface categoriesProps {
     user_id: string
 }
 
-type CreateCategoriesProps ={
+type CreateCategoriesProps = {
     create: boolean
     setRefresh: React.Dispatch<SetStateAction<boolean>>
-    setCreate:React.Dispatch<SetStateAction<boolean>>
+    setCreate: React.Dispatch<SetStateAction<boolean>>
 }
-export default function CreateCategories({create, setRefresh, setCreate}: CreateCategoriesProps) {
-    const [categories, setCategories] = useState<categoriesProps>()
+export default function CreateCategories({
+    create,
+    setRefresh,
+    setCreate,
+}: CreateCategoriesProps) {
+    const [categories, setCategories] = useState<categoriesProps>({
+        title: '',
+        user_id: ''
+    })
     const { userId } = useStore()
 
     const handleClick = (e: any) => {
@@ -26,10 +33,22 @@ export default function CreateCategories({create, setRefresh, setCreate}: Create
                 console.log(response.status)
                 setRefresh(true)
                 setCreate(false)
+                setCategories((prevCategories) => ({
+                    ...prevCategories,
+                    title: '',
+                }))
             })
             .catch((error) => {
                 console.log(error)
             })
+    }
+
+    const handleCancelClick = (e: any) => {
+        setCreate(!create)
+        setCategories((prevCategories) => ({
+            ...prevCategories,
+            title: '',
+        }))
     }
 
     useEffect(() => {
@@ -40,20 +59,24 @@ export default function CreateCategories({create, setRefresh, setCreate}: Create
     }, [setCategories])
 
     return (
-        <S.Container create = {create ?? false}>
-            <S.Content create = {create ?? false}>
-            <S.DataInputs >
-                <InputText
-                    placeholder={'Categoria'}
-                    value={categories?.title}
-                    setState={setCategories}
-                    id="title"
-                    label="Categoria"
-                />
-            </S.DataInputs>
-            <S.WrapperButton>
-                <DefaultButton onClick={handleClick} ctaButton={'Criar'} />
-            </S.WrapperButton>
+        <S.Container create={create ?? false}>
+            <S.Content create={create ?? false}>
+                <S.DataInputs>
+                    <InputText
+                        placeholder={'Categoria'}
+                        value={categories?.title}
+                        setState={setCategories}
+                        id="title"
+                        label="Categoria"
+                    />
+                </S.DataInputs>
+                <S.WrapperButton>
+                    <DefaultButton onClick={handleClick} ctaButton={'Criar'} />
+                    <DefaultButton
+                        onClick={handleCancelClick}
+                        ctaButton={'Cancelar'}
+                    />
+                </S.WrapperButton>
             </S.Content>
         </S.Container>
     )

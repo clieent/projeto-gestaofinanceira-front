@@ -5,8 +5,7 @@ type ContainerProps = {
 }
 
 export const Container = styled.div<ContainerProps>`
-    background-color: var(--color-a-plus);
-    //background-color: #030105f8;
+    background-color: var(--color-preto3);
     width: ${({ showSubMenu }) => (showSubMenu ? 200 : 0)}px;
     height: 100vh;
     position: absolute;
@@ -16,26 +15,25 @@ export const Container = styled.div<ContainerProps>`
     justify-content: flex-start;
     flex-direction: column;
     align-items: center;
-    transition-duration: 500ms;
+    transition-duration: 350ms;
     ul {
         display: ${({ showSubMenu }) => (showSubMenu ? 'flex' : 'none')};
+        //visibility: ${({ showSubMenu }) => (showSubMenu ? 'visible' : 'hidden')};
     }
-`
+    `
 export const OptionsList = styled.ul`
     padding: 5px;
-    color: var(--color-f-plus);
-    //color: #d4d4d4;
+    color: var(--color-branco2);
+    display: flex;
     flex-direction: column;
     gap: 5px;
     li {
-        border-radius: 4px;
-        /* border: solid 1.5px #381152; */
-        padding: 10px 5px;
+        border-radius: 5px;
+        padding: 10px 25px;
         list-style: none;
-        transition: 0.5s;
+        transition: 30ms;
         &:hover {
-            background: var(--color-e);
-            //background: #3d1259;
+            background: var(--color-verde-escuro2);
             cursor: pointer;
         }
     }

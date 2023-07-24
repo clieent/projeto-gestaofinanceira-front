@@ -254,16 +254,6 @@ export default function ConsultListByDate({}: ConsultListByDateProps) {
                             `${currentYear} ${currentMonth}`
                         )
                         return showItems(item, index, itemDate)
-
-                        /*                     return (showOnlyInputs == false &&
-                        showOnlyOutputs == false && releaseData?.categoryId == '') ||
-                        (showOnlyInputs == true && showOnlyOutputs == true && releaseData?.categoryId == '' )
-                        ? showItems(item, index, itemDate)
-                        : showOnlyInputs == true && item.type == false && releaseData?.categoryId == ''
-                        ? showItems(item, index, itemDate)
-                        : showOnlyOutputs == true && item.type == true && releaseData?.categoryId == ''
-                        ? showItems(item, index, itemDate)
-                        : showByCategories(item,index,itemDate) */
                     })}
             </S.List>
         </S.Container>

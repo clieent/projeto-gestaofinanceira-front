@@ -7,7 +7,7 @@ export const Container = styled.div`
     max-height: 100vh;
     overflow-y: hidden;
     overflow-x: hidden;
-    background-color: var(--color-a-plus);
+    background-color: var(--color-preto4);
     `
 
 export const Ilustration = styled.div``
@@ -17,22 +17,19 @@ export const WrapperSection = styled.div`
     width: 100%;
     height: 100%;
     max-height: 480px;
-    background-color: var(--color-abc);
-
-
+    background-color: var(--color-preto3);
     flex-direction: column;
     position: relative;
     margin-bottom: 50px;
-
     border-radius: 10px;
     padding: 30px 10px 30px 10px;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
         rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
         rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
-
+        
     h3 {
         margin-top: 10px;
-        color:var(--color-f);
+        color:var(--color-branco1);
         font-size: 25px;
         font-weight: 800;
         text-transform: uppercase;
@@ -53,5 +50,5 @@ export const Content = styled.div`
     display: grid;
     grid-template-columns: 50% 400px;
     place-items: center;
-    color:var(--color-f);
+    color:var(branco1);
 `

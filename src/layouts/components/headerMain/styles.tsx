@@ -1,8 +1,7 @@
 import styled from 'styled-components'
 
 export const Container = styled.header`
-    background-color: var(--color-ab);
-    //background-color: #030105f0;
+    background-color: var(--color-preto1);
     color: #d4d4d4;
     font-size: x-large;
     font-style: oblique;

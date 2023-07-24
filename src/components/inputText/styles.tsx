@@ -11,16 +11,15 @@ export const Container = styled.div`
     max-width: 100%;
     min-width: 100%;
     input {
-        background-color: var(--color-a);
-        //background-color: #0a0b0d !important;
-        color: var(--color-f);
+        background-color: var(--color-preto2);
+        color: var(--color-branco1);
     }
 `
 
 export const InputTextField = styled(TextField)`
     &::placeholder {}
     label {
-        color: var(--color-f);
+        color: var(--color-branco1);
     }
 `
 

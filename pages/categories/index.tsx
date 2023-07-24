@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import MainLayout from '../../src/layouts/mainLayout'
 import * as S from '../../styles/categories'
 import DefaultButton from '@/src/components/defaultButton'
@@ -18,12 +18,14 @@ interface ICategories {
 
 export default function Categories() {
     const { userId } = useStore()
-    let [selectCategory, setSelectCategory] = useState<categoryType>([])
+    const [selectCategory, setSelectCategory] = useState<categoryType>([])
     const [create, setCreate] = useState<boolean>(false)
     const [edit, setEdit] = useState<boolean[]>([])
     const [trash, setTrash] = useState<boolean[]>([])
-    const [update, setUpdate] = useState<ICategories[]>([])
+    const [update, setUpdate] = useState<ICategories>()
     const [refresh, setRefresh] = useState<boolean>(false)
+    const inputRefs = useRef<(HTMLInputElement | any)[]>([])
+    
 
     function handleClickDelete(id: string) {
         api.delete(`/categories/${id}`)
@@ -61,7 +63,6 @@ export default function Categories() {
     function setArray(data: any) {
         setTrash(new Array(data.length).fill(false))
         setEdit(new Array(data.length).fill(false))
-        setUpdate(new Array(data.length).fill(''))
     }
 
     const handleClickPatch = (id: string, index: number) => {
@@ -74,7 +75,6 @@ export default function Categories() {
             .catch((error) => {
                 console.log(error)
             })
-        // setEdit(false)
     }
 
     const handleClickButton = () => {
@@ -90,27 +90,27 @@ export default function Categories() {
     }
 
     const handleClickEdit = (index: number) => {
-        let arrayEditCoppy = [...edit]
-        arrayEditCoppy.map((boolean, i) => {
-            if (index === i) {
-                arrayEditCoppy[i] = !boolean
-            } else {
-                arrayEditCoppy[i] = false
-            }
-        })
-        setEdit(arrayEditCoppy)
+        let arrayEditCopy = [...edit]
+        arrayEditCopy = arrayEditCopy.map((boolean, i) =>
+            index === i ? !boolean : false
+        )
+
+        if (inputRefs.current[index]) {
+            inputRefs.current[index].focus()
+        }
+        setEdit(arrayEditCopy)
     }
 
     function handleClickTrash(index: number) {
-        let arrayTrashCoppy = [...trash]
-        arrayTrashCoppy.map((boolean, i) => {
+        let arrayTrashCopy = [...trash]
+        arrayTrashCopy.map((boolean, i) => {
             if (index === i) {
-                arrayTrashCoppy[i] = !boolean
+                arrayTrashCopy[i] = !boolean
             } else {
-                arrayTrashCoppy[i] = false
+                arrayTrashCopy[i] = false
             }
         })
-        setTrash(arrayTrashCoppy)
+        setTrash(arrayTrashCopy)
     }
 
     useEffect(() => {
@@ -122,54 +122,40 @@ export default function Categories() {
 
     return (
         <S.Container>
-            <CreateCategories
-                create={create}
-                setRefresh={setRefresh}
-                setCreate={setCreate}
-            />
             <S.Header>
-                <h3>lista de categorias</h3>
-                <S.wrapperButton>
-                    <DefaultButton
-                        onClick={handleClickButton}
-                        ctaButton={'Criar'}
-                    />
-                </S.wrapperButton>
+                <h3>Lista de categorias</h3>
             </S.Header>
+
+            <S.WrapperCategories>
+            <S.WrapperButton create={create ?? false}>
+                <DefaultButton 
+                    onClick={handleClickButton}
+                    ctaButton={'Nova Categoria'}
+                />
+            </S.WrapperButton>
+                <CreateCategories
+                    create={create}
+                    setRefresh={setRefresh}
+                    setCreate={setCreate}
+                />
+            </S.WrapperCategories>
             <S.WrapperList>
                 <h3>Nome da categoria</h3>
                 {selectCategory.map(({ title, _id }, index) => (
-                    <S.Content>
+                    <S.Content key={_id}>
                         <S.Input
+                            ref={(el) => (inputRefs.current[index] = el)}
                             type="text"
                             id={_id}
                             placeholder={title}
-                            value={update[index]?.title}
+                            value={inputRefs.current.value}
                             onFocus={() => handleClickEdit(index)}
                             onBlur={() => handleClickPatch(_id, index)}
                             onChange={(e) => handleOnChange(e)}
                         />
-                        {/* outline: none;*/}
+
                         <S.WrapperIcon>
-                            {edit[index] ? (
-                                <>
-                                    <S.Icon
-                                        icon={light('check')}
-                                        onClick={() => {
-                                            handleClickPatch(_id, index)
-                                        }}
-                                    />{' '}
-                                    <S.Icon
-                                        icon={light('xmark')}
-                                        onClick={() => handleClickEdit(index)}
-                                    />{' '}
-                                </>
-                            ) : (
-                                <S.Icon
-                                    icon={light('pencil')}
-                                    onClick={() => handleClickEdit(index)}
-                                />
-                            )}
+
                             {trash[index] ? (
                                 <>
                                     <S.Icon
@@ -181,13 +167,31 @@ export default function Categories() {
                                         onClick={() => handleClickTrash(index)}
                                     />{' '}
                                 </>
-                            ) : (
-                                <S.Icon
-                                    icon={light('trash')}
-                                    onClick={() => {
-                                        handleClickTrash(index)
-                                    }}
-                                />
+                            ) : edit[index] ?
+                                <>
+                                    <S.Icon
+                                        icon={light('check')}
+                                        onClick={() => handleClickPatch(_id, index)}
+                                    />{' '}
+                                    <S.Icon
+                                        icon={light('xmark')}
+                                        onClick={() => handleClickTrash(index)}
+                                    />{' '}
+                                </>
+                            : (
+                                <>
+                                    <S.Icon
+                                        icon={light('pencil')}
+                                        onClick={() => handleClickEdit(index)}
+                                    />
+
+                                    <S.Icon
+                                        icon={light('trash')}
+                                        onClick={() => {
+                                            handleClickTrash(index)
+                                        }}
+                                    />
+                                </>
                             )}
                         </S.WrapperIcon>
                     </S.Content>
@@ -196,6 +200,7 @@ export default function Categories() {
         </S.Container>
     )
 }
+
 Categories.getLayout = function GetLayout(page: any) {
     return <MainLayout>{page}</MainLayout>
 }

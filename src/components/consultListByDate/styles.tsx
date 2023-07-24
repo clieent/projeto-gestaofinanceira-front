@@ -2,14 +2,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 
 export const Container = styled.div`
-    //background-color: black;
-    background-color: var(--color-ab);
+    background-color: var(--color-preto1);
     width: 100%;
     `
 
 export const Header = styled.div`
-    background-color: var(--color-ab);
-    //background-color: rgba(0, 0, 0, 0.4);
+    background-color: var(--color-preto1);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -25,8 +23,7 @@ export const WrapperBalanceFilter = styled.div`
 `
 
 export const WrapperIcon = styled.div`
-    color: var(--color-f);
-    //color: #ccc;
+    color: var(--color-branco1);
     font-size: 25px;
     
     `
@@ -45,7 +42,7 @@ export const WrapperSelect = styled.div`
 `
 
 export const MonthTitle = styled.p`
-    color: var(--color-f);
+    color: var(--color-branco1);
     font-weight: 700;
     font-size: 20px;
     display: flex;
@@ -55,8 +52,7 @@ export const MonthTitle = styled.p`
 `
 
 export const List = styled.div`
-    //background-color: #0a0b0d;
-    background-color: var(--color-a);
+    background-color: var(--color-preto2);
     display: flex;
     flex-direction: column;
     gap: 15px;
@@ -66,12 +62,11 @@ export const List = styled.div`
 export const WrapperTitles = styled.div`
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    padding-left: 100px;
-    text-align: center;
+    padding-left: 150px;
+    text-align: left;
     position: relative;
     h3 {
-        color: var(--color-f);
-        //color: #CCC;
+        color: var(--color-branco1);
         font-size: 14px;
         font-weight: 700;
         text-transform: uppercase;

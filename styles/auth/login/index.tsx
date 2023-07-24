@@ -12,7 +12,7 @@ export const DataInputs = styled.div`
     display: flex;
     flex-direction: column;
     width: 100%;
-    padding-top: 75px;
+    padding-top: 30px;
 `
 
 export const WrapperButton = styled.div`
@@ -20,26 +20,27 @@ export const WrapperButton = styled.div`
     width: 50%;
     align-items: center;
     justify-content: center;
-    padding-top: 77px;
+    padding-top: 60px;
 `
 
 export const WrapperFoot = styled.div`
     display: flex;
     justify-content: center;
     font-family: Arial, Helvetica, sans-serif;
-    padding: 15px 0 0;
+    padding: 35px 0 0;
     span {
         align-items: center;
         display: flex;
         gap: 10px;
         font-weight: 800;
+        color: var(--color-branco1);
 
         strong {
             font-weight: 800;
 
-            color: var(--color-d);
+            color: var(--color-verde-claro1);
             &:hover {
-                color: var(--color-c);
+                color: var(--color-verde-escuro2);
                 cursor: pointer;
                 text-decoration: underline;
             }

@@ -9,12 +9,12 @@ export const Container = styled.div`
 
 export const Title = styled.h1`
     padding-top: 50px;
-    color: var(--color-f);
+    color: var(--color-branco1);
     font-size: 40px;
 `
 
 export const SubTitle = styled.h2`
-    color: var(--color-f-plus);
+    color: var(--color-cinza1);
     padding-top: 10px;
     margin-bottom: 80px;
 `
@@ -26,9 +26,9 @@ export const WrapperButton = styled.div`
 
 export const Loading = styled.div`
     animation: is-rotating 1s infinite;
-    border: 6px solid var(--color-f);
+    border: 6px solid var(--color-branco1);
     border-radius: 50%;
-    border-top-color: var(--color-d);
+    border-top-color: var(--color-verde-claro1);
     height: 50px;
     width: 50px;
 

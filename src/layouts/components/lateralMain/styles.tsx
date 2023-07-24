@@ -7,8 +7,7 @@ type ContainerProps = {
 
 export const Icon = styled(FontAwesomeIcon)`
     text-align: center;
-    color: var(--color-d);
-    //color: #d4d4d4;
+    color: var(--color-verde-claro2);
     font-size: 18px;
 `
 export const Item = styled.li`
@@ -19,11 +18,10 @@ export const Item = styled.li`
     min-width: 50px;
     max-width: 200px;
     list-style: none;
-    transition-duration: 1500ms;
+    transition-duration: 0.5s;
     overflow: hidden;
     &:hover {
-        background: var(--color-e);
-        //background: #3d1259;
+        background: var(--color-verde-escuro2);
     }
 `
 
@@ -44,7 +42,8 @@ export const Container = styled.div<ContainerProps>`
 
 export const MenuOptionsList = styled.ul`
     padding: 5px;
-    color: #d4d4d4;
+    color: var(--color-branco2);
+
     &:hover {
         cursor: pointer;
     }

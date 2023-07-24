@@ -13,7 +13,7 @@ export const Container = styled.div`
 `
 export const WrapperData = styled.div`
     span {
-        color: var(--color-d);
+        color: var(--color-cinza1);
         font-size: 20px;
     }
     `
@@ -21,7 +21,7 @@ export const WrapperData = styled.div`
 export const TypeColor = styled.div<TypeColorProps>`
     width: 10px;
     height: 50px;
-    background-color: ${({value}) => (value ? '#ED525B' : '#57bb1a')};
+    background-color: ${({value}) => (value ? 'var(--color-vermelho-exclusivo)' : 'var(--color-verde-exclusivo)')};
     position: absolute;
     top: 5px;
     display: flex;
@@ -36,8 +36,7 @@ export const Day = styled.div`
     flex-direction: column;
     font-weight: 600;
     font-size: 20px;
-    color: var(--color-f);
-    //color: #ccc;
+    color: var(--color-branco1);
     text-transform: uppercase;
     padding-right: 30px;
     padding-left: 20px;
@@ -45,15 +44,14 @@ export const Day = styled.div`
 
 export const Item = styled.div`
     width: 100%;
-    //background-color: #1c2026;
-    background-color: var(--color-a-plus);
+    padding-left: 50px;
+    background-color: var(--color-preto5);
     border-bottom-right-radius: 8px;
     border-top-right-radius: 8px;
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    //padding-left: 50px;
     position: relative;
-    text-align: center;
+    text-align: left;
     align-items: center;
     `
 

@@ -15,7 +15,7 @@ export const WrapperLateralMain = styled.div<PageProps>`
     display: flex;
     width: ${({ showMenu }) => (showMenu ? 200 : 60)}px;
     flex-direction: column;
-    background-color: var(--color-menu);
+    background-color: var(--color-preto1);
     height: 100vh;
     font-size: 16px;
     position: relative;
@@ -28,8 +28,7 @@ export const Page = styled.div<PageProps>`
     overflow-x: hidden;
     overflow-y: auto;
     display: flex;
-    background-color: var(--color-a-plus);
-    //background-color: #030105dc;
+    background-color: var(--color-preto4);
     article {
         width: ${({ showMenu }) =>
             showMenu ? 'calc(100vw - 200px)' : 'calc(100vw - 40px)'};
