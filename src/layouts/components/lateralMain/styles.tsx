@@ -18,10 +18,11 @@ export const Item = styled.li`
     min-width: 50px;
     max-width: 200px;
     list-style: none;
-    transition-duration: 0.5s;
+    transition-duration: 500ms;
     overflow: hidden;
     &:hover {
         background: var(--color-verde-escuro2);
+        cursor: pointer;
     }
 `
 
@@ -30,23 +31,19 @@ export const Container = styled.div<ContainerProps>`
     height: 100%;
     width: 100%;
     max-height: 100vh;
-    transition-duration: 500ms;
+    transition-duration: 100ms;
     grid-template-rows: 70px auto;
     ${Item} {
         width: ${({ showMenu }) => (showMenu ? '190px' : '50px')};
     }
     .title {
-        width: ${({ showMenu }) => (showMenu ? 140 : 0)}px !important;
+        width: ${({ showMenu }) => (showMenu ? 140 : 0)}px;
     }
 `
 
 export const MenuOptionsList = styled.ul`
     padding: 5px;
     color: var(--color-branco2);
-
-    &:hover {
-        cursor: pointer;
-    }
 `
 
 export const Header = styled.div`
@@ -55,6 +52,7 @@ export const Header = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    transition-duration: 0.5s;
 `
 
 export const WrapperIcon = styled.div`

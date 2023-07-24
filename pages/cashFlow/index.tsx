@@ -66,7 +66,7 @@ export default function CashFlow() {
             <S.WrapperRegister>
                 <S.WrapperSelect>
                     <SelectBox
-                        name="Categoria"
+                        title_name="Categoria"
                         id="category_id"
                         value={releaseData?.category_id}
                         setState={setReleaseData}
@@ -108,7 +108,7 @@ export default function CashFlow() {
                 </S.DataInputs>
                 <S.WrapperSelect>
                     <SelectBox
-                        name="Tipo"
+                        title_name="Tipo"
                         id="type"
                         value={releaseData?.type}
                         setState={setReleaseData}

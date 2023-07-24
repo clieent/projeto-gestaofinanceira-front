@@ -8,7 +8,7 @@ type SelectBoxProps = {
     label?: string | 'demo-simples-select-label'
     setState: any
     values: { value: any; label: string }[]
-    filterAction: any
+    filterAction?: any
 }
 
 function SelectBox(
@@ -20,7 +20,7 @@ function SelectBox(
         label,
         values,
         setState,
-        filterAction,
+        filterAction = undefined,
     }: SelectBoxProps
 ) {
     const handleOnChange = (e: { target: any }) => {
@@ -29,10 +29,12 @@ function SelectBox(
             ...date,
             [id]: e.target.value,
         }))
-        filterAction((prev: any) => ({
-            ...prev,
-            category_id: { title: e.target.label, _id: e.target.value },
-        }))
+        if(filterAction) {
+            filterAction((prev: any) => ({
+                ...prev,
+                category_id: { title: e.target.label, _id: e.target.value },
+            }))
+        }
     }
     return (
         <S.Container>

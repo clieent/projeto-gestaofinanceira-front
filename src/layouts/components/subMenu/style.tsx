@@ -15,10 +15,9 @@ export const Container = styled.div<ContainerProps>`
     justify-content: flex-start;
     flex-direction: column;
     align-items: center;
-    transition-duration: 350ms;
+    transition-duration: 400ms;
     ul {
         display: ${({ showSubMenu }) => (showSubMenu ? 'flex' : 'none')};
-        //visibility: ${({ showSubMenu }) => (showSubMenu ? 'visible' : 'hidden')};
     }
     `
 export const OptionsList = styled.ul`
@@ -31,7 +30,6 @@ export const OptionsList = styled.ul`
         border-radius: 5px;
         padding: 10px 25px;
         list-style: none;
-        transition: 30ms;
         &:hover {
             background: var(--color-verde-escuro2);
             cursor: pointer;
