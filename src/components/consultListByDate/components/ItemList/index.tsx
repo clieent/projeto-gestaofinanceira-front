@@ -1,4 +1,6 @@
+import { light, solid } from '@fortawesome/fontawesome-svg-core/import.macro'
 import * as S from './styles'
+import { useState } from 'react'
 
 interface IConsultListByDate {
     _id: string
@@ -9,8 +11,8 @@ interface IConsultListByDate {
     type: boolean
     user_id: string
     category_id: {
-        "_id": string
-        "title": string
+        _id: string
+        title: string
     }
     createdAt: Date
     updatedAt: Date
@@ -22,32 +24,88 @@ type ItemListProps = {
 }
 
 export default function ItemList({ item }: ItemListProps) {
-
     const date = item.createdAt.toString().split('T')[0]
     const currentDay = date.split('-')[2]
+    const [showDetails, setShowDetails] = useState(true)
 
+    const handleInfos = () => {
+        setShowDetails((prev) => !prev)
+    }
 
+    console.log(handleInfos)
 
     return (
         <S.Container>
-            <S.Day><span>{currentDay}</span></S.Day>
+            <S.Day>
+                <span>{currentDay}</span>
+            </S.Day>
             <S.Item>
-            <S.TypeColor value={item?.type} />
-            <S.WrapperData>
-                <span>{item.title}</span>
-            </S.WrapperData>
-            <S.WrapperData>
-                <span>{!item.description || item.description == '' ? '"Sem descrição..."' : item.description.substring(0,20)}</span>
-            </S.WrapperData>
-            <S.WrapperData>
-                <span>{item.category_id.title}</span>
-            </S.WrapperData>
-            <S.WrapperData>
-                <span>{item.dueDate}</span>
-            </S.WrapperData>
-            <S.WrapperData>
-                <span>{item.value}</span>
-            </S.WrapperData>
+                {showDetails === true ? (
+                    <>
+                        <S.WrapperIcon>
+                            <S.Icon
+                                icon={solid('plus')}
+                                title="Mostrar Mais"
+                                onClick={handleInfos}
+                            />
+                        </S.WrapperIcon>
+                        <S.TypeColor value={item?.type} />
+                        <S.WrapperData>
+                            <span>
+                                {item.title.substring(15)
+                                    ? `${item.title.substring(0, 15)}...`
+                                    : item.title}
+                            </span>
+                        </S.WrapperData>
+                        <S.WrapperData>
+                            <span>
+                                {!item.description || item.description == ''
+                                    ? '"Sem descrição..."'
+                                    : item.description.substring(15)
+                                    ? `${item.description.substring(0, 15)}...`
+                                    : item.description}
+                            </span>
+                        </S.WrapperData>
+                        <S.WrapperData>
+                            <span>
+                                {item.category_id.title.substring(18)
+                                    ? `${item.category_id.title.substring(0,15)}...`
+                                    : item.category_id.title}
+                            </span>
+                        </S.WrapperData>
+                    </>
+                ) : (
+                    <>
+                        <S.WrapperIcon>
+                            <S.Icon
+                                icon={solid('minus')}
+                                title="Mostrar Menos"
+                                onClick={handleInfos}
+                            />
+                        </S.WrapperIcon>
+                        <S.TypeColor value={item?.type} />
+                        <S.WrapperData>
+                            <span>{item.title}</span>
+                        </S.WrapperData>
+                        <S.WrapperData>
+                            <span>
+                                {!item.description || item.description == ''
+                                    ? '"Sem descrição..."'
+                                    : item.description}
+                            </span>
+                        </S.WrapperData>
+                        <S.WrapperData>
+                            <span>{item.category_id.title}</span>
+                        </S.WrapperData>
+                    </>
+                )}
+
+                <S.WrapperData>
+                    <span>{item.dueDate}</span>
+                </S.WrapperData>
+                <S.WrapperData>
+                    <span>{item.value}</span>
+                </S.WrapperData>
             </S.Item>
         </S.Container>
     )

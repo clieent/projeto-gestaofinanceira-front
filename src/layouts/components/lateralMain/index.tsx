@@ -53,7 +53,7 @@ export default function LateralMenu({
     return (
         <S.Container showMenu={showMenu}>
             <SubMenu config={subMenu} />
-            <S.Header>
+            <S.Header showMenu={showMenu}>
                 {showMenu === true ? (
                     <LogoClieent
                         type="rectangle"
@@ -72,50 +72,47 @@ export default function LateralMenu({
                 )}
             </S.Header>
             <S.MenuOptionsList>
-                <S.Item key={'Menu-Show'}>
+                <S.Item
+                    showMenu={showMenu}
+                    key={'Menu-Show'}
+                    onClick={() => {
+                        showMenu === true
+                            ? setShowMenu(false)
+                            : setShowMenu(true)
+                    }}
+                >
                     <S.WrapperIcon>
                         <S.Icon
                             className="select-menu"
                             icon={light('bars')}
-                            onClick={() => {
-                                showMenu === true
-                                    ? setShowMenu(false)
-                                    : setShowMenu(true)
-                            }}
                         />
                     </S.WrapperIcon>
-                    {showMenu === true ? (
-                        <S.Title
+                        <S.Title showMenu={showMenu}
                             className="title"
-                            onClick={() => {
-                                setShowMenu(false)
-                            }}
                         >
-                            <p>Recolher Menu</p>
+                            Recolher Menu
                         </S.Title>
-                    ) : null}
                 </S.Item>
 
                 {MenuOptions.map((item: any, index: number) => (
-                    <S.Item key={item.id}>
+                    <S.Item
+                        showMenu={showMenu} 
+                        key={item.id}
+                        onClick={() => {
+                            handleSubMenu(item, index)
+                        }}
+                        >
                         <S.WrapperIcon>
                             <S.Icon
                                 icon={item.icon}
-                                onClick={() => {
-                                    handleSubMenu(item, index)
-                                }}
+                                
                             />
                         </S.WrapperIcon>
-                        {showMenu === true ? (
-                            <S.Title
+                            <S.Title showMenu={showMenu}
                                 className="title"
-                                onClick={() => {
-                                    handleSubMenu(item, index)
-                                }}
                             >
-                                <p> {item.title} </p>
+                                {item.title}
                             </S.Title>
-                        ) : null}
                     </S.Item>
                 ))}
             </S.MenuOptionsList>

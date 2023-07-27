@@ -15,21 +15,26 @@ export const Container = styled.div<ContainerProps>`
     justify-content: flex-start;
     flex-direction: column;
     align-items: center;
-    transition-duration: 400ms;
-    ul {
-        display: ${({ showSubMenu }) => (showSubMenu ? 'flex' : 'none')};
-    }
+    transition-duration: 500ms;
+
     `
-export const OptionsList = styled.ul`
+
+export const OptionsList = styled.ul<ContainerProps>`
     padding: 5px;
     color: var(--color-branco2);
     display: flex;
     flex-direction: column;
     gap: 5px;
+    visibility: ${({ showSubMenu }) => (showSubMenu ? 'visible' : 'hidden')};
+    transition-delay: 250ms;
+    opacity: ${({ showSubMenu }) => (showSubMenu ? '1' : '0')};
+    transition-property: ${({ showSubMenu }) => (showSubMenu ? 'all' : 'none')};
     li {
+        display: ${({ showSubMenu }) => (showSubMenu ? 'block' : 'none')};
         border-radius: 5px;
         padding: 10px 25px;
         list-style: none;
+        white-space: nowrap;
         &:hover {
             background: var(--color-verde-escuro2);
             cursor: pointer;

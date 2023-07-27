@@ -1,25 +1,25 @@
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 type ContainerProps = {
     showMenu: boolean
 }
 
+
 export const Icon = styled(FontAwesomeIcon)`
     text-align: center;
     color: var(--color-verde-claro2);
     font-size: 18px;
 `
-export const Item = styled.li`
+export const Item = styled.li<ContainerProps>`
     border-radius: 10px;
+    width: ${({ showMenu }) => (showMenu ? '100%' : '50px')};
     display: grid;
-    grid-template-columns: 50px auto;
+    grid-template-columns: 50px 100%;
     height: 50px;
-    min-width: 50px;
-    max-width: 200px;
     list-style: none;
-    transition-duration: 500ms;
     overflow: hidden;
+    transition-duration: 0.5s;
     &:hover {
         background: var(--color-verde-escuro2);
         cursor: pointer;
@@ -31,13 +31,16 @@ export const Container = styled.div<ContainerProps>`
     height: 100%;
     width: 100%;
     max-height: 100vh;
-    transition-duration: 100ms;
+    transition-duration: 300ms;
     grid-template-rows: 70px auto;
-    ${Item} {
-        width: ${({ showMenu }) => (showMenu ? '190px' : '50px')};
+    * {
+        transition-duration: 0.3s;
+    }
+     ${Item} {
+        width: 190px;
     }
     .title {
-        width: ${({ showMenu }) => (showMenu ? 140 : 0)}px;
+        width: 140px;
     }
 `
 
@@ -46,14 +49,17 @@ export const MenuOptionsList = styled.ul`
     color: var(--color-branco2);
 `
 
-export const Header = styled.div`
+export const Header = styled.div<ContainerProps>`
     height: 70px;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition-duration: 0.5s;
-`
+
+    * {
+        transition-duration: .7s;
+    }
+    `
 
 export const WrapperIcon = styled.div`
     display: flex;
@@ -62,21 +68,20 @@ export const WrapperIcon = styled.div`
     width: 100%;
     height: 100%;
 `
-export const Title = styled.span`
+
+
+export const Title = styled.span<ContainerProps>`
     min-height: 16px;
     line-height: 16px;
-    display: flex;
+    display: ${({ showMenu }) => (showMenu ? 'flex' : 'none')};
     align-items: center;
     justify-content: flex-start;
     position: relative;
     overflow: hidden;
-    transition-duration: 500ms;
-
+    transition-delay: 0.3s;
+    
     p {
-        min-width: 140px;
-        display: flex;
         align-items: center;
-        width: 140px;
         line-height: 16px;
         position: absolute;
         height: 16px;

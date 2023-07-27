@@ -79,6 +79,7 @@ export const WrapperIcon = styled.div `
 export const Icon = styled(FontAwesomeIcon)`
     color: var(--color-branco2);
     &:hover{
+        cursor: pointer;
         color: var(--color-cinza1);
     }
 `

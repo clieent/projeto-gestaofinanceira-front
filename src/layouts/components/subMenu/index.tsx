@@ -20,8 +20,9 @@ type SubMenuProps = {
 export default function SubMenu({ config }: SubMenuProps) {
     const router = useRouter()
     return (
-        <S.Container showSubMenu={config?.showSubMenu ?? false}>
-            <S.OptionsList>
+        <S.Container showSubMenu={config?.showSubMenu ?? false}
+        >
+            <S.OptionsList showSubMenu={config?.showSubMenu ?? false}>
                 {Array.isArray(config?.options)
                     ? config?.options.map((option: IOptions, index: number) => {
                           return (

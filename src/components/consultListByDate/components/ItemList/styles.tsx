@@ -1,5 +1,26 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import styled from 'styled-components'
 
+interface IConsultListByDate {
+    _id: string
+    title: string
+    description?: string
+    value: string
+    dueDate: string
+    type: boolean
+    user_id: string
+    category_id: {
+        _id: string
+        title: string
+    }
+    createdAt: Date
+    updatedAt: Date
+    __v: number
+}
+
+type ItemListProps = {
+    item: IConsultListByDate
+}
 
 type TypeColorProps = {
     value: boolean
@@ -10,7 +31,7 @@ export const Container = styled.div`
     display: grid;
     height: 60px;
     grid-template-columns: 100px 1fr;
-`
+    `
 export const WrapperData = styled.div`
     span {
         color: var(--color-cinza1);
@@ -44,7 +65,7 @@ export const Day = styled.div`
 
 export const Item = styled.div`
     width: 100%;
-    padding-left: 50px;
+    padding-left: 40px;
     background-color: var(--color-preto5);
     border-bottom-right-radius: 8px;
     border-top-right-radius: 8px;
@@ -55,3 +76,17 @@ export const Item = styled.div`
     align-items: center;
     `
 
+    export const WrapperIcon = styled.div`
+    display: flex;
+    color: var(--color-cinza1);
+    font-size: 25px;
+    position: absolute;
+    right: 20px;
+    &:hover {
+        cursor: pointer;
+        color: var(--color-branco1);
+    }
+`
+
+export const Icon = styled(FontAwesomeIcon)`
+    `

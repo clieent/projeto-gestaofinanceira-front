@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import * as S from './styles'
 import LateralMain from '../components/lateralMain'
 import HeaderMain from '../components/headerMain'
-import ContentMain from '../components/contentMain'
 
 type MainLayoutProps = {
     children: React.ReactNode
