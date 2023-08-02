@@ -25,7 +25,6 @@ export const WrapperBalanceFilter = styled.div`
 export const WrapperIcon = styled.div`
     color: var(--color-branco1);
     font-size: 25px;
-    
     `
 
 export const Icon = styled(FontAwesomeIcon)`
@@ -62,7 +61,7 @@ export const List = styled.div`
 export const WrapperTitles = styled.div`
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    padding-left: 150px;
+    padding-left: 160px;
     text-align: left;
     position: relative;
     h3 {

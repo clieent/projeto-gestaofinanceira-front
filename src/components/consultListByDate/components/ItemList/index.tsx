@@ -35,44 +35,43 @@ export default function ItemList({ item }: ItemListProps) {
     console.log(handleInfos)
 
     return (
-        <S.Container>
+        <S.Container showDetails={showDetails}>
             <S.Day>
                 <span>{currentDay}</span>
             </S.Day>
-            <S.Item>
+            <S.Item showDetails={showDetails}>
                 {showDetails === true ? (
                     <>
-                        <S.WrapperIcon>
-                            <S.Icon
-                                icon={solid('plus')}
-                                title="Mostrar Mais"
-                                onClick={handleInfos}
+                            <S.WrapperIcon>
+                                <S.Icon
+                                    icon={solid('plus')}
+                                    title="Mostrar Mais"
+                                    onClick={handleInfos}
+                                />
+                            </S.WrapperIcon>
+                            <S.TypeColor
+                                showDetails={showDetails}
+                                value={item?.type}
                             />
-                        </S.WrapperIcon>
-                        <S.TypeColor value={item?.type} />
-                        <S.WrapperData>
-                            <span>
-                                {item.title.substring(15)
-                                    ? `${item.title.substring(0, 15)}...`
-                                    : item.title}
-                            </span>
-                        </S.WrapperData>
-                        <S.WrapperData>
-                            <span>
-                                {!item.description || item.description == ''
-                                    ? '"Sem descrição..."'
-                                    : item.description.substring(15)
-                                    ? `${item.description.substring(0, 15)}...`
-                                    : item.description}
-                            </span>
-                        </S.WrapperData>
-                        <S.WrapperData>
-                            <span>
-                                {item.category_id.title.substring(18)
-                                    ? `${item.category_id.title.substring(0,15)}...`
-                                    : item.category_id.title}
-                            </span>
-                        </S.WrapperData>
+                            <S.WrapperData showDetails={showDetails}>
+                                <span>
+                                    {item.title.substring(15)
+                                        ? `${item.title.substring(0, 15)}...`
+                                        : item.title}
+                                </span>
+                            </S.WrapperData>
+                            <S.WrapperData showDetails={showDetails}>
+                                <span>
+                                    {!item.description || item.description == ''
+                                        ? '"Sem descrição..."'
+                                        : item.description.substring(15)
+                                        ? `${item.description.substring(
+                                            0,
+                                            15
+                                            )}...`
+                                            : item.description}
+                                </span>
+                            </S.WrapperData>
                     </>
                 ) : (
                     <>
@@ -83,29 +82,32 @@ export default function ItemList({ item }: ItemListProps) {
                                 onClick={handleInfos}
                             />
                         </S.WrapperIcon>
-                        <S.TypeColor value={item?.type} />
-                        <S.WrapperData>
+                        <S.TypeColor
+                            showDetails={showDetails}
+                            value={item?.type}
+                        />
+                        <S.WrapperData showDetails={showDetails}>
                             <span>{item.title}</span>
                         </S.WrapperData>
-                        <S.WrapperData>
+                        <S.WrapperData showDetails={showDetails}>
                             <span>
                                 {!item.description || item.description == ''
                                     ? '"Sem descrição..."'
                                     : item.description}
                             </span>
                         </S.WrapperData>
-                        <S.WrapperData>
-                            <span>{item.category_id.title}</span>
-                        </S.WrapperData>
                     </>
                 )}
 
-                <S.WrapperData>
-                    <span>{item.dueDate}</span>
-                </S.WrapperData>
-                <S.WrapperData>
-                    <span>{item.value}</span>
-                </S.WrapperData>
+                    <S.WrapperDataFixed>
+                        <span>{item.category_id.title}</span>
+                    </S.WrapperDataFixed>
+                    <S.WrapperDataFixed>
+                        <span>{item.dueDate}</span>
+                    </S.WrapperDataFixed>
+                    <S.WrapperDataFixed>
+                        <span>{item.value}</span>
+                    </S.WrapperDataFixed>
             </S.Item>
         </S.Container>
     )

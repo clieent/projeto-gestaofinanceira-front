@@ -23,6 +23,7 @@ const GlobalStyle = createGlobalStyle`
     --color-branco1: #ccc;
     --color-branco2: #d4d4d4;
     --color-cinza1: #b1b1b1;
+    --color-cinza2: #6e6d6d;
 
   }
 `

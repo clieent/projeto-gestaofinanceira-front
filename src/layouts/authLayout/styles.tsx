@@ -16,7 +16,7 @@ export const WrapperSection = styled.div`
     display: flex;
     width: 100%;
     height: 100%;
-    max-height: 480px;
+    max-height: 500px;
     background-color: var(--color-preto3);
     flex-direction: column;
     position: relative;
