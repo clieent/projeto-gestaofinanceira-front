@@ -35,7 +35,7 @@ export default function CashFlow() {
         api.post('/cashFlows', releaseData)
             .then((data) => {
                 console.log(data)
-                router.push('/home')
+                router.push('/cashCheck')
             })
             .catch((error) => {
                 console.log(error)

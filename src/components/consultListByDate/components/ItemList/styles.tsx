@@ -1,55 +1,42 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import styled from 'styled-components'
 
-interface IConsultListByDate {
-    _id: string
-    title: string
-    description?: string
-    value: string
-    dueDate: string
-    type: boolean
-    user_id: string
-    category_id: {
-        _id: string
-        title: string
-    }
-    createdAt: Date
-    updatedAt: Date
-    __v: number
-}
-
-type ItemListProps = {
-    item: IConsultListByDate
-}
-
 type TypeColorProps = {
-    value: boolean
+    value?: boolean
+    showDetails?: boolean
 }
 
-
-export const Container = styled.div`
+export const Container = styled.div<TypeColorProps>`
     display: grid;
-    height: 60px;
+    height: ${({ showDetails }) => (showDetails ? '60px' : '90px')};
+    transition-duration: 0.5s;
     grid-template-columns: 100px 1fr;
-    `
-export const WrapperData = styled.div`
+    overflow: hidden;
+`
+export const WrapperData = styled.div<TypeColorProps>`
+    max-height: 90px;
+    padding: 10px 0px 10px 15px;
+    overflow-y: ${({ showDetails }) => (showDetails ? 'hidden' : 'auto')};
     span {
         color: var(--color-cinza1);
         font-size: 20px;
     }
-    `
 
-export const TypeColor = styled.div<TypeColorProps>`
-    width: 10px;
-    height: 50px;
-    background-color: ${({value}) => (value ? 'var(--color-vermelho-exclusivo)' : 'var(--color-verde-exclusivo)')};
-    position: absolute;
-    top: 5px;
-    display: flex;
-    left: -10px;
-    border-bottom-left-radius: 4px;
-    border-top-left-radius: 4px;
+    ::-webkit-scrollbar {
+        width: 10px;
+    }
+    ::-webkit-scrollbar-track {
+        border-radius: 2px;
+    }
+    ::-webkit-scrollbar-thumb {
+        background: var(--color-preto3);
+        border-radius: 20px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+        background: var(--color-preto1);
+    }
 `
+
 export const Day = styled.div`
     display: flex;
     align-items: center;
@@ -61,11 +48,12 @@ export const Day = styled.div`
     text-transform: uppercase;
     padding-right: 30px;
     padding-left: 20px;
-    `
+`
 
-export const Item = styled.div`
+export const Item = styled.div<TypeColorProps>`
+    height: ${({ showDetails }) => (showDetails ? '60px' : '90px')};
+    padding: 5px 0px 5px 40px;
     width: 100%;
-    padding-left: 40px;
     background-color: var(--color-preto5);
     border-bottom-right-radius: 8px;
     border-top-right-radius: 8px;
@@ -74,19 +62,42 @@ export const Item = styled.div`
     position: relative;
     text-align: left;
     align-items: center;
-    `
+    transition-duration: 0.5s;
+`
 
-    export const WrapperIcon = styled.div`
+export const TypeColor = styled.div<TypeColorProps>`
+    width: 10px;
+    transition-duration: 0.5s;
+    height: ${({ showDetails }) => (showDetails ? '50px' : '80px')};
+    background-color: ${({ value }) =>
+        value
+            ? 'var(--color-vermelho-exclusivo)'
+            : 'var(--color-verde-exclusivo)'};
+    position: absolute;
+    display: flex;
+    left: -10px;
+    border-bottom-left-radius: 4px;
+    border-top-left-radius: 4px;
+`
+
+export const WrapperIcon = styled.div`
     display: flex;
     color: var(--color-cinza1);
     font-size: 25px;
     position: absolute;
-    right: 20px;
+    right: 50px;
     &:hover {
         cursor: pointer;
         color: var(--color-branco1);
     }
 `
 
-export const Icon = styled(FontAwesomeIcon)`
-    `
+export const Icon = styled(FontAwesomeIcon)``
+
+export const WrapperDataFixed = styled.div`
+    padding-left: 15px;
+    span {
+        color: var(--color-cinza1);
+        font-size: 20px;
+    }
+`
