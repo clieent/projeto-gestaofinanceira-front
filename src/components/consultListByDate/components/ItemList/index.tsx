@@ -17,6 +17,7 @@ interface IConsultListByDate {
     createdAt: Date
     updatedAt: Date
     __v: number
+    paymentType: boolean
 }
 
 type ItemListProps = {
@@ -27,6 +28,8 @@ export default function ItemList({ item }: ItemListProps) {
     const date = item.createdAt.toString().split('T')[0]
     const currentDay = date.split('-')[2]
     const [showDetails, setShowDetails] = useState(true)
+    const [showOnlyInputs, setShowOnlyInputs] = useState(false)
+    const [showOnlyOutputs, setShowOnlyOutputs] = useState(false)
 
     const handleInfos = () => {
         setShowDetails((prev) => !prev)
@@ -36,9 +39,9 @@ export default function ItemList({ item }: ItemListProps) {
 
     return (
         <S.Container showDetails={showDetails}>
-            <S.Day>
-                <span>{currentDay}</span>
-            </S.Day>
+            <S.IconItem 
+                icon={solid('chart-mixed-up-circle-dollar')}
+            />
             <S.Item showDetails={showDetails}>
                 {showDetails === true ? (
                     <>
@@ -81,6 +84,9 @@ export default function ItemList({ item }: ItemListProps) {
                                 title="Mostrar Menos"
                                 onClick={handleInfos}
                             />
+                            <S.WrapperDataFixed>
+                                
+                            </S.WrapperDataFixed>
                         </S.WrapperIcon>
                         <S.TypeColor
                             showDetails={showDetails}

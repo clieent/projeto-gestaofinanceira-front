@@ -4,6 +4,7 @@ import styled from 'styled-components'
 type TypeColorProps = {
     value?: boolean
     showDetails?: boolean
+    showType?: boolean
 }
 
 export const Container = styled.div<TypeColorProps>`
@@ -12,6 +13,8 @@ export const Container = styled.div<TypeColorProps>`
     transition-duration: 0.5s;
     grid-template-columns: 100px 1fr;
     overflow: hidden;
+    align-items: center;
+    place-items: center;
 `
 export const WrapperData = styled.div<TypeColorProps>`
     max-height: 90px;
@@ -37,17 +40,11 @@ export const WrapperData = styled.div<TypeColorProps>`
     }
 `
 
-export const Day = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    font-weight: 600;
-    font-size: 20px;
+export const IconItem = styled(FontAwesomeIcon)<TypeColorProps>`
+    font-size: 25px;
     color: var(--color-branco1);
-    text-transform: uppercase;
-    padding-right: 30px;
-    padding-left: 20px;
+    padding-right: 20px;
+    
 `
 
 export const Item = styled.div<TypeColorProps>`
@@ -84,6 +81,9 @@ export const WrapperIcon = styled.div`
     display: flex;
     color: var(--color-cinza1);
     font-size: 25px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
     position: absolute;
     right: 50px;
     &:hover {
@@ -92,10 +92,12 @@ export const WrapperIcon = styled.div`
     }
 `
 
-export const Icon = styled(FontAwesomeIcon)``
+export const Icon = styled(FontAwesomeIcon)`
+    
+`
 
 export const WrapperDataFixed = styled.div`
-    padding-left: 15px;
+    padding-left: 10px;
     span {
         color: var(--color-cinza1);
         font-size: 20px;

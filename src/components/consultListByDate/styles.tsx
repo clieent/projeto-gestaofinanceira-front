@@ -19,7 +19,10 @@ export const WrapperBalanceFilter = styled.div`
     align-items: center;
     display: flex;
     justify-content: center;
-    gap: 20px;
+    gap: 10px;
+    div {
+        width: 150px;
+    }
 `
 
 export const WrapperIcon = styled.div`

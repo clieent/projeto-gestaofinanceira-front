@@ -23,6 +23,7 @@ interface ICashFlow {
     createdAt: Date
     updatedAt: Date
     __v: number
+    paymentType: boolean
 }
 
 interface IReleaseData {
@@ -111,8 +112,8 @@ export default function ConsultListByDate({}: ConsultListByDateProps) {
         }))
     }
 
-    const [showOnlyOutputs, setshowOnlyOutputs] = useState(false)
-    const [showOnlyInputs, setShowOnlyInputs] = useState(false)
+    const [showNotPaid, setShowNotPaid] = useState(false)
+    const [showPaid, setShowPaid] = useState(false)
 
     function showItems(item: ICashFlow, index: number, itemDate: Date) {
         return atualDate.maskDate ==
@@ -141,7 +142,7 @@ export default function ConsultListByDate({}: ConsultListByDateProps) {
     console.log(searchCashFlow, 'AAAAAAAAAAAAAAAAAAAA')
 
     function filterCashFlows(takeCashflow: Partial<ICashFlow>) {
-        if (showOnlyOutputs && showOnlyInputs) {
+        if (showNotPaid && showPaid) {
             if (searchCashFlow.category_id?._id) {
                 return (
                     takeCashflow.category_id?._id == searchCashFlow.category_id?._id
@@ -150,29 +151,29 @@ export default function ConsultListByDate({}: ConsultListByDateProps) {
             return true
         }
 
-        if (showOnlyInputs) {
+        if (showPaid) {
             if (searchCashFlow.category_id?._id) {
                 return (
                     takeCashflow.category_id?._id ==
                         searchCashFlow.category_id?._id &&
-                    takeCashflow.type == !showOnlyInputs
+                    takeCashflow.type == !showPaid
                 )
             }
-            return takeCashflow.type == !showOnlyInputs
+            return takeCashflow.type == !showPaid
         }
 
-        if (showOnlyOutputs) {
+        if (showNotPaid) {
             if (searchCashFlow.category_id?._id) {
                 return (
                     takeCashflow.category_id?._id ==
                         searchCashFlow.category_id?._id &&
-                    takeCashflow.type == showOnlyOutputs
+                    takeCashflow.type == showNotPaid
                 )
             }
-            return takeCashflow.type == showOnlyOutputs
+            return takeCashflow.type == showNotPaid
         }
 
-        if (!(showOnlyOutputs && showOnlyInputs)) {
+        if (!(showNotPaid && showPaid)) {
             if (searchCashFlow.category_id?._id) {
                 return (
                     takeCashflow.category_id?._id == searchCashFlow.category_id?._id
@@ -206,15 +207,29 @@ export default function ConsultListByDate({}: ConsultListByDateProps) {
 
                 <S.WrapperBalanceFilter>
                     <DefaultToggle
-                        setState={setShowOnlyInputs}
+                        setState={setShowPaid}
                         ctaToggle={'Entradas'}
-                        status={showOnlyInputs}
+                        status={showPaid}
                     />
 
                     <DefaultToggle
-                        setState={setshowOnlyOutputs}
+                        setState={setShowNotPaid}
                         ctaToggle={'Saídas'}
-                        status={showOnlyOutputs}
+                        status={showNotPaid}
+                    />
+                </S.WrapperBalanceFilter>
+
+                <S.WrapperBalanceFilter>
+                    <DefaultToggle
+                        setState={setShowPaid}
+                        ctaToggle={'Pagos'}
+                        status={showPaid}
+                    />
+
+                    <DefaultToggle
+                        setState={setShowNotPaid}
+                        ctaToggle={'Não Pagos'}
+                        status={showNotPaid}
                     />
                 </S.WrapperBalanceFilter>
 
