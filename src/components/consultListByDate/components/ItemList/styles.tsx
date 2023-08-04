@@ -9,7 +9,7 @@ type TypeColorProps = {
 
 export const Container = styled.div<TypeColorProps>`
     display: grid;
-    height: ${({ showDetails }) => (showDetails ? '60px' : '90px')};
+    height: ${({ showDetails }) => (showDetails ? '60px' : '110px')};
     transition-duration: 0.5s;
     grid-template-columns: 100px 1fr;
     overflow: hidden;
@@ -48,7 +48,7 @@ export const IconItem = styled(FontAwesomeIcon)<TypeColorProps>`
 `
 
 export const Item = styled.div<TypeColorProps>`
-    height: ${({ showDetails }) => (showDetails ? '60px' : '90px')};
+    height: ${({ showDetails }) => (showDetails ? '60px' : '110px')};
     padding: 5px 0px 5px 40px;
     width: 100%;
     background-color: var(--color-preto5);
@@ -65,7 +65,7 @@ export const Item = styled.div<TypeColorProps>`
 export const TypeColor = styled.div<TypeColorProps>`
     width: 10px;
     transition-duration: 0.5s;
-    height: ${({ showDetails }) => (showDetails ? '50px' : '80px')};
+    height: ${({ showDetails }) => (showDetails ? '50px' : '90px')};
     background-color: ${({ value }) =>
         value
             ? 'var(--color-vermelho-exclusivo)'
@@ -86,14 +86,13 @@ export const WrapperIcon = styled.div`
     flex-direction: column;
     position: absolute;
     right: 50px;
+    `
+
+export const Icon = styled(FontAwesomeIcon)`
     &:hover {
         cursor: pointer;
         color: var(--color-branco1);
     }
-`
-
-export const Icon = styled(FontAwesomeIcon)`
-    
 `
 
 export const WrapperDataFixed = styled.div`
@@ -101,5 +100,17 @@ export const WrapperDataFixed = styled.div`
     span {
         color: var(--color-cinza1);
         font-size: 20px;
+    }
+    `
+
+export const Day = styled.div`
+    display: flex;
+    position: absolute;
+    right: 10px;
+    bottom: 3px;
+    span {
+        color: var(--color-cinza3);
+        font-size: 18px;
+        padding-top: 20px;
     }
 `

@@ -28,6 +28,11 @@ export const WrapperBalanceFilter = styled.div`
 export const WrapperIcon = styled.div`
     color: var(--color-branco1);
     font-size: 25px;
+    &:hover{
+        cursor: pointer;
+        color: var(--color-cinza1);
+        font-size: 26px;
+    }
     `
 
 export const Icon = styled(FontAwesomeIcon)`

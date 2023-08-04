@@ -1,4 +1,4 @@
-import { light } from '@fortawesome/fontawesome-svg-core/import.macro'
+import { light, solid } from '@fortawesome/fontawesome-svg-core/import.macro'
 import api from '../../config/api/api'
 import * as S from './styles'
 import { SetStateAction, useEffect, useState } from 'react'
@@ -23,7 +23,7 @@ interface ICashFlow {
     createdAt: Date
     updatedAt: Date
     __v: number
-    paymentType: boolean
+    paid: boolean
 }
 
 interface IReleaseData {
@@ -41,9 +41,9 @@ export default function ConsultListByDate({}: ConsultListByDateProps) {
     const userId = useStore((value) => value.userId)
     const [cashFlow, setCashFlow] = useState<ICashFlow[]>()
     const [releaseData, setReleaseData] = useState<IReleaseData>({
-        categoryId: '',
+        categoryId: ''
     })
-    const [selectCategory, setSelectCategory] = useState<categoryType>([])
+    const [selectCategory, setSelectCategory] = useState('')
     const [selectAllCategories, setSelectAllCategories] =
         useState<categoryType>([])
     const [atualDate, setAtualDate] = useState({ date: '', maskDate: '' })
@@ -111,9 +111,11 @@ export default function ConsultListByDate({}: ConsultListByDateProps) {
             date: currentDate.toString(),
         }))
     }
+    
+    const [showInputsOutputs, setShowInputsOutputs] = useState(false)
 
-    const [showNotPaid, setShowNotPaid] = useState(false)
-    const [showPaid, setShowPaid] = useState(false)
+    const [showPaids, setShowPaids] = useState(false)
+    const [showUnpaids, setShowUnpaids] = useState(false)
 
     function showItems(item: ICashFlow, index: number, itemDate: Date) {
         return atualDate.maskDate ==
@@ -134,54 +136,17 @@ export default function ConsultListByDate({}: ConsultListByDateProps) {
             params: { userId },
         })
         setSelectAllCategories(data)
-        setSelectCategory(data)
+        
     }
 
     const [searchCashFlow, setSearchCashFlow] = useState<Partial<ICashFlow>>({})
 
-    console.log(searchCashFlow, 'AAAAAAAAAAAAAAAAAAAA')
+    function filterCashFlows(item: ICashFlow) {
+            if(!item.type == showInputsOutputs) return
+            if(releaseData.categoryId === 'Todos' || releaseData.categoryId === '') return item
+            
+            if(([releaseData.categoryId].includes(item.category_id._id))) return item.category_id._id
 
-    function filterCashFlows(takeCashflow: Partial<ICashFlow>) {
-        if (showNotPaid && showPaid) {
-            if (searchCashFlow.category_id?._id) {
-                return (
-                    takeCashflow.category_id?._id == searchCashFlow.category_id?._id
-                )
-            }
-            return true
-        }
-
-        if (showPaid) {
-            if (searchCashFlow.category_id?._id) {
-                return (
-                    takeCashflow.category_id?._id ==
-                        searchCashFlow.category_id?._id &&
-                    takeCashflow.type == !showPaid
-                )
-            }
-            return takeCashflow.type == !showPaid
-        }
-
-        if (showNotPaid) {
-            if (searchCashFlow.category_id?._id) {
-                return (
-                    takeCashflow.category_id?._id ==
-                        searchCashFlow.category_id?._id &&
-                    takeCashflow.type == showNotPaid
-                )
-            }
-            return takeCashflow.type == showNotPaid
-        }
-
-        if (!(showNotPaid && showPaid)) {
-            if (searchCashFlow.category_id?._id) {
-                return (
-                    takeCashflow.category_id?._id == searchCashFlow.category_id?._id
-                )
-            }
-            return true
-        }
-        return true
     }
 
     return (
@@ -205,33 +170,40 @@ export default function ConsultListByDate({}: ConsultListByDateProps) {
                     </S.WrapperIcon>
                 </S.WrapperDateGroup>
 
-                <S.WrapperBalanceFilter>
+                {/* <S.WrapperBalanceFilter>
                     <DefaultToggle
-                        setState={setShowPaid}
-                        ctaToggle={'Entradas'}
-                        status={showPaid}
+                        setState={setShowInputsOutputs}
+                        ctaToggle={showInputsOutputs ? 'Entradas' : 'Saídas'}
                     />
-
-                    <DefaultToggle
-                        setState={setShowNotPaid}
-                        ctaToggle={'Saídas'}
-                        status={showNotPaid}
-                    />
-                </S.WrapperBalanceFilter>
+                </S.WrapperBalanceFilter> */}
 
                 <S.WrapperBalanceFilter>
                     <DefaultToggle
-                        setState={setShowPaid}
+                        setState={setShowPaids}
                         ctaToggle={'Pagos'}
-                        status={showPaid}
+                        status={showPaids}
                     />
 
                     <DefaultToggle
-                        setState={setShowNotPaid}
+                        setState={setShowUnpaids}
                         ctaToggle={'Não Pagos'}
-                        status={showNotPaid}
+                        status={showUnpaids}
                     />
                 </S.WrapperBalanceFilter>
+
+                <S.WrapperSelect>
+                    <SelectBox
+                        title_name="Tipo"
+                        id="type"
+                        value={searchCashFlow.type}
+                        setState={setSearchCashFlow}
+                        values={[
+                            { value: 'Todas', label: 'Todas' },
+                            { value: false, label: 'Entradas' },
+                            { value: true, label: 'Saídas' },
+                        ]}
+                    />
+                </S.WrapperSelect>
 
                 <S.WrapperSelect>
                     <SelectBox
@@ -240,7 +212,7 @@ export default function ConsultListByDate({}: ConsultListByDateProps) {
                         value={releaseData.categoryId}
                         setState={setReleaseData}
                         values={[
-                            { value: undefined, label: 'Todos' },
+                            { value: 'Todos', label: 'Todos' },
                             ...selectAllCategories.map(({ title, _id }) => ({
                                 value: _id,
                                 label: title,
@@ -258,6 +230,7 @@ export default function ConsultListByDate({}: ConsultListByDateProps) {
                     <h3>Data de Val.</h3>
                     <h3>Valor</h3>
                 </S.WrapperTitles>
+
 
                 {cashFlow
                     ?.filter((item) => filterCashFlows(item))

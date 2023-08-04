@@ -13,9 +13,9 @@ export const Icon = styled(FontAwesomeIcon)`
 `
 export const Item = styled.li<ContainerProps>`
     border-radius: 10px;
-    width: ${({ showMenu }) => (showMenu ? '100%' : '50px')};
+    width: 100%;
     display: grid;
-    grid-template-columns: 50px 100%;
+    grid-template-columns: ${({ showMenu }) => (showMenu ? '50px 100%' : '50px')};
     height: 50px;
     list-style: none;
     overflow: hidden;
@@ -36,12 +36,8 @@ export const Container = styled.div<ContainerProps>`
     * {
         transition-duration: 0.3s;
     }
-     ${Item} {
-        width: 190px;
-    }
-    .title {
-        width: 140px;
-    }
+    
+    
 `
 
 export const MenuOptionsList = styled.ul`
@@ -76,7 +72,7 @@ export const Title = styled.span<ContainerProps>`
     display: ${({ showMenu }) => (showMenu ? 'flex' : 'none')};
     align-items: center;
     justify-content: flex-start;
-    position: relative;
+    //position: relative;
     overflow: hidden;
     transition-delay: 0.3s;
     
