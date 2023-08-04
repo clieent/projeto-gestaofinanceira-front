@@ -67,7 +67,8 @@ export default function ItemList({ item }: ItemListProps) {
                         </S.WrapperIcon>
                         <S.TypeColor
                             showDetails={showDetails}
-                            value={item?.paid}
+                            value={//item?.paid
+                            !item.description ? !item.paid : item.paid}
                         />
                         <S.WrapperData showDetails={showDetails}>
                             <span>
@@ -97,7 +98,8 @@ export default function ItemList({ item }: ItemListProps) {
                         </S.WrapperIcon>
                         <S.TypeColor
                             showDetails={showDetails}
-                            value={item?.paid}
+                            value={//item?.paid
+                            item.description == '' ? item.paid : !item.paid}
                             />
                         <S.WrapperData showDetails={showDetails}>
                             <span>{item.title}</span>

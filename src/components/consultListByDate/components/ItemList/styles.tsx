@@ -68,8 +68,8 @@ export const TypeColor = styled.div<TypeColorProps>`
     height: ${({ showDetails }) => (showDetails ? '50px' : '90px')};
     background-color: ${({ value }) =>
         value
-            ? 'var(--color-vermelho-exclusivo)'
-            : 'var(--color-verde-exclusivo)'};
+            ? 'var(--color-verde-exclusivo)'
+            : 'var(--color-vermelho-exclusivo)'};
     position: absolute;
     display: flex;
     left: -10px;

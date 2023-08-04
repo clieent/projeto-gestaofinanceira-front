@@ -14,7 +14,7 @@ interface ICashFlow {
     description?: string
     value: string
     dueDate: string
-    type: boolean
+    type: any
     user_id: string
     category_id: {
         _id: string
@@ -41,7 +41,7 @@ export default function ConsultListByDate({}: ConsultListByDateProps) {
     const userId = useStore((value) => value.userId)
     const [cashFlow, setCashFlow] = useState<ICashFlow[]>()
     const [releaseData, setReleaseData] = useState<IReleaseData>({
-        categoryId: ''
+        categoryId: '',
     })
     const [selectCategory, setSelectCategory] = useState('')
     const [selectAllCategories, setSelectAllCategories] =
@@ -54,7 +54,7 @@ export default function ConsultListByDate({}: ConsultListByDateProps) {
             .then((response) => {
                 if (response.status === 201 || response.status === 200) {
                     setCashFlow(response.data)
-                    console.log(response.data)
+                    //console.log(response.data)
                 }
             })
             .catch((error) => {
@@ -111,11 +111,13 @@ export default function ConsultListByDate({}: ConsultListByDateProps) {
             date: currentDate.toString(),
         }))
     }
-    
-    const [showInputsOutputs, setShowInputsOutputs] = useState(false)
 
-    const [showPaids, setShowPaids] = useState(false)
-    const [showUnpaids, setShowUnpaids] = useState(false)
+    const [showInputsOutputs, setShowInputsOutputs] = useState({
+        type: 'Todas',
+    })
+
+    const [showDebts, setShowDebts] = useState({ paid: 'false' })
+    //const [showUnpaids, setShowUnpaids] = useState(false)
 
     function showItems(item: ICashFlow, index: number, itemDate: Date) {
         return atualDate.maskDate ==
@@ -136,18 +138,59 @@ export default function ConsultListByDate({}: ConsultListByDateProps) {
             params: { userId },
         })
         setSelectAllCategories(data)
-        
     }
 
-    const [searchCashFlow, setSearchCashFlow] = useState<Partial<ICashFlow>>({})
+    const [searchCashFlow, setSearchCashFlow] = useState<Partial<ICashFlow>>()
 
-    function filterCashFlows(item: ICashFlow) {
-            if(!item.type == showInputsOutputs) return
-            if(releaseData.categoryId === 'Todos' || releaseData.categoryId === '') return item
-            
-            if(([releaseData.categoryId].includes(item.category_id._id))) return item.category_id._id
+    function filterCashFlows(takeCashflow: Partial<ICashFlow>) {
+        if (((releaseData.categoryId == 'Todas' || releaseData.categoryId == '') 
+            && showInputsOutputs.type == 'Todas') || showDebts.paid == 'Todas') 
+        {
+            return true
+        }
 
+        if (showInputsOutputs.type == 'Todas') {
+            if (releaseData.categoryId) {
+                return takeCashflow.category_id?._id == releaseData.categoryId
+            } else {
+                if (releaseData.categoryId == 'Todas') {
+                    return true
+                }
+            }
+            return true
+        }
+
+        if (!showInputsOutputs.type) {
+            if (
+                releaseData.categoryId == 'Todas' ||
+                releaseData.categoryId == ''
+            ) {
+                return takeCashflow.type == showInputsOutputs.type
+            } else {
+                return (
+                    takeCashflow.category_id?._id == releaseData.categoryId &&
+                    takeCashflow.type == showInputsOutputs.type
+                )
+            }
+        }
+
+        if (showInputsOutputs.type) {
+            if (
+                releaseData.categoryId == 'Todas' ||
+                releaseData.categoryId == ''
+            ) {
+                return takeCashflow.type == showInputsOutputs.type
+            } else {
+                return (
+                    takeCashflow.category_id?._id == releaseData.categoryId &&
+                    takeCashflow.type == showInputsOutputs.type
+                )
+            }
+        }
+
+        return true
     }
+    console.log(showInputsOutputs, 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA5')
 
     return (
         <S.Container>
@@ -172,13 +215,6 @@ export default function ConsultListByDate({}: ConsultListByDateProps) {
 
                 {/* <S.WrapperBalanceFilter>
                     <DefaultToggle
-                        setState={setShowInputsOutputs}
-                        ctaToggle={showInputsOutputs ? 'Entradas' : 'Saídas'}
-                    />
-                </S.WrapperBalanceFilter> */}
-
-                <S.WrapperBalanceFilter>
-                    <DefaultToggle
                         setState={setShowPaids}
                         ctaToggle={'Pagos'}
                         status={showPaids}
@@ -189,14 +225,28 @@ export default function ConsultListByDate({}: ConsultListByDateProps) {
                         ctaToggle={'Não Pagos'}
                         status={showUnpaids}
                     />
-                </S.WrapperBalanceFilter>
+                </S.WrapperBalanceFilter> */}
+
+                <S.WrapperSelect>
+                    <SelectBox
+                        title_name="Status das Dívidas"
+                        id="paid"
+                        value={searchCashFlow?.paid}
+                        setState={setShowInputsOutputs}
+                        values={[
+                            { value: 'Todas', label: 'Todas' },
+                            { value: false, label: 'Pagas' },
+                            { value: true, label: 'Não Pagas' },
+                        ]}
+                    />
+                </S.WrapperSelect>
 
                 <S.WrapperSelect>
                     <SelectBox
                         title_name="Tipo"
                         id="type"
-                        value={searchCashFlow.type}
-                        setState={setSearchCashFlow}
+                        value={searchCashFlow?.type}
+                        setState={setShowInputsOutputs}
                         values={[
                             { value: 'Todas', label: 'Todas' },
                             { value: false, label: 'Entradas' },
@@ -212,7 +262,7 @@ export default function ConsultListByDate({}: ConsultListByDateProps) {
                         value={releaseData.categoryId}
                         setState={setReleaseData}
                         values={[
-                            { value: 'Todos', label: 'Todos' },
+                            { value: 'Todas', label: 'Todas' },
                             ...selectAllCategories.map(({ title, _id }) => ({
                                 value: _id,
                                 label: title,
@@ -231,10 +281,9 @@ export default function ConsultListByDate({}: ConsultListByDateProps) {
                     <h3>Valor</h3>
                 </S.WrapperTitles>
 
-
                 {cashFlow
-                    ?.filter((item) => filterCashFlows(item))
-                    .map((item, index) => {
+                    ?.filter((item: ICashFlow) => filterCashFlows(item))
+                    .map((item: ICashFlow, index: number) => {
                         const date = item.dueDate.split('/')
                         const currentMonth = date[1]
                         const currentYear = date[2]
@@ -243,8 +292,6 @@ export default function ConsultListByDate({}: ConsultListByDateProps) {
                         )
                         return showItems(item, index, itemDate)
                     })}
-                
-                
             </S.List>
         </S.Container>
     )
