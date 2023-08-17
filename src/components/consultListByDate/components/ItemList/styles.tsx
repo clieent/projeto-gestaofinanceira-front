@@ -2,9 +2,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import styled from 'styled-components'
 
 type TypeColorProps = {
+    paid?: boolean
     value?: boolean
     showDetails?: boolean
-    showType?: boolean
+    checked?: boolean
 }
 
 export const Container = styled.div<TypeColorProps>`
@@ -43,7 +44,7 @@ export const WrapperData = styled.div<TypeColorProps>`
 export const IconItem = styled(FontAwesomeIcon)<TypeColorProps>`
     font-size: 25px;
     color: var(--color-branco1);
-    padding-right: 20px;
+    display: grid;
     
 `
 
@@ -83,13 +84,15 @@ export const WrapperIcon = styled.div`
     font-size: 25px;
     align-items: center;
     justify-content: center;
-    flex-direction: column;
+    flex-direction: row;
+    right: 30px;
     position: absolute;
-    right: 50px;
+    gap: 30px;
     `
 
-export const Icon = styled(FontAwesomeIcon)`
+export const Icon = styled(FontAwesomeIcon)<TypeColorProps>`
     &:hover {
+        font-size: 28px;
         cursor: pointer;
         color: var(--color-branco1);
     }

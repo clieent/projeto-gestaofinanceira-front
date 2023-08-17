@@ -7,9 +7,9 @@ export const Container = styled.div`
     `
 
 export const WrapperDate = styled.div`
-    padding: 0 100px;
-    padding-top: 15px;
+    padding: 15px 100px 50px 100px;
     display: flex;
     align-items: center;
     justify-content: center;
-`
+    `
+

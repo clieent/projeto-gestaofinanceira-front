@@ -15,7 +15,6 @@ type SelectBoxProps = {
 function SelectBox(
     this: any,
     {
-        setShowAll,
         id,
         title_name,
         value,

@@ -18,6 +18,7 @@ interface releaseDataProps {
     value: any
     type: boolean
     user_id: string
+    paid: boolean
 }
 
 type categoryType = {
