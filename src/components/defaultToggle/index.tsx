@@ -1,10 +1,10 @@
-import { useState } from 'react'
+
 import * as S from './styles'
 import * as React from 'react'
 
 type DefaultToggleProps = {
     ctaToggle: string
-    status: boolean
+    status?: boolean
     setState: React.Dispatch<React.SetStateAction<boolean>>
 }
 

@@ -2,16 +2,20 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import styled from 'styled-components'
 
 type TypeColorProps = {
+    paid?: boolean
     value?: boolean
     showDetails?: boolean
+    checked?: boolean
 }
 
 export const Container = styled.div<TypeColorProps>`
     display: grid;
-    height: ${({ showDetails }) => (showDetails ? '60px' : '90px')};
+    height: ${({ showDetails }) => (showDetails ? '60px' : '110px')};
     transition-duration: 0.5s;
     grid-template-columns: 100px 1fr;
     overflow: hidden;
+    align-items: center;
+    place-items: center;
 `
 export const WrapperData = styled.div<TypeColorProps>`
     max-height: 90px;
@@ -37,21 +41,15 @@ export const WrapperData = styled.div<TypeColorProps>`
     }
 `
 
-export const Day = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    font-weight: 600;
-    font-size: 20px;
+export const IconItem = styled(FontAwesomeIcon)<TypeColorProps>`
+    font-size: 25px;
     color: var(--color-branco1);
-    text-transform: uppercase;
-    padding-right: 30px;
-    padding-left: 20px;
+    display: grid;
+    
 `
 
 export const Item = styled.div<TypeColorProps>`
-    height: ${({ showDetails }) => (showDetails ? '60px' : '90px')};
+    height: ${({ showDetails }) => (showDetails ? '60px' : '110px')};
     padding: 5px 0px 5px 40px;
     width: 100%;
     background-color: var(--color-preto5);
@@ -68,11 +66,11 @@ export const Item = styled.div<TypeColorProps>`
 export const TypeColor = styled.div<TypeColorProps>`
     width: 10px;
     transition-duration: 0.5s;
-    height: ${({ showDetails }) => (showDetails ? '50px' : '80px')};
+    height: ${({ showDetails }) => (showDetails ? '50px' : '90px')};
     background-color: ${({ value }) =>
         value
-            ? 'var(--color-vermelho-exclusivo)'
-            : 'var(--color-verde-exclusivo)'};
+            ? 'var(--color-verde-exclusivo)'
+            : 'var(--color-vermelho-exclusivo)'};
     position: absolute;
     display: flex;
     left: -10px;
@@ -84,20 +82,38 @@ export const WrapperIcon = styled.div`
     display: flex;
     color: var(--color-cinza1);
     font-size: 25px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    right: 30px;
     position: absolute;
-    right: 50px;
+    gap: 30px;
+    `
+
+export const Icon = styled(FontAwesomeIcon)<TypeColorProps>`
     &:hover {
+        font-size: 28px;
         cursor: pointer;
         color: var(--color-branco1);
     }
 `
 
-export const Icon = styled(FontAwesomeIcon)``
-
 export const WrapperDataFixed = styled.div`
-    padding-left: 15px;
+    padding-left: 10px;
     span {
         color: var(--color-cinza1);
         font-size: 20px;
+    }
+    `
+
+export const Day = styled.div`
+    display: flex;
+    position: absolute;
+    right: 10px;
+    bottom: 3px;
+    span {
+        color: var(--color-cinza3);
+        font-size: 18px;
+        padding-top: 20px;
     }
 `

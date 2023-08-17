@@ -13,7 +13,7 @@ export const Container = styled.div`
 
 export const WrapperLateralMain = styled.div<PageProps>`
     display: flex;
-    width: ${({ showMenu }) => (showMenu ? 200 : 60)}px;
+    width: ${({ showMenu }) => (showMenu ? '200px' : '60px')};
     flex-direction: column;
     background-color: var(--color-preto1);
     height: 100vh;

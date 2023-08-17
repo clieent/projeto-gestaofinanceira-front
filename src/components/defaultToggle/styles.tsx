@@ -10,7 +10,7 @@ export const Container = styled.div<DefaultToggleProps>`
         background-color: ${({status}) => (!status ? '#02735E' : '#014034')};
         font-weight: 700;
         font-size: 15px;
-        width: 100px;
+        width: 100%;
         height: 40px;
         &:hover {
             background-color: var(--color-verde-claro1);

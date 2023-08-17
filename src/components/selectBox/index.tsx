@@ -9,6 +9,7 @@ type SelectBoxProps = {
     setState: any
     values: { value: any; label: string }[]
     filterAction?: any
+    setShowAll?: any
 }
 
 function SelectBox(
@@ -24,7 +25,7 @@ function SelectBox(
     }: SelectBoxProps
 ) {
     const handleOnChange = (e: { target: any }) => {
-        console.log(e)
+        //console.log(e)
         setState((date: any) => ({
             ...date,
             [id]: e.target.value,
