@@ -12,15 +12,21 @@ export default function ExpiredSection() {
     useEffect(() => {
         const redirectTimer = setTimeout(() => {
             router.push("/auth/login")
-        }, 4000)
+        }, 5000)
 
         const intervalTimer = setInterval(() => {
             setTimer(prevTimer => prevTimer - 1)
         }, 1000)
 
+        if(timer == 0) {
+            clearInterval(redirectTimer)
+            clearInterval(intervalTimer)
+        }
+
         return () => {
             clearTimeout(redirectTimer)
             clearInterval(intervalTimer)
+            setTimer(5)
         }
     }, [])
 

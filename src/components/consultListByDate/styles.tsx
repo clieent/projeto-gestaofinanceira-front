@@ -88,20 +88,35 @@ export const WrapperButton = styled.div<ContainerProps>`
 `
 
 export const WrapperAlertBox = styled.div<ContainerProps>`
-    visibility: ${({ showAlertMessage }) => (showAlertMessage ? 'visible' : 'hidden')};;
-    height: ${({ showAlertMessage }) => (showAlertMessage ? 'auto' : '0px')};
+    visibility: ${({ showAlertMessage }) => (showAlertMessage ? 'visible' : 'hidden')};
+    height: auto;
     text-align: center;
-    justify-content: center;
     font-weight: 500;
-    font-size: 26px;
+    font-size: 22px;
     gap: 30px;
     display: flex;
-    border: ${({ showAlertMessage }) => (showAlertMessage ? '3px solid' : 'none')};
+    border: 3px solid;
     border-radius: 10px;
     color: var(--color-branco1);
     border-color: var(--color-verde-exclusivo);
     margin: 0px auto;
-    padding: ${({ showAlertMessage }) => (showAlertMessage ? '15px 80px' : '0px')};
+    position: absolute;
+    bottom: 30px;
+    padding: 15px;
+    z-index: 1;
+    background-color: var(--color-preto2);
+    align-items: center;
+    left: -100px;
+    animation: slideIn 1s ease forwards;
+
+    @keyframes slideIn {
+        from {
+          left: -100px;
+        }
+        to {
+          left: 30px;
+        }
+      }
     `
 
 export const AlertMessage = styled.span`

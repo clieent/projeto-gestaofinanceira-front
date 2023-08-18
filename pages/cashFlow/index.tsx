@@ -9,6 +9,7 @@ import useStore from '../../src/zustand/store'
 import dateMask from '@/src/util/masks/dateMask'
 import monetaryMask from '@/src/util/masks/monetaryMask'
 import { useRouter } from 'next/router'
+import { light, solid } from '@fortawesome/fontawesome-svg-core/import.macro'
 
 interface releaseDataProps {
     title: string
@@ -19,6 +20,7 @@ interface releaseDataProps {
     type: boolean
     user_id: string
     paid: boolean
+    parcel?: number | null
 }
 
 type categoryType = {
@@ -29,7 +31,10 @@ type categoryType = {
 export default function CashFlow() {
     const [releaseData, setReleaseData] = useState<releaseDataProps>()
     const { userId } = useStore()
-    let [selectCategory, setSelectCategory] = useState<categoryType>([])
+    const [selectCategory, setSelectCategory] = useState<categoryType>([])
+    const [showParcels, setShowParcels] = useState(false)
+    const [checkUncheck, setCheckUncheck] = useState(false)
+
     const router = useRouter()
     const handleClick = (e: any) => {
         e.preventDefault()
@@ -61,6 +66,17 @@ export default function CashFlow() {
         setSelectCategory(data)
     }
 
+    const handleShowInput = () => {
+        setShowParcels((prev) => !prev)
+        setCheckUncheck((prev) => !prev)
+    }
+
+    const [totalValueParcels, setTotalValueParcels] = useState()
+    const [numberOfParcels, setNumberOfParcels] = useState({
+        parcel: 1,
+    })
+    const [quantityParcels, setQuantityParcels] = useState([])
+
     return (
         <S.Container>
             <h1>Caixa</h1>
@@ -76,6 +92,17 @@ export default function CashFlow() {
                             label: title,
                         }))}
                     />
+
+                    <SelectBox
+                        title_name="Tipo"
+                        id="type"
+                        value={releaseData?.type}
+                        setState={setReleaseData}
+                        values={[
+                            { value: true, label: 'Saída' },
+                            { value: false, label: 'Entrada' },
+                        ]}
+                    />
                 </S.WrapperSelect>
                 <S.DataInputs>
                     <InputText
@@ -90,14 +117,7 @@ export default function CashFlow() {
                         value={releaseData?.description}
                         setState={setReleaseData}
                         id="description"
-                        label="Descrção"
-                    />
-                    <InputText
-                        placeholder={'R$0,00'}
-                        value={monetaryMask(releaseData?.value)}
-                        setState={setReleaseData}
-                        id="value"
-                        label="Valor"
+                        label="Descrição"
                     />
                     <InputText
                         placeholder={'Data de vencimento'}
@@ -106,20 +126,38 @@ export default function CashFlow() {
                         id="dueDate"
                         label="Data de vencimento"
                     />
-                </S.DataInputs>
-                <S.WrapperSelect>
-                    <SelectBox
-                        title_name="Tipo"
-                        id="type"
-                        value={releaseData?.type}
+                    <InputText
+                        placeholder={'R$0,00'}
+                        value={monetaryMask(releaseData?.value)}
                         setState={setReleaseData}
-                        values={[
-                            { value: true, label: 'Saída' },
-                            { value: false, label: 'Entrada' },
-                        ]}
+                        id="value"
+                        label="Valor"
                     />
-                </S.WrapperSelect>
+                </S.DataInputs>
 
+                <S.WrapperIcon>
+                    <S.Icon
+                        icon={
+                            checkUncheck
+                                ? light('square-check')
+                                : light('square')
+                        }
+                        onClick={() => {
+                            handleShowInput()
+                        }}
+                    />
+                    <h4>PARCELAR?</h4>
+
+                    <S.DataInputParcel showParcelsInfo={showParcels}>
+                        <InputText
+                            placeholder={'Quant.'}
+                            value={releaseData?.parcel}
+                            setState={setReleaseData}
+                            id="parcel"
+                            label="Quantas vezes?"
+                        />
+                    </S.DataInputParcel>
+                </S.WrapperIcon>
                 <S.WrapperButton>
                     <DefaultButton onClick={handleClick} ctaButton={'Lançar'} />
                 </S.WrapperButton>

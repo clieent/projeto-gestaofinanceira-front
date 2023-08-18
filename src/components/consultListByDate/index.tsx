@@ -53,7 +53,7 @@ export default function ConsultListByDate({}: ConsultListByDateProps) {
     const [selectedBoxes, setSelectedBoxes] = useState<string[]>([])
     const [showButton, setShowButton] = useState<boolean>(false)
     const [showAlertMessage, setShowAlertMessage] = useState(false)
-    const [timer, setTimer] = useState(5)
+    const [timer, setTimer] = useState(4)
 
     // PEGAR OS LANÇAMENTOS NO cashFlows \/ \/ \/
     const getCashFlow = async () => {
@@ -231,7 +231,7 @@ export default function ConsultListByDate({}: ConsultListByDateProps) {
         if(showAlertMessage) {
             const closeMessageTimer = setTimeout(() => {
                 setShowAlertMessage(false)
-            }, 5000)
+            }, 4000)
             
             const intervalTimer = setInterval(() => {
                 setTimer(prevTimer => prevTimer - 1)
@@ -245,6 +245,7 @@ export default function ConsultListByDate({}: ConsultListByDateProps) {
             return () => {
                 clearTimeout(closeMessageTimer)
                 clearInterval(intervalTimer)
+                setTimer(4)
             }
         }
     }, [showAlertMessage])

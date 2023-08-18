@@ -69,9 +69,9 @@ export const TypeColor = styled.div<TypeColorProps>`
     height: ${({ showDetails }) => (showDetails ? '50px' : '90px')};
     background-color: ${({ value }) =>
         value
-            ? 'var(--color-verde-exclusivo)'
-            : 'var(--color-vermelho-exclusivo)'};
-    position: absolute;
+            ? 'var(--color-preto4)'
+            : '#9d910b'};
+            position: absolute;
     display: flex;
     left: -10px;
     border-bottom-left-radius: 4px;

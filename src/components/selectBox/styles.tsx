@@ -7,24 +7,31 @@ import MenuItem from '@mui/material/MenuItem'
 
 export const Container = styled.div`
     width: 100%;
-    background-color: var(--color-preto2);
-    border-color: var(--color-branco1);
     `
 
 export const ChoicesBox = styled(Box)`
-`
+    `
 
-export const ChoicesFormControl = styled(FormControl)``
-
-export const ChoicesInputLabel = styled(InputLabel)`
-    color: #ccc !important;
-    select {
-        color: #ccc !important;
+export const ChoicesFormControl = styled(FormControl)`
+    & label.Mui-focused {
+        color: var(--color-branco2);
+    }
+    & .MuiOutlinedInput-root {
+        &.Mui-focused fieldset {
+            border-color: transparent;
+            border-radius: 2px;
+        }
     }
     `
 
+export const ChoicesInputLabel = styled(InputLabel)`
+    color: var(--color-branco2);
+    `
+
 export const ChoicesSelect = styled(Select)`
-    color: #ccc !important;
-`
+    color: var(--color-branco2);
+    border: 2px solid var(--color-cinza2);
+    background-color: var(--color-preto2);
+    `
 
 export const ChoicesMenuItem = styled(MenuItem)``
