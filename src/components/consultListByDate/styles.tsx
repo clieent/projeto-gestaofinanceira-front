@@ -106,17 +106,17 @@ export const WrapperAlertBox = styled.div<ContainerProps>`
     z-index: 1;
     background-color: var(--color-preto2);
     align-items: center;
-    left: -100px;
-    animation: slideIn 1s ease forwards;
+    right: 30px;
+    /* animation: slideIn 1s ease forwards;
 
     @keyframes slideIn {
         from {
-          left: -100px;
+          right: -100px;
         }
         to {
-          left: 30px;
+          right: 30px;
         }
-      }
+      } */
     `
 
 export const AlertMessage = styled.span`

@@ -3,16 +3,17 @@ import * as S from './styles'
 import { light } from '@fortawesome/fontawesome-svg-core/import.macro'
 
 type InputTextProps = {
-    placeholder: string
+    placeholder?: string
     value: string | any
     setState: any
     id: string
-    label: string
+    label?: string
     type?: string | 'required'
     mask?: any
     error?: boolean
     helperText?: string
     onBlur?: any
+
 }
 
 function InputText(

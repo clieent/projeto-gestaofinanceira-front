@@ -6,6 +6,7 @@ type TypeColorProps = {
     value?: boolean
     showDetails?: boolean
     checked?: boolean
+    style?: string | any
 }
 
 export const Container = styled.div<TypeColorProps>`

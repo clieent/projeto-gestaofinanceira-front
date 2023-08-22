@@ -69,7 +69,7 @@ export default function ItemList({
                     <S.IconItem
                         icon={duotone('arrow-up-wide-short')}
                         value={item?.type}
-                        style={{"--fa-primary-color": 'var(--color-verde-exclusivo)', "--fa-secondary-color": 'var(--color-cinza1)',}}
+                        style={{"--fa-primary-color": "var(--color-verde-exclusivo)", "--fa-secondary-color": "var(--color-cinza1)"}}
                         />
                 </>
             ) : (

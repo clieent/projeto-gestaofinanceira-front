@@ -34,6 +34,16 @@ export default function CashFlow() {
     const [selectCategory, setSelectCategory] = useState<categoryType>([])
     const [showParcels, setShowParcels] = useState(false)
     const [checkUncheck, setCheckUncheck] = useState(false)
+    const [originalValue, setOriginalValue] = useState('');
+
+    const handleCalculateParcel = () => {
+        const valueInNumber = releaseData?.value
+        const calculateParcel = valueInNumber / (releaseData?.parcel ?? 1)
+        setReleaseData((prev: any) => ({ ...prev, value: calculateParcel }))
+
+        console.log(calculateParcel)
+        return calculateParcel
+    }
 
     const router = useRouter()
     const handleClick = (e: any) => {
@@ -69,13 +79,18 @@ export default function CashFlow() {
     const handleShowInput = () => {
         setShowParcels((prev) => !prev)
         setCheckUncheck((prev) => !prev)
+        if(!showParcels) {
+            setReleaseData((prev: any) => ({
+                ...prev,
+                parcel: ''
+            }))
+        }
     }
 
-    const [totalValueParcels, setTotalValueParcels] = useState()
-    const [numberOfParcels, setNumberOfParcels] = useState({
-        parcel: 1,
-    })
-    const [quantityParcels, setQuantityParcels] = useState([])
+    // FUNÇÃO DE PARCELAMENTO
+
+    
+    
 
     return (
         <S.Container>
@@ -128,7 +143,7 @@ export default function CashFlow() {
                     />
                     <InputText
                         placeholder={'R$0,00'}
-                        value={monetaryMask(releaseData?.value)}
+                        value={releaseData?.value}
                         setState={setReleaseData}
                         id="value"
                         label="Valor"
@@ -146,20 +161,24 @@ export default function CashFlow() {
                             handleShowInput()
                         }}
                     />
-                    <h4>PARCELAR?</h4>
+                    <h4>PARCELAR</h4>
 
                     <S.DataInputParcel showParcelsInfo={showParcels}>
                         <InputText
-                            placeholder={'Quant.'}
+                            placeholder={'Quantidade'}
                             value={releaseData?.parcel}
                             setState={setReleaseData}
                             id="parcel"
-                            label="Quantas vezes?"
+                            label="Quantas vezes"
+                            type={'number'}
                         />
                     </S.DataInputParcel>
                 </S.WrapperIcon>
                 <S.WrapperButton>
-                    <DefaultButton onClick={handleClick} ctaButton={'Lançar'} />
+                    <DefaultButton
+                        onClick={handleCalculateParcel}
+                        ctaButton={'Lançar'}
+                    />
                 </S.WrapperButton>
             </S.WrapperRegister>
         </S.Container>

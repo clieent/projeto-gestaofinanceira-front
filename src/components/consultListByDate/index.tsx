@@ -250,8 +250,6 @@ export default function ConsultListByDate({}: ConsultListByDateProps) {
         }
     }, [showAlertMessage])
 
-    console.log(timer)
-
 
     return (
         <S.Container>
