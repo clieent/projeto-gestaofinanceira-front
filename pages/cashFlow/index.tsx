@@ -16,11 +16,11 @@ interface releaseDataProps {
     dueDate: string
     category_id: string
     description?: string
-    value: any
+    value: number | any
     type: boolean
     user_id: string
     paid: boolean
-    parcel?: number | null
+    installment?: number | null
 }
 
 type categoryType = {
@@ -32,26 +32,28 @@ export default function CashFlow() {
     const [releaseData, setReleaseData] = useState<releaseDataProps>()
     const { userId } = useStore()
     const [selectCategory, setSelectCategory] = useState<categoryType>([])
-    const [showParcels, setShowParcels] = useState(false)
+    const [showInstallments, setShowInstallments] = useState(false)
     const [checkUncheck, setCheckUncheck] = useState(false)
-    const [originalValue, setOriginalValue] = useState('');
+    const [timer, setTimer] = useState(4)
+    const [showAlertMessage, setShowAlertMessage] = useState(false)
 
-    const handleCalculateParcel = () => {
+    const handleCalculateInstallment = () => {
         const valueInNumber = releaseData?.value
-        const calculateParcel = valueInNumber / (releaseData?.parcel ?? 1)
-        setReleaseData((prev: any) => ({ ...prev, value: calculateParcel }))
+        const calculateInstallment = valueInNumber / (releaseData?.installment ?? 1)
+        setReleaseData((prev: any) => ({ ...prev, value: calculateInstallment }))
 
-        console.log(calculateParcel)
-        return calculateParcel
+        console.log(releaseData?.value)
+        return calculateInstallment
     }
 
     const router = useRouter()
     const handleClick = (e: any) => {
         e.preventDefault()
+        setShowAlertMessage(true)
+        handleCalculateInstallment()
         api.post('/cashFlows', releaseData)
             .then((data) => {
                 console.log(data)
-                router.push('/cashCheck')
             })
             .catch((error) => {
                 console.log(error)
@@ -77,19 +79,39 @@ export default function CashFlow() {
     }
 
     const handleShowInput = () => {
-        setShowParcels((prev) => !prev)
+        setShowInstallments((prev) => !prev)
         setCheckUncheck((prev) => !prev)
-        if(!showParcels) {
+        if(!showInstallments) {
             setReleaseData((prev: any) => ({
                 ...prev,
-                parcel: ''
+                installment: ''
             }))
         }
     }
 
-    // FUNÇÃO DE PARCELAMENTO
-
-    
+    useEffect(() => {
+        if(showAlertMessage) {
+            const closeMessageTimer = setTimeout(() => {
+                setShowAlertMessage(false)
+            }, 4000)
+            
+            const intervalTimer = setInterval(() => {
+                setTimer(prevTimer => prevTimer - 1)
+            }, 1000)
+            
+            if(timer == 0) {
+                clearInterval(closeMessageTimer)
+                clearInterval(intervalTimer)
+            }
+            
+            return () => {
+                clearTimeout(closeMessageTimer)
+                clearInterval(intervalTimer)
+                setTimer(4)
+                router.push('/cashCheck')
+            }
+        }
+    }, [showAlertMessage])
     
 
     return (
@@ -163,24 +185,33 @@ export default function CashFlow() {
                     />
                     <h4>PARCELAR</h4>
 
-                    <S.DataInputParcel showParcelsInfo={showParcels}>
+                    <S.DataInputInstallment showInstallmentsInfo={showInstallments}>
                         <InputText
                             placeholder={'Quantidade'}
-                            value={releaseData?.parcel}
+                            value={releaseData?.installment}
                             setState={setReleaseData}
-                            id="parcel"
+                            id="installment"
                             label="Quantas vezes"
                             type={'number'}
                         />
-                    </S.DataInputParcel>
+                    </S.DataInputInstallment>
                 </S.WrapperIcon>
                 <S.WrapperButton>
                     <DefaultButton
-                        onClick={handleCalculateParcel}
+                        onClick={handleClick}
                         ctaButton={'Lançar'}
                     />
                 </S.WrapperButton>
             </S.WrapperRegister>
+            <S.WrapperAlertBox showAlertMessage={showAlertMessage}>
+                    <S.IconItem
+                        icon={solid('circle-check')}
+                        style={{color: "#00cb62"}}
+                    />
+                    <S.AlertMessage>
+                        Lançamento realizado com <strong>SUCESSO</strong>
+                    </S.AlertMessage>
+                </S.WrapperAlertBox>
         </S.Container>
     )
 }

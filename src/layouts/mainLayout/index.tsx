@@ -8,7 +8,7 @@ type MainLayoutProps = {
 }
 
 export default function MainLayout({ children }: MainLayoutProps) {
-    const [showMenu, setShowMenu] = useState(true)
+    const [showMenu, setShowMenu] = useState(false)
     return (
         <S.Container>
             <S.WrapperLateralMain showMenu={showMenu}>

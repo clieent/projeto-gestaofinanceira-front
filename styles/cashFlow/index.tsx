@@ -2,7 +2,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import styled from 'styled-components'
 
 type ContainerProps = {
-    showParcelsInfo?: boolean
+    showInstallmentsInfo?: boolean
+    showAlertMessage?: boolean
 }
 
 export const Container = styled.div`
@@ -43,8 +44,8 @@ export const DataInputs = styled.div<ContainerProps>`
     flex-direction: column;
 `
 
-export const DataInputParcel = styled.div<ContainerProps>`
-    visibility: ${({ showParcelsInfo }) => showParcelsInfo ? 'visible' : 'hidden'};
+export const DataInputInstallment = styled.div<ContainerProps>`
+    visibility: ${({ showInstallmentsInfo }) => showInstallmentsInfo ? 'visible' : 'hidden'};
     gap: 10px;
 `
 
@@ -67,3 +68,33 @@ export const Icon = styled(FontAwesomeIcon)`
         cursor: pointer;
     }
 `
+
+export const WrapperAlertBox = styled.div<ContainerProps>`
+    visibility: ${({ showAlertMessage }) => (showAlertMessage ? 'visible' : 'hidden')};
+    height: auto;
+    text-align: center;
+    font-weight: 500;
+    font-size: 22px;
+    gap: 30px;
+    display: flex;
+    border: 3px solid;
+    border-radius: 10px;
+    color: var(--color-branco1);
+    border-color: var(--color-verde-exclusivo);
+    margin: 0px auto;
+    position: absolute;
+    bottom: 30px;
+    padding: 15px;
+    z-index: 1;
+    background-color: var(--color-preto2);
+    align-items: center;
+    right: 30px;
+`
+
+export const AlertMessage = styled.span`
+`
+
+export const IconItem = styled(FontAwesomeIcon)`
+    font-size: 28px;
+    color: var(--color-verde-exlusivo);
+    `

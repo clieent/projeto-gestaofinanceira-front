@@ -122,7 +122,7 @@ export const WrapperAlertBox = styled.div<ContainerProps>`
 export const AlertMessage = styled.span`
 `
 
-export const IconItem = styled(FontAwesomeIcon)<ContainerProps>`
+export const IconItem = styled(FontAwesomeIcon)`
     font-size: 28px;
     color: var(--color-verde-exlusivo);
     `
