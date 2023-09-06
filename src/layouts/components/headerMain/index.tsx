@@ -1,10 +1,14 @@
 import React from 'react'
 import * as S from './styles'
-import Image from 'next/image'
-import ImageLg from '../../../../public/clieent-rectangle@3x-2-1024x388.png'
 
-type HeaderMainProps = {}
+type HeaderMainProps = {
+    pageTitle: string
+}
 
-export default function HeaderMain({}: HeaderMainProps) {
-    return <S.Container>HEADER AQUI</S.Container>
+export default function HeaderMain({ pageTitle }: HeaderMainProps) {
+    return (
+        <S.Container>
+            <S.Title>{pageTitle}</S.Title>
+        </S.Container>
+    )
 }

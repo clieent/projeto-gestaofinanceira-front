@@ -21,16 +21,16 @@ export const Header = styled.div`
     padding-top: 25px;
 `
 
+export const WrapperBanks = styled.div`
+    display: grid;
+    justify-content: center;
+`
+
 export const WrapperButton = styled.div<ContainerProps>`
     display: flex;
     visibility: ${({ create }) => (create ? 'hidden' : 'visible')};
     height: ${({ create }) => (create ? '0px' : 'auto')};
     width: 450px;
-`
-
-export const WrapperCategories = styled.div`
-    display: grid;
-    justify-content: center;
 `
 
 export const WrapperList = styled.div`
@@ -69,7 +69,7 @@ export const Input = styled.input`
     }
     &:hover {
         cursor: pointer;
-        background-color: var(--color-preto4);
+        background-color: var(--color-preto3);
     }
 `
 
@@ -77,12 +77,12 @@ export const WrapperIcon = styled.div`
     display: flex;
     gap: 10px;
     padding-left: 15px;
-    color: var(--color-branco2);
 `
 
 export const Icon = styled(FontAwesomeIcon)`
+    color: var(--color-branco2);
     &:hover {
         cursor: pointer;
-        color: var(--color-preto5);
+        color: var(--color-cinza1);
     }
 `

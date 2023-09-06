@@ -5,9 +5,11 @@ import HeaderMain from '../components/headerMain'
 
 type MainLayoutProps = {
     children: React.ReactNode
+    pageLayout: string
 }
 
-export default function MainLayout({ children }: MainLayoutProps) {
+export default function MainLayout({ children, pageLayout }: MainLayoutProps) {
+    console.log(pageLayout)
     const [showMenu, setShowMenu] = useState(false)
     return (
         <S.Container>
@@ -15,7 +17,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
                 <LateralMain showMenu={showMenu} setShowMenu={setShowMenu} />
             </S.WrapperLateralMain>
             <S.Body>
-                <HeaderMain />
+                <HeaderMain pageTitle={pageLayout}/>
                 <S.Page showMenu={showMenu}>
                     <article>{children}</article>
                 </S.Page>

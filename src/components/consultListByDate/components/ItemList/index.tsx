@@ -1,10 +1,14 @@
 import {
     duotone,
     light,
+    regular,
     solid,
+    thin,
 } from '@fortawesome/fontawesome-svg-core/import.macro'
 import * as S from './styles'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
+import api from '@/src/config/api/api'
+import { useRouter } from 'next/router'
 
 interface IConsultListByDate {
     _id: string
@@ -18,6 +22,10 @@ interface IConsultListByDate {
         _id: string
         title: string
     }
+    banks_id: {
+        _id: string
+        title: string
+    }
     createdAt: Date
     updatedAt: Date
     __v: number
@@ -26,9 +34,9 @@ interface IConsultListByDate {
 
 type ItemListProps = {
     item: IConsultListByDate
-    isSelected: boolean
-    setSelectedBoxes: any
-    selectedBoxes: any
+    isSelected?: boolean
+    setSelectedBoxes?: any
+    selectedBoxes?: any
 }
 
 export default function ItemList({
@@ -60,7 +68,15 @@ export default function ItemList({
         }
     }
 
-    console.log(handleInfos)
+    const handleClickDelete = (id: string) => {
+        api.delete(`/cashFlows/${id}`)
+        .then((response) => {
+            console.log(response.status)
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+    }
 
     return (
         <S.Container showDetails={showDetails}>
@@ -69,14 +85,22 @@ export default function ItemList({
                     <S.IconItem
                         icon={duotone('arrow-up-wide-short')}
                         value={item?.type}
-                        style={{"--fa-primary-color": "var(--color-verde-exclusivo)", "--fa-secondary-color": "var(--color-cinza1)"}}
-                        />
+                        style={{
+                            '--fa-primary-color':
+                                'var(--color-verde-exclusivo)',
+                            '--fa-secondary-color': 'var(--color-cinza1)',
+                        }}
+                    />
                 </>
             ) : (
                 <>
                     <S.IconItem
                         icon={duotone('arrow-down-wide-short')}
-                        style={{"--fa-primary-color": 'var(--color-vermelho-exclusivo)', "--fa-secondary-color": 'var(--color-cinza1)'}}
+                        style={{
+                            '--fa-primary-color':
+                                'var(--color-vermelho-exclusivo)',
+                            '--fa-secondary-color': 'var(--color-cinza1)',
+                        }}
                         value={item?.type}
                     />
                 </>
@@ -109,6 +133,12 @@ export default function ItemList({
                                     <S.IconItem icon={solid('badge-check')} />
                                 </>
                             )}
+
+                            <S.Icon
+                                icon={light('trash')}
+                                title="Excluir item"
+                                onClick={() => handleClickDelete(item._id)}
+                            />
                         </S.WrapperIcon>
                         <S.TypeColor
                             showDetails={showDetails}
@@ -139,6 +169,7 @@ export default function ItemList({
                                 title="Mostrar Menos"
                                 onClick={handleInfos}
                             />
+
                             {item.paid == false ? (
                                 <>
                                     <S.Icon
@@ -158,6 +189,12 @@ export default function ItemList({
                                     <S.IconItem icon={solid('badge-check')} />
                                 </>
                             )}
+
+                            <S.Icon
+                                icon={light('trash')}
+                                title="Excluir item"
+                                onClick={() => handleClickDelete(item._id)}
+                            />
                         </S.WrapperIcon>
                         <S.TypeColor
                             showDetails={showDetails}
@@ -183,6 +220,9 @@ export default function ItemList({
 
                 <S.WrapperDataFixed>
                     <span>{item.category_id.title}</span>
+                </S.WrapperDataFixed>
+                <S.WrapperDataFixed>
+                    <span>{item.banks_id.title}</span>
                 </S.WrapperDataFixed>
                 <S.WrapperDataFixed>
                     <span>{item.dueDate}</span>

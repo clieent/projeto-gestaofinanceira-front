@@ -19,6 +19,10 @@ interface ICashFlow {
         _id: string
         title: string
     }
+    banks_id: {
+        _id: string
+        title: string
+    }
     createdAt: Date
     updatedAt: Date
     __v: number
@@ -138,10 +142,8 @@ export default function ConsultListByDate({}: ConsultListByDateProps) {
         ) : null
     }
 
-
-
     // CARREGAR CATEGORIAS
-    async function loadDate() {
+    async function loadDateCategories() {
         const { data } = await api.get<categoryType>('/categories', {
             params: { userId },
         })
@@ -149,13 +151,11 @@ export default function ConsultListByDate({}: ConsultListByDateProps) {
     }
 
     useEffect(() => {
-        loadDate()
+        loadDateCategories()
     }, [])
 
-    
     // FUNÇÕES DE FILTRAGENS
     function filterCashFlows(takeCashflow: Partial<ICashFlow>) {
-
         if (
             (releaseData.categoryId == 'Todas' ||
                 releaseData.categoryId == '') &&
@@ -198,7 +198,6 @@ export default function ConsultListByDate({}: ConsultListByDateProps) {
             }
         }
 
-        
         return true
     }
 
@@ -209,9 +208,7 @@ export default function ConsultListByDate({}: ConsultListByDateProps) {
         } else {
             setShowButton(false)
         }
-        console.log(selectedBoxes)
     }, [selectedBoxes])
-
 
     const handleCloseButton = () => {
         setShowButton(false)
@@ -219,29 +216,32 @@ export default function ConsultListByDate({}: ConsultListByDateProps) {
     }
 
     async function sendToPaid() {
-        await api.patch(`cashFlows/${userId}`, selectedBoxes).then((response) => {
-            console.log(response)
-            setCashFlow([])
-            getCashFlow()
-            setShowAlertMessage(true)
-        }).catch((err) => console.log(err))
+        await api
+            .patch(`cashFlows/${userId}`, selectedBoxes)
+            .then((response) => {
+                console.log(response)
+                setCashFlow([])
+                getCashFlow()
+                setShowAlertMessage(true)
+            })
+            .catch((err) => console.log(err))
     }
 
     useEffect(() => {
-        if(showAlertMessage) {
+        if (showAlertMessage) {
             const closeMessageTimer = setTimeout(() => {
                 setShowAlertMessage(false)
             }, 4000)
-            
+
             const intervalTimer = setInterval(() => {
-                setTimer(prevTimer => prevTimer - 1)
+                setTimer((prevTimer) => prevTimer - 1)
             }, 1000)
-            
-            if(timer == 0) {
+
+            if (timer == 0) {
                 clearInterval(closeMessageTimer)
                 clearInterval(intervalTimer)
             }
-            
+
             return () => {
                 clearTimeout(closeMessageTimer)
                 clearInterval(intervalTimer)
@@ -249,7 +249,6 @@ export default function ConsultListByDate({}: ConsultListByDateProps) {
             }
         }
     }, [showAlertMessage])
-
 
     return (
         <S.Container>
@@ -321,7 +320,7 @@ export default function ConsultListByDate({}: ConsultListByDateProps) {
                 <S.WrapperAlertBox showAlertMessage={showAlertMessage}>
                     <S.IconItem
                         icon={solid('circle-check')}
-                        style={{color: "#00cb62"}}
+                        style={{ color: '#00cb62' }}
                     />
                     <S.AlertMessage>
                         Dívida quitada com <strong>SUCESSO</strong>
@@ -333,7 +332,6 @@ export default function ConsultListByDate({}: ConsultListByDateProps) {
                         onClick={() => {
                             sendToPaid()
                             handleCloseButton()
-                            
                         }}
                         ctaButton={'Realizar Pagamento'}
                     />
@@ -350,6 +348,7 @@ export default function ConsultListByDate({}: ConsultListByDateProps) {
                     <h3>Nome</h3>
                     <h3>Descrição</h3>
                     <h3>Categoria</h3>
+                    <h3>Banco</h3>
                     <h3>Data de Val.</h3>
                     <h3>Valor</h3>
                 </S.WrapperTitles>

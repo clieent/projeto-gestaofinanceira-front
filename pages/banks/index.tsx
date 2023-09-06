@@ -1,38 +1,38 @@
 import { useEffect, useRef, useState } from 'react'
 import MainLayout from '../../src/layouts/mainLayout'
-import * as S from '../../styles/categories'
+import * as S from '../../styles/banks'
 import DefaultButton from '@/src/components/defaultButton'
 import api from '@/src/config/api/api'
 import useStore from '../../src/zustand/store'
 import { light } from '@fortawesome/fontawesome-svg-core/import.macro'
-import CreateCategories from '../../src/components/createCategories'
+import CreateBanks from '@/src/components/createBanks'
 
-type categoryType = {
+type banksType = {
     title: string
     _id: string
 }[]
 
-interface ICategories {
+interface IBanks {
     title: string
 }
 
-export default function Categories() {
+export default function Banks() {
     const { userId } = useStore()
-    const [selectCategory, setSelectCategory] = useState<categoryType>([])
+    const [selectBanks, setSelectBanks] = useState<banksType>([])
     const [create, setCreate] = useState<boolean>(false)
     const [edit, setEdit] = useState<boolean[]>([])
     const [trash, setTrash] = useState<boolean[]>([])
-    const [update, setUpdate] = useState<ICategories>()
+    const [update, setUpdate] = useState<IBanks>()
     const [refresh, setRefresh] = useState<boolean>(false)
     const inputRefs = useRef<(HTMLInputElement | any)[any]>([])
-    
-    async function loadDateCategories() {
+
+    async function loadDateBanks() {
         await api
-            .get<categoryType>('/categories', {
+            .get<banksType>('/banks', {
                 params: { userId },
             })
             .then((response) => {
-                setSelectCategory(response.data)
+                setSelectBanks(response.data)
                 setArray(response.data)
             })
             .catch((error) => {
@@ -44,17 +44,15 @@ export default function Categories() {
         setCreate(!create)
     }
 
-
     useEffect(() => {
-        loadDateCategories()
+        loadDateBanks()
     }, [])
-
-
+    
     function setArray(data: any) {
         setTrash(new Array(data.length).fill(false))
         setEdit(new Array(data.length).fill(false))
     }
-
+    
     const handleOnChange = (e: { target: any }) => {
         const { value }: string | any = e.target
         setUpdate((prev: any) => ({
@@ -64,9 +62,9 @@ export default function Categories() {
     }
 
     const handleClickPatch = (id: string, index: number) => {
-        api.patch(`/categories/${id}`, update)
+        api.patch(`/banks/${id}`, update)
             .then((reponse) => {
-                loadDateCategories()
+                loadDateBanks()
                 console.log(reponse.status)
                 edit[index] = false
             })
@@ -102,19 +100,11 @@ export default function Categories() {
         })
         setTrash(arrayTrashCopy)
     }
-
-    useEffect(() => {
-        if (refresh) {
-            loadDateCategories()
-            setRefresh(false)
-        }
-    }, [refresh])
-
-        
+            
     function handleClickDelete(id: string) {
-        api.delete(`/categories/${id}`)
+        api.delete(`/banks/${id}`)
             .then((reponse) => {
-                loadDateCategories()
+                loadDateBanks()
                 console.log(reponse.status)
             })
             .catch((error) => {
@@ -122,29 +112,37 @@ export default function Categories() {
             })
     }
 
+    useEffect(() => {
+        if (refresh) {
+            loadDateBanks()
+            setRefresh(false)
+        }
+    }, [refresh])
 
     return (
         <S.Container>
             <S.Header>
-                <h3>Lista de categorias</h3>
+                <h2>Lista de bancos</h2>
             </S.Header>
 
-            <S.WrapperCategories>
-            <S.WrapperButton create={create ?? false}>
-                <DefaultButton 
-                    onClick={handleClickButton}
-                    ctaButton={'Nova Categoria'}
-                />
-            </S.WrapperButton>
-                <CreateCategories
+            <S.WrapperBanks>
+                <S.WrapperButton create={create ?? false}>
+                    <DefaultButton
+                        onClick={handleClickButton}
+                        ctaButton={'Cadastrar novo banco'}
+                    />
+                </S.WrapperButton>
+
+                <CreateBanks
                     create={create}
                     setRefresh={setRefresh}
                     setCreate={setCreate}
                 />
-            </S.WrapperCategories>
+            </S.WrapperBanks>
+
             <S.WrapperList>
-                <h3>Nome da categoria</h3>
-                {selectCategory.map(({ title, _id }, index) => (
+                <h3>Bancos</h3>
+                {selectBanks.map(({ title, _id }, index) => (
                     <S.Content key={_id}>
                         <S.Input
                             ref={(el) => (inputRefs.current[index] = el)}
@@ -204,6 +202,6 @@ export default function Categories() {
     )
 }
 
-Categories.getLayout = function GetLayout(page: any) {
-    return <MainLayout pageLayout={'CATEGORIAS'}>{page}</MainLayout>
+Banks.getLayout = function GetLayout(page: any) {
+    return <MainLayout pageLayout={'BANCOS'}>{page}</MainLayout>
 }

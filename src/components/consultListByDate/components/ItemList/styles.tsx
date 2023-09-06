@@ -57,7 +57,7 @@ export const Item = styled.div<TypeColorProps>`
     border-bottom-right-radius: 8px;
     border-top-right-radius: 8px;
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(6, 1fr);
     position: relative;
     text-align: left;
     align-items: center;
@@ -88,7 +88,7 @@ export const WrapperIcon = styled.div`
     flex-direction: row;
     right: 30px;
     position: absolute;
-    gap: 30px;
+    gap: 20px;
     `
 
 export const Icon = styled(FontAwesomeIcon)<TypeColorProps>`

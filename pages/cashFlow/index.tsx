@@ -15,15 +15,21 @@ interface releaseDataProps {
     title: string
     dueDate: string
     category_id: string
+    banks_id: string
     description?: string
     value: number | any
     type: boolean
     user_id: string
     paid: boolean
-    installment?: number | null
+    installment?: number | any
 }
 
 type categoryType = {
+    title: string
+    _id: string
+}[]
+
+type banksType = {
     title: string
     _id: string
 }[]
@@ -32,26 +38,30 @@ export default function CashFlow() {
     const [releaseData, setReleaseData] = useState<releaseDataProps>()
     const { userId } = useStore()
     const [selectCategory, setSelectCategory] = useState<categoryType>([])
+    const [selectBanks, setSelectBanks] = useState<banksType>([])
     const [showInstallments, setShowInstallments] = useState(false)
     const [checkUncheck, setCheckUncheck] = useState(false)
-    const [timer, setTimer] = useState(4)
+    const [timer, setTimer] = useState(3)
     const [showAlertMessage, setShowAlertMessage] = useState(false)
 
-    const handleCalculateInstallment = () => {
-        const valueInNumber = releaseData?.value
-        const calculateInstallment = valueInNumber / (releaseData?.installment ?? 1)
-        setReleaseData((prev: any) => ({ ...prev, value: calculateInstallment }))
-
-        console.log(releaseData?.value)
+    function handleCalculateInstallment(installments: number) {      
+        const calculateInstallment = (parseFloat(releaseData?.value) / installments)
+        setReleaseData((prevReleaseData: any) => ({ 
+            ...prevReleaseData,
+            value: calculateInstallment.toFixed(2).toString(),
+            installment: installments
+        }))
+        
         return calculateInstallment
     }
-
+    
     const router = useRouter()
     const handleClick = (e: any) => {
         e.preventDefault()
         setShowAlertMessage(true)
-        handleCalculateInstallment()
-        api.post('/cashFlows', releaseData)
+        let installments = (releaseData?.installment ? parseInt(releaseData?.installment) : 1)  
+        handleCalculateInstallment(installments)
+        api.post('/cashFlows', {...releaseData, installment: installments})
             .then((data) => {
                 console.log(data)
             })
@@ -62,21 +72,36 @@ export default function CashFlow() {
     useEffect(() => {
         console.log(releaseData)
     }, [releaseData])
+    
+        async function loadDateCategories() {
+            const { data } = await api.get<categoryType>('/categories', {
+                params: { userId },
+            })
+            setSelectCategory(data)
+        }
 
     useEffect(() => {
-        loadDate()
+        loadDateCategories()
         setReleaseData((date: any) => ({
             ...date,
             user_id: userId,
         }))
     }, [])
-
-    async function loadDate() {
-        const { data } = await api.get<categoryType>('/categories', {
+    
+    async function loadDateBanks() {
+        const { data } = await api.get<banksType>('/banks', {
             params: { userId },
         })
-        setSelectCategory(data)
+        setSelectBanks(data)
     }
+    
+        useEffect(() => {
+            loadDateBanks()
+            setReleaseData((date: any) => ({
+                ...date,
+                user_id: userId,
+            }))
+        }, [])
 
     const handleShowInput = () => {
         setShowInstallments((prev) => !prev)
@@ -93,7 +118,7 @@ export default function CashFlow() {
         if(showAlertMessage) {
             const closeMessageTimer = setTimeout(() => {
                 setShowAlertMessage(false)
-            }, 4000)
+            }, 3000)
             
             const intervalTimer = setInterval(() => {
                 setTimer(prevTimer => prevTimer - 1)
@@ -107,7 +132,7 @@ export default function CashFlow() {
             return () => {
                 clearTimeout(closeMessageTimer)
                 clearInterval(intervalTimer)
-                setTimer(4)
+                setTimer(3)
                 router.push('/cashCheck')
             }
         }
@@ -116,7 +141,6 @@ export default function CashFlow() {
 
     return (
         <S.Container>
-            <h1>Caixa</h1>
             <S.WrapperRegister>
                 <S.WrapperSelect>
                     <SelectBox
@@ -125,6 +149,17 @@ export default function CashFlow() {
                         value={releaseData?.category_id}
                         setState={setReleaseData}
                         values={selectCategory.map(({ title, _id }) => ({
+                            value: _id,
+                            label: title,
+                        }))}
+                    />
+
+                    <SelectBox
+                        title_name="Banco"
+                        id="banks_id"
+                        value={releaseData?.banks_id}
+                        setState={setReleaseData}
+                        values={selectBanks.map(({ title, _id }) => ({
                             value: _id,
                             label: title,
                         }))}
@@ -217,5 +252,5 @@ export default function CashFlow() {
 }
 
 CashFlow.getLayout = function GetLayout(page: any) {
-    return <MainLayout>{page}</MainLayout>
+    return <MainLayout pageLayout={'NOVO LANÇAMENTO'}>{page}</MainLayout>
 }
