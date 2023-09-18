@@ -1,16 +1,15 @@
 import {
     duotone,
     light,
-    regular,
     solid,
-    thin,
 } from '@fortawesome/fontawesome-svg-core/import.macro'
 import * as S from './styles'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import api from '@/src/config/api/api'
 import { useRouter } from 'next/router'
+import useStore from '@/src/zustand/store'
 
-interface IConsultListByDate {
+interface ICashFlow {
     _id: string
     title: string
     description?: string
@@ -30,10 +29,11 @@ interface IConsultListByDate {
     updatedAt: Date
     __v: number
     paid: any
+    installment: number | null
 }
 
 type ItemListProps = {
-    item: IConsultListByDate
+    item: ICashFlow
     isSelected?: boolean
     setSelectedBoxes?: any
     selectedBoxes?: any
@@ -49,6 +49,8 @@ export default function ItemList({
     const currentDay = date.split('-')[2]
     const currentMonth = date.split('-')[1]
     const [showDetails, setShowDetails] = useState(true)
+    const router = useRouter()
+
 
     const handleInfos = () => {
         setShowDetails((prev) => !prev)
@@ -70,13 +72,16 @@ export default function ItemList({
 
     const handleClickDelete = (id: string) => {
         api.delete(`/cashFlows/${id}`)
-        .then((response) => {
-            console.log(response.status)
-        })
-        .catch((error) => {
-            console.log(error)
-        })
+            .then((response) => {
+                console.log(response.status)
+                router.push('/cashCheck')
+            })
+            .catch((error) => {
+                console.log(error)
+            })
     }
+
+    console.log(item.installment)
 
     return (
         <S.Container showDetails={showDetails}>
@@ -160,6 +165,18 @@ export default function ItemList({
                                     : item.description}
                             </span>
                         </S.WrapperData>
+                        <S.WrapperDataFixed>
+                            <span>{item.category_id.title}</span>
+                        </S.WrapperDataFixed>
+                        <S.WrapperDataFixed>
+                            <span>{item.banks_id.title}</span>
+                        </S.WrapperDataFixed>
+                        <S.WrapperDataFixed>
+                            <span>{item.dueDate}</span>
+                        </S.WrapperDataFixed>
+                        <S.WrapperDataFixed>
+                            <span>{item.value}</span>
+                        </S.WrapperDataFixed>
                     </>
                 ) : (
                     <>
@@ -215,21 +232,26 @@ export default function ItemList({
                                 Criado no dia: {currentDay}/{currentMonth}
                             </span>
                         </S.Day>
+                        <S.WrapperDataFixed>
+                            <span>{item.category_id.title}</span>
+                        </S.WrapperDataFixed>
+                        <S.WrapperDataFixed>
+                            <span>{item.banks_id.title}</span>
+                        </S.WrapperDataFixed>
+                        <S.WrapperDataFixed>
+                            <span>
+                                {item.dueDate}
+                                {/* {item.installment > 1 ? `
+                                Parcela ${item.installment} de ${item.installment}`
+                            : null} */}
+                                Parcela {item.installment} de {item.installment}
+                            </span>
+                        </S.WrapperDataFixed>
+                        <S.WrapperDataFixed>
+                            <span>{item.value}</span>
+                        </S.WrapperDataFixed>
                     </>
                 )}
-
-                <S.WrapperDataFixed>
-                    <span>{item.category_id.title}</span>
-                </S.WrapperDataFixed>
-                <S.WrapperDataFixed>
-                    <span>{item.banks_id.title}</span>
-                </S.WrapperDataFixed>
-                <S.WrapperDataFixed>
-                    <span>{item.dueDate}</span>
-                </S.WrapperDataFixed>
-                <S.WrapperDataFixed>
-                    <span>{item.value}</span>
-                </S.WrapperDataFixed>
             </S.Item>
         </S.Container>
     )

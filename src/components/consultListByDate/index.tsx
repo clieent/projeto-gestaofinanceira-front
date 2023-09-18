@@ -27,6 +27,7 @@ interface ICashFlow {
     updatedAt: Date
     __v: number
     paid: any
+    installment: number | null
 }
 
 interface IReleaseData {
@@ -156,46 +157,30 @@ export default function ConsultListByDate({}: ConsultListByDateProps) {
 
     // FUNÇÕES DE FILTRAGENS
     function filterCashFlows(takeCashflow: Partial<ICashFlow>) {
-        if (
-            (releaseData.categoryId == 'Todas' ||
-                releaseData.categoryId == '') &&
-            showInputsOutputs.type == 'Todas' &&
-            showDebts.paid == 'Todas'
-        )
+        if (showInputsOutputs.type == 'Todas' && showDebts.paid == 'Todas')
             return true
 
         if (showInputsOutputs.type == 'Todas') {
-            if (releaseData.categoryId) {
-                if (showDebts.paid) {
-                    return (
-                        takeCashflow.category_id?._id ==
-                            releaseData.categoryId && takeCashflow.paid
-                    )
-                } else if (takeCashflow.paid !== 'Todas') {
-                    return (
-                        takeCashflow.category_id?._id ==
-                            releaseData.categoryId && !takeCashflow.paid
-                    )
-                }
-                return takeCashflow.category_id?._id == releaseData.categoryId
-            } else {
-                if (releaseData.categoryId == 'Todas') return true
+            if (showDebts.paid) {
+                return !takeCashflow.paid
+            } else if (showDebts.paid !== 'Todas') {
+                return takeCashflow.paid
             }
             return true
         }
 
-        if (!showInputsOutputs.type || showInputsOutputs.type) {
-            if (
-                releaseData.categoryId == 'Todas' ||
-                releaseData.categoryId == ''
-            ) {
-                return takeCashflow.type == showInputsOutputs.type
-            } else {
-                return (
-                    takeCashflow.category_id?._id == releaseData.categoryId &&
-                    takeCashflow.type == showInputsOutputs.type
-                )
+        if (showDebts.paid == 'Todas') {
+            if (!showInputsOutputs.type) {
+                return !takeCashflow.type
+            } else if (showInputsOutputs.type !== 'Todas') {
+                return takeCashflow.type
             }
+            return true
+        }
+
+        if (showInputsOutputs.type !== 'Todas' || showDebts.paid !== 'Todas') {
+             return takeCashflow.type == showInputsOutputs.type &&
+                takeCashflow.paid == !showDebts.paid
         }
 
         return true
@@ -272,20 +257,7 @@ export default function ConsultListByDate({}: ConsultListByDateProps) {
                 </S.WrapperDateGroup>
 
                 <S.WrapperSelect>
-                    <SelectBox
-                        title_name="Status das Dívidas"
-                        id="paid"
-                        value={searchCashFlow?.paid}
-                        setState={setShowDebts}
-                        values={[
-                            { value: 'Todas', label: 'Todas' },
-                            { value: false, label: 'Pagas' },
-                            { value: true, label: 'Não Pagas' },
-                        ]}
-                    />
-                </S.WrapperSelect>
-
-                <S.WrapperSelect>
+                <S.Selects>
                     <SelectBox
                         title_name="Tipo"
                         id="type"
@@ -297,9 +269,24 @@ export default function ConsultListByDate({}: ConsultListByDateProps) {
                             { value: true, label: 'Saídas' },
                         ]}
                     />
+                </S.Selects>
+
+                <S.Selects>
+                    <SelectBox
+                        title_name="Status"
+                        id="paid"
+                        value={searchCashFlow?.paid}
+                        setState={setShowDebts}
+                        values={[
+                            { value: 'Todas', label: 'Todas' },
+                            { value: false, label: 'Pagas' },
+                            { value: true, label: 'Não Pagas' },
+                        ]}
+                    />
+                </S.Selects>
                 </S.WrapperSelect>
 
-                <S.WrapperSelect>
+                {/* <S.WrapperSelect>
                     <SelectBox
                         title_name="Categoria"
                         id="categoryId"
@@ -314,7 +301,7 @@ export default function ConsultListByDate({}: ConsultListByDateProps) {
                         ]}
                         filterAction={setSearchCashFlow}
                     />
-                </S.WrapperSelect>
+                </S.WrapperSelect> */}
             </S.Header>
             <S.List>
                 <S.WrapperAlertBox showAlertMessage={showAlertMessage}>

@@ -4,8 +4,9 @@ import * as S from '../../styles/home'
 import api from '@/src/config/api/api'
 import useStore from '@/src/zustand/store'
 import ReducedItemList from '@/src/components/consultListByDate/components/ItemList/ReducedItemList'
-import { solid } from '@fortawesome/fontawesome-svg-core/import.macro'
+import { duotone, solid } from '@fortawesome/fontawesome-svg-core/import.macro'
 import OverdueItemList from '@/src/components/consultListByDate/components/ItemList/OverdueItemList'
+import GraphicBalance from '@/src/components/graphicBalance'
 
 interface ICashFlow {
     _id: string
@@ -40,6 +41,7 @@ export default function Home({ item }: HomeProps) {
     const [timer, setTimer] = useState(3)
     const [filteredReducedItems, setFilteredReducedItems] = useState<any>([])
     const [filteredOverdueItems, setFilteredOverdueItems] = useState<any>([])
+    const [atualDate, setAtualDate] = useState({ date: '', maskDate: '' })
 
     const getCashFlow = async () => {
         await api
@@ -141,7 +143,6 @@ export default function Home({ item }: HomeProps) {
                 ).getTime()
                 const today = new Date().getTime()
 
-                
                 if (!item.paid) {
                     if (limitDate > itemDueDate && itemDueDate < today) {
                         return item
@@ -151,11 +152,45 @@ export default function Home({ item }: HomeProps) {
         )
     }
 
-    console.log(filteredOverdueItems)
-
     useEffect(() => {
         filterOverdueItems()
     }, [cashFlow])
+
+    const initialValue = () => {
+        const currentDate = new Date()
+        setAtualDate((prev) => ({
+            ...prev,
+            maskDate: currentDate.toLocaleDateString('pt-BR', {}),
+            date: currentDate.toString(),
+        }))
+    }
+
+    if (!atualDate.date && userId) {
+        initialValue()
+    }
+
+    let sumTypeFalse = 0
+    let sumTypeTrue = 0
+
+    if (cashFlow) {
+        cashFlow.forEach((cashFlowItem) => {
+            const monthDueDate = cashFlowItem.dueDate.split('/')[1]
+            const yearDueDate = cashFlowItem.dueDate.split('/')[2]
+            const monthAtualDate = atualDate.maskDate.split('/')[1]
+            const yearAtualDate = atualDate.maskDate.split('/')[2]
+
+            if (
+                monthAtualDate == monthDueDate &&
+                yearAtualDate == yearDueDate
+            ) {
+                if (cashFlowItem.type === true) {
+                    sumTypeFalse += parseFloat(cashFlowItem.value)
+                } else {
+                    sumTypeTrue += parseFloat(cashFlowItem.value)
+                }
+            }
+        })
+    }
 
     return (
         <S.Container>
@@ -178,60 +213,53 @@ export default function Home({ item }: HomeProps) {
                         {filteredOverdueItems.length > 0 ? null : (
                             <h2>Não há itens</h2>
                         )}
-                        {filteredOverdueItems?.map((item: ICashFlow, index: number) => {
-                            return showOverdueItems(item, index)
-                        })}
+                        {filteredOverdueItems?.map(
+                            (item: ICashFlow, index: number) => {
+                                return showOverdueItems(item, index)
+                            }
+                        )}
                     </S.DisplayDebts>
                 </S.WrapperDisplayDebts>
 
                 <S.WrapperDisplayBalance>
                     <S.DisplayBalance>
                         <h2>ENTRADAS</h2>
-                        <h3>OI OI OI OI OI OI OI</h3>
-                        <h3>OI OI OI OI OI OI OI</h3>
-                        <h3>OI OI OI OI OI OI OI</h3>
-                        <h3>OI OI OI OI OI OI OI</h3>
-                        <h3>OI OI OI OI OI OI OI</h3>
-                        <h3>OI OI OI OI OI OI OI</h3>
-                        <h3>OI OI OI OI OI OI OI</h3>
-                        <h3>OI OI OI OI OI OI OI</h3>
-                        <h3>OI OI OI OI OI OI OI</h3>
-                        <h3>OI OI OI OI OI OI OI</h3>
-                        <h3>OI OI OI OI OI OI OI</h3>
-                        <h3>OI OI OI OI OI OI OI</h3>
-                        <h3>OI OI OI OI OI OI OI</h3>
+                        <S.WrapperIcon>
+                            <S.Icon
+                                icon={duotone('arrow-up-right-dots')}
+                                style={{
+                                    '--fa-primary-color': '#00cb62',
+                                    '--fa-secondary-color': '#b1b1b1',
+                                }}
+                            />
+                            <h2>
+                                Você teve um total de: R$
+                                <strong>{sumTypeTrue}</strong>
+                            </h2>
+                        </S.WrapperIcon>
                     </S.DisplayBalance>
-                    <S.DisplayBalance>
-                        <h2>BALANÇO DO MÊS</h2>
-                        <h3>OI OI OI OI OI OI OI</h3>
-                        <h3>OI OI OI OI OI OI OI</h3>
-                        <h3>OI OI OI OI OI OI OI</h3>
-                        <h3>OI OI OI OI OI OI OI</h3>
-                        <h3>OI OI OI OI OI OI OI</h3>
-                        <h3>OI OI OI OI OI OI OI</h3>
-                        <h3>OI OI OI OI OI OI OI</h3>
-                        <h3>OI OI OI OI OI OI OI</h3>
-                        <h3>OI OI OI OI OI OI OI</h3>
-                        <h3>OI OI OI OI OI OI OI</h3>
-                        <h3>OI OI OI OI OI OI OI</h3>
-                        <h3>OI OI OI OI OI OI OI</h3>
-                        <h3>OI OI OI OI OI OI OI</h3>
-                    </S.DisplayBalance>
+
+                    <S.DisplayGraphicBalance>
+                        <h2>BALANÇO DE VENDAS</h2>
+                        <GraphicBalance />
+                    </S.DisplayGraphicBalance>
+
                     <S.DisplayBalance>
                         <h2>SAÍDAS</h2>
-                        <h3>OI OI OI OI OI OI OI</h3>
-                        <h3>OI OI OI OI OI OI OI</h3>
-                        <h3>OI OI OI OI OI OI OI</h3>
-                        <h3>OI OI OI OI OI OI OI</h3>
-                        <h3>OI OI OI OI OI OI OI</h3>
-                        <h3>OI OI OI OI OI OI OI</h3>
-                        <h3>OI OI OI OI OI OI OI</h3>
-                        <h3>OI OI OI OI OI OI OI</h3>
-                        <h3>OI OI OI OI OI OI OI</h3>
-                        <h3>OI OI OI OI OI OI OI</h3>
-                        <h3>OI OI OI OI OI OI OI</h3>
-                        <h3>OI OI OI OI OI OI OI</h3>
-                        <h3>OI OI OI OI OI OI OI</h3>
+                        <S.WrapperIcon>
+                            <S.Icon
+                                icon={duotone('arrow-up-right-dots')}
+                                flip="both"
+                                style={{
+                                    '--fa-primary-color': '#d64950',
+                                    '--fa-secondary-color': '#b1b1b1',
+                                }}
+                            />
+                            <h2>
+                                Você teve um total de: R$
+                                <strong>{sumTypeFalse}</strong>
+                            </h2>
+                        </S.WrapperIcon>
                     </S.DisplayBalance>
                 </S.WrapperDisplayBalance>
                 <S.WrapperAlertBox showAlertMessage={showAlertMessage}>

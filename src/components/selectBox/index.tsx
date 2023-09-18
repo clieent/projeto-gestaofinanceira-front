@@ -25,7 +25,6 @@ function SelectBox(
     }: SelectBoxProps
 ) {
     const handleOnChange = (e: { target: any }) => {
-        //console.log(e)
         setState((date: any) => ({
             ...date,
             [id]: e.target.value,

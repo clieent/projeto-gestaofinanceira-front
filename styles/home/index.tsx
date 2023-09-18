@@ -3,14 +3,15 @@ import styled from 'styled-components'
 
 type ContainerProps = {
     showAlertMessage?: boolean
+    style?: any
 }
 
 export const Container = styled.div`
     align-items: center;
-    padding: 50px;
-    h1 {
-        padding-bottom: 50px;
-        text-align: center;
+    padding: 30px 50px;
+    h2 {
+        padding-bottom: 10px;
+        text-align: left;
         color: var(--color-branco2);
     }
 `
@@ -85,7 +86,6 @@ export const WrapperDisplayBalance = styled.div`
         padding: 30px 0px;
         text-align: center;
         color: var(--color-branco2);
-
     }
 `
 
@@ -96,16 +96,47 @@ export const DisplayBalance = styled.div`
     border-radius: 8px;
     background-color: var(--color-preto5);
     padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    h2 {
+        margin: 0px 0px 20px;
+        padding: 30px 0px;
+        text-align: center;
+        color: var(--color-branco2);
+    }
+`
+
+export const WrapperIcon = styled.div<ContainerProps>`
+    display: grid;
+    text-align: center;
+    gap: 30px;
+    margin: 20px 0px;
+    //border: 2px solid red;
+`
+
+export const Icon = styled(FontAwesomeIcon)<ContainerProps>`
+    font-size: 120px;
+    justify-self: center;
+`
+
+export const DisplayGraphicBalance = styled.div`
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+        rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+        rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    border-radius: 8px;
+    background-color: var(--color-preto5);
+    padding: 20px;
     h2 {
         padding: 30px 0px;
         text-align: center;
         color: var(--color-branco2);
-
     }
 `
 
 export const WrapperAlertBox = styled.div<ContainerProps>`
-    visibility: ${({ showAlertMessage }) => (showAlertMessage ? 'visible' : 'hidden')};
+    visibility: ${({ showAlertMessage }) =>
+        showAlertMessage ? 'visible' : 'hidden'};
     height: auto;
     text-align: center;
     font-weight: 500;
@@ -124,11 +155,9 @@ export const WrapperAlertBox = styled.div<ContainerProps>`
     background-color: var(--color-preto2);
     align-items: center;
     right: 30px;
-
 `
 
-export const AlertMessage = styled.div`
-`
+export const AlertMessage = styled.div``
 
 export const IconItem = styled(FontAwesomeIcon)<ContainerProps>`
     font-size: 25px;

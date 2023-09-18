@@ -28,7 +28,7 @@ function InputText(
         error,
         helperText,
         onBlur,
-    }: //onChange,
+    }: 
     InputTextProps
 ) {
     const handleOnChange = (e: { target: any }) => {

@@ -1,5 +1,5 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import styled from "styled-components";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import styled from 'styled-components'
 
 type ContainerProps = {
     showButton?: boolean
@@ -9,13 +9,18 @@ type ContainerProps = {
 export const Container = styled.div`
     background-color: var(--color-preto1);
     width: 100%;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+        rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+        rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+
+    
     `
 
 export const Header = styled.div`
-    background-color: var(--color-preto1);
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    //background-color: var(--color-verde-exclusivo);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     align-items: center;
     padding: 15px 20px;
     `
@@ -23,16 +28,14 @@ export const Header = styled.div`
 export const WrapperIcon = styled.div`
     color: var(--color-branco1);
     font-size: 25px;
-    &:hover{
+    &:hover {
         cursor: pointer;
         color: var(--color-cinza1);
         font-size: 27px;
     }
     `
 
-export const Icon = styled(FontAwesomeIcon)`
-
-`
+export const Icon = styled(FontAwesomeIcon)``
 
 export const WrapperDateGroup = styled.div`
     display: flex;
@@ -41,10 +44,17 @@ export const WrapperDateGroup = styled.div`
 
 export const WrapperSelect = styled.div`
     display: flex;
-    width: 300px;
+    justify-content: end;
+    gap: 20px;
+    `
+
+export const Selects = styled.div`
+
+width: 300px;
 `
 
 export const MonthTitle = styled.p`
+
     color: var(--color-branco1);
     font-weight: 700;
     font-size: 20px;
@@ -52,9 +62,13 @@ export const MonthTitle = styled.p`
     align-items: center;
     justify-content: center;
     width: 250px;
-`
+    `
 
 export const List = styled.div`
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+        rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+        rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
     background-color: var(--color-preto2);
     display: flex;
     flex-direction: column;
@@ -88,7 +102,8 @@ export const WrapperButton = styled.div<ContainerProps>`
 `
 
 export const WrapperAlertBox = styled.div<ContainerProps>`
-    visibility: ${({ showAlertMessage }) => (showAlertMessage ? 'visible' : 'hidden')};
+    visibility: ${({ showAlertMessage }) =>
+        showAlertMessage ? 'visible' : 'hidden'};
     height: auto;
     text-align: center;
     font-weight: 500;
@@ -117,12 +132,11 @@ export const WrapperAlertBox = styled.div<ContainerProps>`
           right: 30px;
         }
       } */
-    `
-
-export const AlertMessage = styled.span`
 `
+
+export const AlertMessage = styled.span``
 
 export const IconItem = styled(FontAwesomeIcon)`
     font-size: 28px;
     color: var(--color-verde-exlusivo);
-    `
+`

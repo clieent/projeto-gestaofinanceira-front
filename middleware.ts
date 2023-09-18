@@ -46,8 +46,9 @@ export const config = {
         '/auth/expiredSection',
         '/cashCheck',
         '/categories',
-        '/categories/createCategories',
-        '/categories/deleteCategories',
+        '/banks',
+        '/profilePage',
+        
     ]
 }
 

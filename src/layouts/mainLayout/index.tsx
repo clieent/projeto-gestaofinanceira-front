@@ -9,7 +9,6 @@ type MainLayoutProps = {
 }
 
 export default function MainLayout({ children, pageLayout }: MainLayoutProps) {
-    console.log(pageLayout)
     const [showMenu, setShowMenu] = useState(false)
     return (
         <S.Container>

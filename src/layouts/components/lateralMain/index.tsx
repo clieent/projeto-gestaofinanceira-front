@@ -82,37 +82,27 @@ export default function LateralMenu({
                     }}
                 >
                     <S.WrapperIcon>
-                        <S.Icon
-                            className="select-menu"
-                            icon={light('bars')}
-                        />
+                        <S.Icon className="select-menu" icon={light('bars')} />
                     </S.WrapperIcon>
-                        <S.Title showMenu={showMenu}
-                            className="title"
-                        >
-                            Recolher Menu
-                        </S.Title>
+                    <S.Title showMenu={showMenu} className="title">
+                        Recolher Menu
+                    </S.Title>
                 </S.Item>
 
                 {MenuOptions.map((item: any, index: number) => (
                     <S.Item
-                        showMenu={showMenu} 
+                        showMenu={showMenu}
                         key={item.id}
                         onClick={() => {
                             handleSubMenu(item, index)
                         }}
-                        >
+                    >
                         <S.WrapperIcon>
-                            <S.Icon
-                                icon={item.icon}
-                                
-                            />
+                            <S.Icon icon={item.icon} />
                         </S.WrapperIcon>
-                            <S.Title showMenu={showMenu}
-                                className="title"
-                            >
-                                {item.title}
-                            </S.Title>
+                        <S.Title showMenu={showMenu} className="title">
+                            {item.title}
+                        </S.Title>
                     </S.Item>
                 ))}
             </S.MenuOptionsList>

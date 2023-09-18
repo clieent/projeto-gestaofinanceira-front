@@ -5,27 +5,6 @@ type ContainerProps = {
     showMenu: boolean
 }
 
-
-export const Icon = styled(FontAwesomeIcon)`
-    text-align: center;
-    color: var(--color-verde-claro2);
-    font-size: 18px;
-`
-export const Item = styled.li<ContainerProps>`
-    border-radius: 10px;
-    width: 100%;
-    display: grid;
-    grid-template-columns: ${({ showMenu }) => (showMenu ? '50px 100%' : '50px')};
-    height: 50px;
-    list-style: none;
-    overflow: hidden;
-    transition-duration: 0.5s;
-    &:hover {
-        background: var(--color-verde-escuro2);
-        cursor: pointer;
-    }
-`
-
 export const Container = styled.div<ContainerProps>`
     display: grid;
     height: 100%;
@@ -36,9 +15,24 @@ export const Container = styled.div<ContainerProps>`
     * {
         transition-duration: 0.3s;
     }
-    
-    
 `
+
+export const Item = styled.li<ContainerProps>`
+    border-radius: 10px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: ${({ showMenu }) =>
+        showMenu ? '50px 100%' : '50px'};
+    height: 50px;
+    list-style: none;
+    overflow: hidden;
+    transition-duration: 0.5s;
+    &:hover {
+        background: var(--color-verde-escuro2);
+        cursor: pointer;
+    }
+`
+
 
 export const MenuOptionsList = styled.ul`
     padding: 5px;
@@ -53,17 +47,21 @@ export const Header = styled.div<ContainerProps>`
     justify-content: center;
 
     * {
-        transition-duration: .7s;
+        transition-duration: 0.7s;
     }
-    `
+`
 
 export const WrapperIcon = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100%;
-    height: 100%;
 `
+
+export const Icon = styled(FontAwesomeIcon)`
+    color: var(--color-verde-claro1);
+    font-size: 18px;
+`
+
 
 
 export const Title = styled.span<ContainerProps>`
@@ -72,10 +70,9 @@ export const Title = styled.span<ContainerProps>`
     display: ${({ showMenu }) => (showMenu ? 'flex' : 'none')};
     align-items: center;
     justify-content: flex-start;
-    //position: relative;
     overflow: hidden;
     transition-delay: 0.3s;
-    
+
     p {
         align-items: center;
         line-height: 16px;
