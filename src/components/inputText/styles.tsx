@@ -14,6 +14,16 @@ export const Container = styled.div`
         background-color: var(--color-preto2);
         color: var(--color-branco1);
     }
+
+    & label.Mui-focused {
+        color: var(--color-branco2);
+    }
+    & .MuiOutlinedInput-root {
+        &.Mui-focused fieldset {
+            border-color: var(--color-cinza2);
+            border-radius: 2px;
+        }
+    }
 `
 
 export const InputTextField = styled(TextField)`

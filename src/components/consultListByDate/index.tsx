@@ -19,10 +19,15 @@ interface ICashFlow {
         _id: string
         title: string
     }
+    banks_id: {
+        _id: string
+        title: string
+    }
     createdAt: Date
     updatedAt: Date
     __v: number
     paid: any
+    installment: number | null
 }
 
 interface IReleaseData {
@@ -53,7 +58,7 @@ export default function ConsultListByDate({}: ConsultListByDateProps) {
     const [selectedBoxes, setSelectedBoxes] = useState<string[]>([])
     const [showButton, setShowButton] = useState<boolean>(false)
     const [showAlertMessage, setShowAlertMessage] = useState(false)
-    const [timer, setTimer] = useState(5)
+    const [timer, setTimer] = useState(4)
 
     // PEGAR OS LANÇAMENTOS NO cashFlows \/ \/ \/
     const getCashFlow = async () => {
@@ -138,10 +143,8 @@ export default function ConsultListByDate({}: ConsultListByDateProps) {
         ) : null
     }
 
-
-
     // CARREGAR CATEGORIAS
-    async function loadDate() {
+    async function loadDateCategories() {
         const { data } = await api.get<categoryType>('/categories', {
             params: { userId },
         })
@@ -149,56 +152,37 @@ export default function ConsultListByDate({}: ConsultListByDateProps) {
     }
 
     useEffect(() => {
-        loadDate()
+        loadDateCategories()
     }, [])
 
-    
     // FUNÇÕES DE FILTRAGENS
     function filterCashFlows(takeCashflow: Partial<ICashFlow>) {
-
-        if (
-            (releaseData.categoryId == 'Todas' ||
-                releaseData.categoryId == '') &&
-            showInputsOutputs.type == 'Todas' &&
-            showDebts.paid == 'Todas'
-        )
+        if (showInputsOutputs.type == 'Todas' && showDebts.paid == 'Todas')
             return true
 
         if (showInputsOutputs.type == 'Todas') {
-            if (releaseData.categoryId) {
-                if (showDebts.paid) {
-                    return (
-                        takeCashflow.category_id?._id ==
-                            releaseData.categoryId && takeCashflow.paid
-                    )
-                } else if (takeCashflow.paid !== 'Todas') {
-                    return (
-                        takeCashflow.category_id?._id ==
-                            releaseData.categoryId && !takeCashflow.paid
-                    )
-                }
-                return takeCashflow.category_id?._id == releaseData.categoryId
-            } else {
-                if (releaseData.categoryId == 'Todas') return true
+            if (showDebts.paid) {
+                return !takeCashflow.paid
+            } else if (showDebts.paid !== 'Todas') {
+                return takeCashflow.paid
             }
             return true
         }
 
-        if (!showInputsOutputs.type || showInputsOutputs.type) {
-            if (
-                releaseData.categoryId == 'Todas' ||
-                releaseData.categoryId == ''
-            ) {
-                return takeCashflow.type == showInputsOutputs.type
-            } else {
-                return (
-                    takeCashflow.category_id?._id == releaseData.categoryId &&
-                    takeCashflow.type == showInputsOutputs.type
-                )
+        if (showDebts.paid == 'Todas') {
+            if (!showInputsOutputs.type) {
+                return !takeCashflow.type
+            } else if (showInputsOutputs.type !== 'Todas') {
+                return takeCashflow.type
             }
+            return true
         }
 
-        
+        if (showInputsOutputs.type !== 'Todas' || showDebts.paid !== 'Todas') {
+             return takeCashflow.type == showInputsOutputs.type &&
+                takeCashflow.paid == !showDebts.paid
+        }
+
         return true
     }
 
@@ -209,9 +193,7 @@ export default function ConsultListByDate({}: ConsultListByDateProps) {
         } else {
             setShowButton(false)
         }
-        console.log(selectedBoxes)
     }, [selectedBoxes])
-
 
     const handleCloseButton = () => {
         setShowButton(false)
@@ -219,38 +201,39 @@ export default function ConsultListByDate({}: ConsultListByDateProps) {
     }
 
     async function sendToPaid() {
-        await api.patch(`cashFlows/${userId}`, selectedBoxes).then((response) => {
-            console.log(response)
-            setCashFlow([])
-            getCashFlow()
-            setShowAlertMessage(true)
-        }).catch((err) => console.log(err))
+        await api
+            .patch(`cashFlows/${userId}`, selectedBoxes)
+            .then((response) => {
+                console.log(response)
+                setCashFlow([])
+                getCashFlow()
+                setShowAlertMessage(true)
+            })
+            .catch((err) => console.log(err))
     }
 
     useEffect(() => {
-        if(showAlertMessage) {
+        if (showAlertMessage) {
             const closeMessageTimer = setTimeout(() => {
                 setShowAlertMessage(false)
-            }, 5000)
-            
+            }, 4000)
+
             const intervalTimer = setInterval(() => {
-                setTimer(prevTimer => prevTimer - 1)
+                setTimer((prevTimer) => prevTimer - 1)
             }, 1000)
-            
-            if(timer == 0) {
+
+            if (timer == 0) {
                 clearInterval(closeMessageTimer)
                 clearInterval(intervalTimer)
             }
-            
+
             return () => {
                 clearTimeout(closeMessageTimer)
                 clearInterval(intervalTimer)
+                setTimer(4)
             }
         }
     }, [showAlertMessage])
-
-    console.log(timer)
-
 
     return (
         <S.Container>
@@ -274,20 +257,7 @@ export default function ConsultListByDate({}: ConsultListByDateProps) {
                 </S.WrapperDateGroup>
 
                 <S.WrapperSelect>
-                    <SelectBox
-                        title_name="Status das Dívidas"
-                        id="paid"
-                        value={searchCashFlow?.paid}
-                        setState={setShowDebts}
-                        values={[
-                            { value: 'Todas', label: 'Todas' },
-                            { value: false, label: 'Pagas' },
-                            { value: true, label: 'Não Pagas' },
-                        ]}
-                    />
-                </S.WrapperSelect>
-
-                <S.WrapperSelect>
+                <S.Selects>
                     <SelectBox
                         title_name="Tipo"
                         id="type"
@@ -299,9 +269,24 @@ export default function ConsultListByDate({}: ConsultListByDateProps) {
                             { value: true, label: 'Saídas' },
                         ]}
                     />
+                </S.Selects>
+
+                <S.Selects>
+                    <SelectBox
+                        title_name="Status"
+                        id="paid"
+                        value={searchCashFlow?.paid}
+                        setState={setShowDebts}
+                        values={[
+                            { value: 'Todas', label: 'Todas' },
+                            { value: false, label: 'Pagas' },
+                            { value: true, label: 'Não Pagas' },
+                        ]}
+                    />
+                </S.Selects>
                 </S.WrapperSelect>
 
-                <S.WrapperSelect>
+                {/* <S.WrapperSelect>
                     <SelectBox
                         title_name="Categoria"
                         id="categoryId"
@@ -316,13 +301,13 @@ export default function ConsultListByDate({}: ConsultListByDateProps) {
                         ]}
                         filterAction={setSearchCashFlow}
                     />
-                </S.WrapperSelect>
+                </S.WrapperSelect> */}
             </S.Header>
             <S.List>
                 <S.WrapperAlertBox showAlertMessage={showAlertMessage}>
                     <S.IconItem
                         icon={solid('circle-check')}
-                        style={{color: "#00cb62"}}
+                        style={{ color: '#00cb62' }}
                     />
                     <S.AlertMessage>
                         Dívida quitada com <strong>SUCESSO</strong>
@@ -334,7 +319,6 @@ export default function ConsultListByDate({}: ConsultListByDateProps) {
                         onClick={() => {
                             sendToPaid()
                             handleCloseButton()
-                            
                         }}
                         ctaButton={'Realizar Pagamento'}
                     />
@@ -351,6 +335,7 @@ export default function ConsultListByDate({}: ConsultListByDateProps) {
                     <h3>Nome</h3>
                     <h3>Descrição</h3>
                     <h3>Categoria</h3>
+                    <h3>Banco</h3>
                     <h3>Data de Val.</h3>
                     <h3>Valor</h3>
                 </S.WrapperTitles>

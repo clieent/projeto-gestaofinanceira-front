@@ -5,8 +5,11 @@ import {
 } from '@fortawesome/fontawesome-svg-core/import.macro'
 import * as S from './styles'
 import { useEffect, useState } from 'react'
+import api from '@/src/config/api/api'
+import { useRouter } from 'next/router'
+import useStore from '@/src/zustand/store'
 
-interface IConsultListByDate {
+interface ICashFlow {
     _id: string
     title: string
     description?: string
@@ -18,17 +21,22 @@ interface IConsultListByDate {
         _id: string
         title: string
     }
+    banks_id: {
+        _id: string
+        title: string
+    }
     createdAt: Date
     updatedAt: Date
     __v: number
     paid: any
+    installment: number | null
 }
 
 type ItemListProps = {
-    item: IConsultListByDate
-    isSelected: boolean
-    setSelectedBoxes: any
-    selectedBoxes: any
+    item: ICashFlow
+    isSelected?: boolean
+    setSelectedBoxes?: any
+    selectedBoxes?: any
 }
 
 export default function ItemList({
@@ -41,6 +49,8 @@ export default function ItemList({
     const currentDay = date.split('-')[2]
     const currentMonth = date.split('-')[1]
     const [showDetails, setShowDetails] = useState(true)
+    const router = useRouter()
+
 
     const handleInfos = () => {
         setShowDetails((prev) => !prev)
@@ -60,7 +70,18 @@ export default function ItemList({
         }
     }
 
-    console.log(handleInfos)
+    const handleClickDelete = (id: string) => {
+        api.delete(`/cashFlows/${id}`)
+            .then((response) => {
+                console.log(response.status)
+                router.push('/cashCheck')
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    }
+
+    console.log(item.installment)
 
     return (
         <S.Container showDetails={showDetails}>
@@ -69,12 +90,22 @@ export default function ItemList({
                     <S.IconItem
                         icon={duotone('arrow-up-wide-short')}
                         value={item?.type}
+                        style={{
+                            '--fa-primary-color':
+                                'var(--color-verde-exclusivo)',
+                            '--fa-secondary-color': 'var(--color-cinza1)',
+                        }}
                     />
                 </>
             ) : (
                 <>
                     <S.IconItem
                         icon={duotone('arrow-down-wide-short')}
+                        style={{
+                            '--fa-primary-color':
+                                'var(--color-vermelho-exclusivo)',
+                            '--fa-secondary-color': 'var(--color-cinza1)',
+                        }}
                         value={item?.type}
                     />
                 </>
@@ -107,6 +138,12 @@ export default function ItemList({
                                     <S.IconItem icon={solid('badge-check')} />
                                 </>
                             )}
+
+                            <S.Icon
+                                icon={light('trash')}
+                                title="Excluir item"
+                                onClick={() => handleClickDelete(item._id)}
+                            />
                         </S.WrapperIcon>
                         <S.TypeColor
                             showDetails={showDetails}
@@ -128,6 +165,18 @@ export default function ItemList({
                                     : item.description}
                             </span>
                         </S.WrapperData>
+                        <S.WrapperDataFixed>
+                            <span>{item.category_id.title}</span>
+                        </S.WrapperDataFixed>
+                        <S.WrapperDataFixed>
+                            <span>{item.banks_id.title}</span>
+                        </S.WrapperDataFixed>
+                        <S.WrapperDataFixed>
+                            <span>{item.dueDate}</span>
+                        </S.WrapperDataFixed>
+                        <S.WrapperDataFixed>
+                            <span>{item.value}</span>
+                        </S.WrapperDataFixed>
                     </>
                 ) : (
                     <>
@@ -137,6 +186,7 @@ export default function ItemList({
                                 title="Mostrar Menos"
                                 onClick={handleInfos}
                             />
+
                             {item.paid == false ? (
                                 <>
                                     <S.Icon
@@ -156,6 +206,12 @@ export default function ItemList({
                                     <S.IconItem icon={solid('badge-check')} />
                                 </>
                             )}
+
+                            <S.Icon
+                                icon={light('trash')}
+                                title="Excluir item"
+                                onClick={() => handleClickDelete(item._id)}
+                            />
                         </S.WrapperIcon>
                         <S.TypeColor
                             showDetails={showDetails}
@@ -176,18 +232,26 @@ export default function ItemList({
                                 Criado no dia: {currentDay}/{currentMonth}
                             </span>
                         </S.Day>
+                        <S.WrapperDataFixed>
+                            <span>{item.category_id.title}</span>
+                        </S.WrapperDataFixed>
+                        <S.WrapperDataFixed>
+                            <span>{item.banks_id.title}</span>
+                        </S.WrapperDataFixed>
+                        <S.WrapperDataFixed>
+                            <span>
+                                {item.dueDate}
+                                {/* {item.installment > 1 ? `
+                                Parcela ${item.installment} de ${item.installment}`
+                            : null} */}
+                                Parcela {item.installment} de {item.installment}
+                            </span>
+                        </S.WrapperDataFixed>
+                        <S.WrapperDataFixed>
+                            <span>{item.value}</span>
+                        </S.WrapperDataFixed>
                     </>
                 )}
-
-                <S.WrapperDataFixed>
-                    <span>{item.category_id.title}</span>
-                </S.WrapperDataFixed>
-                <S.WrapperDataFixed>
-                    <span>{item.dueDate}</span>
-                </S.WrapperDataFixed>
-                <S.WrapperDataFixed>
-                    <span>{item.value}</span>
-                </S.WrapperDataFixed>
             </S.Item>
         </S.Container>
     )

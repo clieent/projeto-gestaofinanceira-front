@@ -11,6 +11,8 @@ export const Container = styled.div`
         height: 50px;
         background-color: var(--color-verde-claro1);
         &:hover {
+            cursor: pointer;
+            visibility: visible;
             background-color: var(--color-verde-escuro2);
         }
 

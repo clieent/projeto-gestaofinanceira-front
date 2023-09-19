@@ -6,6 +6,7 @@ type TypeColorProps = {
     value?: boolean
     showDetails?: boolean
     checked?: boolean
+    style?: string | any
 }
 
 export const Container = styled.div<TypeColorProps>`
@@ -56,7 +57,7 @@ export const Item = styled.div<TypeColorProps>`
     border-bottom-right-radius: 8px;
     border-top-right-radius: 8px;
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(6, 1fr);
     position: relative;
     text-align: left;
     align-items: center;
@@ -69,9 +70,9 @@ export const TypeColor = styled.div<TypeColorProps>`
     height: ${({ showDetails }) => (showDetails ? '50px' : '90px')};
     background-color: ${({ value }) =>
         value
-            ? 'var(--color-verde-exclusivo)'
-            : 'var(--color-vermelho-exclusivo)'};
-    position: absolute;
+            ? 'var(--color-preto4)'
+            : '#9d910b'};
+            position: absolute;
     display: flex;
     left: -10px;
     border-bottom-left-radius: 4px;
@@ -87,7 +88,7 @@ export const WrapperIcon = styled.div`
     flex-direction: row;
     right: 30px;
     position: absolute;
-    gap: 30px;
+    gap: 20px;
     `
 
 export const Icon = styled(FontAwesomeIcon)<TypeColorProps>`

@@ -49,6 +49,12 @@ export const MenuOptions: IMenuOptions[] = [
         },
     },
     {
+        id: 'lateral-main-banks',
+        title: 'Bancos',
+        icon: light('building-columns'),
+        route: '/banks'
+    },
+    {
         id: 'lateral-main-category',
         title: 'Categorias',
         icon: light('rectangle-history'),

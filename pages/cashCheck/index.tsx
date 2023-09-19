@@ -24,12 +24,10 @@ type CashCheckProps = {
     item: ICashCheck
 }
 
-export default function CashCheck({item,}: CashCheckProps) {
+export default function CashCheck({}: CashCheckProps) {
 
     return (
         <S.Container>
-            <h1>Consultar</h1>
-
             <S.WrapperDate>
                 <ConsultListByDate />
             </S.WrapperDate>
@@ -38,5 +36,5 @@ export default function CashCheck({item,}: CashCheckProps) {
 }
 
 CashCheck.getLayout = function GetLayout(page: any) {
-    return <MainLayout>{page}</MainLayout>
+    return <MainLayout pageLayout={'TABELA DE LANÇAMENTOS'}>{page}</MainLayout>
 }
