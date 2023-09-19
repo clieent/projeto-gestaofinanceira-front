@@ -9,7 +9,15 @@ export default function ProfilePage({}: IProfilePage) {
 
     return (
         <S.Container>
-
+            <S.Content>
+                <S.WrapperImage>
+                </S.WrapperImage>
+                <S.WrapperInputs>
+                    
+                </S.WrapperInputs>
+                <S.WrapperInputs></S.WrapperInputs>
+                <S.WrapperButton></S.WrapperButton>
+            </S.Content>
         </S.Container>
     )
 }
