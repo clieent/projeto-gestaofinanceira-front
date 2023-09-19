@@ -17,14 +17,13 @@ export const Container = styled.div`
     display: grid;
     padding: 0px 20px;
     border-radius: 10px;
-    margin-right: 40px;
     &:hover {
         background: var(--color-verde-escuro2);
         cursor: pointer;
     }
     `
 
-export const DropBtn = styled.div`
+export const DropMenu = styled.div`
     background-color: transparent;
     display: flex;
     justify-content: center;

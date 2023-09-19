@@ -143,7 +143,7 @@ export default function Categories() {
                 />
             </S.WrapperCategories>
             <S.WrapperList>
-                <h3>Nome da categoria</h3>
+                <h3>Categorias Criadas:</h3>
                 {selectCategory.map(({ title, _id }, index) => (
                     <S.Content key={_id}>
                         <S.Input

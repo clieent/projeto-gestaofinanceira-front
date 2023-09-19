@@ -26,9 +26,9 @@ export default function DropdownMenu({}: DropdownMenuProps) {
             }}
             
         >
-            <S.DropBtn>
+            <S.DropMenu>
                 <h3>P</h3>
-            </S.DropBtn>
+            </S.DropMenu>
             <S.Content showOptions={showOptions}>
                 <S.Item onClick={() => router.push('/profilePage')}>Editar Perfil</S.Item>
                 <S.Item onClick={handleClick}>Sair</S.Item>
