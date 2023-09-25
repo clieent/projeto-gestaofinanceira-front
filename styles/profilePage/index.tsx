@@ -31,10 +31,34 @@ export const WrapperImage = styled.div`
     border: 4px solid var(--color-verde-claro1);
     justify-self: center;
     align-self: center;
+    justify-content: center;
+    align-items: center;
     width: 120px;
     height: 120px;
+    font-size: 20px;
     border-radius: 50%;
     margin-bottom: 20px;
+    position: relative;
+`
+
+
+export const WrapperIcon = styled.label`
+
+
+`
+
+export const Icon = styled(FontAwesomeIcon)`
+    color: var(--color-cinza1);
+    position: absolute;
+    font-size: 30px;
+    right: -25px;
+    bottom: -3px;
+    cursor: pointer;
+
+    &:hover{
+        color: var(--color-cinza2);
+    }
+
 `
 
 export const WrapperInputs = styled.div`

@@ -1,12 +1,14 @@
-export default function monetaryMask(money: number | string) {
-    const symbolDecimal = ','
-  
+export default function monetaryMask(money: string) {
     if (money === undefined || money === null || money === '') {
         return ''
     }
 
-    return `${String(money).replace(/\D/g, '')
-        .replace(/(\d+)(\d{2})$/, (_, reais, centavos) =>
-            `${reais.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')}${symbolDecimal}${centavos}`
-        )}`
+    const moneyFormatted = (
+        Number(money?.replace(/\D/g, '')) / 100
+    ).toLocaleString('pt-BR', {
+        style: 'currency',
+        currency: 'BRL',
+    })
+
+    return moneyFormatted
 }

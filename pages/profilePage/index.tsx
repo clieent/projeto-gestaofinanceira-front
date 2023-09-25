@@ -2,9 +2,15 @@ import * as S from '@/styles/profilePage'
 import MainLayout from '@/src/layouts/mainLayout'
 import InputText from '@/src/components/inputText'
 import DefaultButton from '@/src/components/defaultButton'
-import { useRef, useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import api from '@/src/config/api/api'
 import useStore from '@/src/zustand/store'
+import Avatar from 'react-avatar'
+import {
+    light,
+    regular,
+    solid,
+} from '@fortawesome/fontawesome-svg-core/import.macro'
 
 type usersType = {
     name: string
@@ -18,23 +24,18 @@ interface IUsers {
 }
 
 export default function UserPage({}: IUsers) {
-    const inputRefs = useRef<(HTMLInputElement | any)[any]>([])
     const [selectDataUser, setSelectDataUser] = useState<usersType>({
         name: '',
         email: '',
         phone: '',
         cpf: '',
     })
-    const [edit, setEdit] = useState<boolean[]>([])
-    const [update, setUpdate] = useState<IUsers>()
     const [refresh, setRefresh] = useState<boolean>(true)
     const { userId } = useStore()
 
-    const handleClick = () => {}
-
     async function loadDateUsers() {
         await api
-            .get('/users/'+`${userId}`)
+            .get('/users/' + `${userId}`)
             .then((response) => {
                 setSelectDataUser(response.data.user)
                 console.log(response)
@@ -44,9 +45,8 @@ export default function UserPage({}: IUsers) {
             })
     }
 
-
     const handleClickPatch = () => {
-        api.patch(`/users/update/${userId}`, {user: selectDataUser})
+        api.patch(`/users/update/${userId}`, { user: selectDataUser })
             .then((reponse) => {
                 loadDateUsers()
                 console.log(reponse.status)
@@ -67,7 +67,18 @@ export default function UserPage({}: IUsers) {
     return (
         <S.Container>
             <S.Content>
-                <S.WrapperImage></S.WrapperImage>
+                <S.WrapperImage>
+                    <S.WrapperIcon>
+                        <S.Icon icon={light('pen-circle')} />
+                    </S.WrapperIcon>
+                    <Avatar
+                        name={selectDataUser?.name ?? ''}
+                        round={true}
+                        size="114px"
+                        color="transparent"
+                        alt="Sem Imagem"
+                    />
+                </S.WrapperImage>
                 <S.ContentInputs>
                     <S.WrapperInputs>
                         <h2>Dados da Conta</h2>
@@ -114,6 +125,7 @@ export default function UserPage({}: IUsers) {
                     <DefaultButton
                         onClick={handleClickPatch}
                         ctaButton={'Alterar Dados'}
+                        //onSubmit={uploadImage}
                     />
                 </S.WrapperButton>
             </S.Content>

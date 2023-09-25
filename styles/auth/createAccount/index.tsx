@@ -9,18 +9,20 @@ export const Container = styled.div`
 `
 
 export const DataInputs = styled.div`
+    margin-top: 30px;
     display: flex;
     align-items: center;
     flex-direction: column;
     width: 100%;
-    `
+    gap: 25px;
+`
 export const DataInputs2 = styled.div`
-    padding-top: 30px;
+    margin-top: 30px;
     display: flex;
     align-items: center;
     flex-direction: column;
     width: 100%;
-    gap: 15px;
+    gap: 25px;
 `
 
 export const WrapperButton = styled.div`

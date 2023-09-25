@@ -63,32 +63,7 @@ export default function CreateAccount() {
             helperText: '',
             accessed: false,
         })
-    // const [feedBackUser, setfeedBackUser] = useState({
-    //     name: {
-    //         error: false,
-    //         helperText: '',
-    //     },
-    //     phone: {
-    //         error: false,
-    //         helperText: '',
-    //     },
-    //     email: {
-    //         error: false,
-    //         helperText: '',
-    //     },
-    //     cpf: {
-    //         error: false,
-    //         helperText: '',
-    //     },
-    //     password: {
-    //         error: false,
-    //         helperText: '',
-    //     },
-    //     confirmPassword: {
-    //         error: false,
-    //         helperText: '',
-    //     },
-    // })
+
     const router = useRouter()
 
     const createValidateFunction = (
@@ -142,17 +117,6 @@ export default function CreateAccount() {
             return true
         }
         return false
-        // const isAnyFieldEmpty = Object.values(user || {}).some(
-        //     (value) => !value
-        // )
-        // const isAnyValidationError = Object.values(feedBackName,feedBackConfirmPassword).some(
-        //     (field) => field.error
-        // )
-        // return (
-        //     isAnyFieldEmpty ||
-        //     isAnyValidationError ||
-        //     Object.keys(user || {}).length !== Object.keys(feedBackUser).length
-        // )
     }
 
     const handleClick = (e: any) => {
@@ -213,7 +177,7 @@ export default function CreateAccount() {
                             }
                             helperText={feedBackPhone.helperText}
                             placeholder={'Telefone'}
-                            value={user?.phone}
+                            value={phoneMask(user?.phone)}
                             setState={setUser}
                             id="phone"
                             label="Telefone"
