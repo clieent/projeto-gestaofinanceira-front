@@ -39,6 +39,10 @@ export const DropMenu = styled.div`
     width: 60px;
     height: 60px;
     border-radius: 50%;
+
+    img{
+        border-radius: 50%;
+    }
     `
 
 export const Item = styled.a`

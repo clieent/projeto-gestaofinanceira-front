@@ -6,11 +6,8 @@ import { useState, useEffect } from 'react'
 import api from '@/src/config/api/api'
 import useStore from '@/src/zustand/store'
 import Avatar from 'react-avatar'
-import {
-    light,
-    regular,
-    solid,
-} from '@fortawesome/fontawesome-svg-core/import.macro'
+import { light } from '@fortawesome/fontawesome-svg-core/import.macro'
+import Image from 'next/image'
 
 type usersType = {
     name: string
@@ -19,9 +16,7 @@ type usersType = {
     cpf: string
 }
 
-interface IUsers {
-    title: string
-}
+interface IUsers {}
 
 export default function UserPage({}: IUsers) {
     const [selectDataUser, setSelectDataUser] = useState<usersType>({
@@ -32,6 +27,23 @@ export default function UserPage({}: IUsers) {
     })
     const [refresh, setRefresh] = useState<boolean>(true)
     const { userId } = useStore()
+    const [selectedImage, setSelectedImage] = useState('')
+    const [selectedFile, setSelectedFile] = useState<File>()
+
+    const onSubmit = async () => {
+        await api
+            .patch(
+                `/users/update/avatar/${userId}`,
+                { image: selectedFile, id: userId },
+                { headers: { 'Content-Type': 'multipart/form-data' } }
+            )
+            .then((res) => {
+                console.log(res)
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    }
 
     async function loadDateUsers() {
         await api
@@ -46,6 +58,7 @@ export default function UserPage({}: IUsers) {
     }
 
     const handleClickPatch = () => {
+        onSubmit()
         api.patch(`/users/update/${userId}`, { user: selectDataUser })
             .then((reponse) => {
                 loadDateUsers()
@@ -64,20 +77,49 @@ export default function UserPage({}: IUsers) {
         }
     }, [refresh])
 
+
+
     return (
         <S.Container>
             <S.Content>
                 <S.WrapperImage>
-                    <S.WrapperIcon>
+                    <S.WrapperIcon htmlFor="imageInput">
+                        <input
+                            id="imageInput"
+                            type="file"
+                            hidden
+                            onChange={({ target }) => {
+                                if (target.files) {
+                                    const file = target.files[0]
+                                    setSelectedImage(URL.createObjectURL(file))
+                                    setSelectedFile(file)
+                                }
+                            }}
+                        />
                         <S.Icon icon={light('pen-circle')} />
                     </S.WrapperIcon>
-                    <Avatar
-                        name={selectDataUser?.name ?? ''}
-                        round={true}
-                        size="114px"
-                        color="transparent"
-                        alt="Sem Imagem"
-                    />
+                    <S.PreviewImage>
+                        {selectedImage ? (
+                            <Image
+                                src={selectedImage}
+                                width={'110'}
+                                height={'110'}
+                            />
+                        ) : selectedFile ? (
+                            <Avatar
+                                name={selectDataUser?.name ?? ''}
+                                round={true}
+                                size="114px"
+                                color="transparent"
+                            />
+                        ) : (
+                            <Image
+                                src={`http://localhost:3001/6470d56a96413a392efbfb37.jpg?${new Date().getTime()}`}
+                                width={'112'}
+                                height={'112'}
+                            />
+                        )}
+                    </S.PreviewImage>
                 </S.WrapperImage>
                 <S.ContentInputs>
                     <S.WrapperInputs>
@@ -123,9 +165,10 @@ export default function UserPage({}: IUsers) {
 
                 <S.WrapperButton>
                     <DefaultButton
-                        onClick={handleClickPatch}
+                        onClick={() => {
+                            handleClickPatch()
+                        }}
                         ctaButton={'Alterar Dados'}
-                        //onSubmit={uploadImage}
                     />
                 </S.WrapperButton>
             </S.Content>

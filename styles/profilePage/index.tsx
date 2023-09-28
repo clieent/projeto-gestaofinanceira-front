@@ -41,11 +41,7 @@ export const WrapperImage = styled.div`
     position: relative;
 `
 
-
-export const WrapperIcon = styled.label`
-
-
-`
+export const WrapperIcon = styled.label``
 
 export const Icon = styled(FontAwesomeIcon)`
     color: var(--color-cinza1);
@@ -55,10 +51,18 @@ export const Icon = styled(FontAwesomeIcon)`
     bottom: -3px;
     cursor: pointer;
 
-    &:hover{
+    &:hover {
         color: var(--color-cinza2);
     }
+`
 
+export const PreviewImage = styled.div`
+    align-self: center;
+    justify-content: center;
+    display: flex;
+    img{
+        border-radius: 50%;
+    }
 `
 
 export const WrapperInputs = styled.div`
