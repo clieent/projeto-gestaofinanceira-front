@@ -8,28 +8,27 @@ export const Container = styled.div`
     overflow-y: hidden;
     overflow-x: hidden;
     background-color: var(--color-preto4);
-    `
+`
 
 export const Ilustration = styled.div``
 
 export const WrapperSection = styled.div`
-    display: flex;
+    display: grid;
+    align-items: center;
     width: 100%;
     height: 100%;
     max-height: 500px;
     background-color: var(--color-preto3);
-    flex-direction: column;
-    position: relative;
     margin-bottom: 50px;
     border-radius: 10px;
     padding: 30px 10px 30px 10px;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
         rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
         rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
-        
+
     h3 {
         margin-top: 10px;
-        color:var(--color-branco1);
+        color: var(--color-branco1);
         font-size: 25px;
         font-weight: 800;
         text-transform: uppercase;
@@ -50,5 +49,5 @@ export const Content = styled.div`
     display: grid;
     grid-template-columns: 50% 400px;
     place-items: center;
-    color:var(branco1);
+    color: var(branco1);
 `

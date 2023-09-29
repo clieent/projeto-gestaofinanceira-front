@@ -10,7 +10,9 @@ export default function HeaderMain({ pageTitle }: HeaderMainProps) {
     return (
         <S.Container>
             <S.Title>{pageTitle}</S.Title>
-            <DropdownMenu />
+            <S.WrapperDropdown>
+                <DropdownMenu />
+            </S.WrapperDropdown>
         </S.Container>
     )
 }

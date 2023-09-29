@@ -201,8 +201,8 @@ export default function CashFlow() {
                         label="Data de vencimento"
                     />
                     <InputText
-                        placeholder={'R$0,00'}
-                        value={releaseData?.value}
+                        placeholder={'Valor'}
+                        value={(releaseData?.value)}
                         setState={setReleaseData}
                         id="value"
                         label="Valor"

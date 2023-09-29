@@ -7,6 +7,7 @@ import ReducedItemList from '@/src/components/consultListByDate/components/ItemL
 import { duotone, solid } from '@fortawesome/fontawesome-svg-core/import.macro'
 import OverdueItemList from '@/src/components/consultListByDate/components/ItemList/OverdueItemList'
 import GraphicBalance from '@/src/components/graphicBalance'
+import Image from 'next/image'
 
 interface ICashFlow {
     _id: string

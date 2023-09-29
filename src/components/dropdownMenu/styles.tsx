@@ -17,29 +17,31 @@ export const Container = styled.div`
     display: grid;
     padding: 0px 20px;
     border-radius: 10px;
-    margin-right: 40px;
     &:hover {
         background: var(--color-verde-escuro2);
         cursor: pointer;
     }
     `
 
-export const DropBtn = styled.div`
-    background-color: transparent;
+export const DropMenu = styled.div`
     display: flex;
     justify-content: center;
+    align-items: center;
     align-self: center;
+    justify-self: center;
+
     color: white;
     font-size: 16px;
     border-color: transparent;
     cursor: pointer;
 
-    border: 3px solid var(--color-verde-claro1);
+    border: 3px solid var(--color-verde-escuro2);
     width: 60px;
     height: 60px;
     border-radius: 50%;
-    h3{
-        align-self: center;
+
+    img{
+        border-radius: 50%;
     }
     `
 
