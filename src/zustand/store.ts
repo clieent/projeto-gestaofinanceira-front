@@ -7,13 +7,16 @@ type Store = {
     email: string
     phone: string
     cpf: string
+    avatar: string
 }
+
 type Setters = {
     setUserId: (id: string) => void
     setName: (name: string) => void
     setEmail: (email: string) => void
     setPhone: (phone: string) => void
     setCpf: (cpf: string) => void
+    setAvatar: (avatar: string) => void
 }
 
 type at = Store & Setters
@@ -25,11 +28,13 @@ const useStore = create<Store & Setters>()(
             email: '',
             phone: '',
             cpf: '',
+            avatar: ``,
             setUserId: (newId: string) => set(() => ({ userId: newId })),
             setName: (name: string) => set(() => ({ name: name })),
             setEmail: (email: string) => set(() => ({ email: email })),
             setPhone: (phone: string) => set(() => ({ phone: phone })),
             setCpf: (cpf: string) => set(() => ({ cpf: cpf })),
+            setAvatar: (avatar: string) => set(() => ({ avatar: avatar }))
         }),
         {
             name: 'global',

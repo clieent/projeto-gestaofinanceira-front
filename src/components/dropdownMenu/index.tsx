@@ -6,7 +6,6 @@ import Avatar from 'react-avatar'
 import api from '@/src/config/api/api'
 import useStore from '@/src/zustand/store'
 import Image from 'next/image'
-import ProfilePage from '@/pages/profilePage'
 
 type usersType = {
     name: string
@@ -20,12 +19,9 @@ export default function DropdownMenu({}: DropdownMenuProps) {
         name: '',
     })
     const { userId } = useStore()
+    const { avatar } = useStore()
     const [refresh, setRefresh] = useState<boolean>(true)
     const router = useRouter()
-    //let string = numero.toString();
-
-    console.log(userId);
-    
 
     async function loadDateUsers() {
         await api
@@ -57,6 +53,10 @@ export default function DropdownMenu({}: DropdownMenuProps) {
         router.push('/auth/login')
     }
 
+    useEffect(() => {
+        console.log(avatar)
+    }, [])
+
     return (
         <S.Container
             onClick={() => {
@@ -64,32 +64,21 @@ export default function DropdownMenu({}: DropdownMenuProps) {
             }}
         >
             <S.DropMenu>
-            {/* {selectedFile ?
-                        (
-                            <Avatar
-                            name={selectDataUser?.name ?? ''}
-                                round={true}
-                                size="114px"
-                                color="transparent"
-                                alt="Sem Imagem"
-                                />
-                                )
-                                : ( */}
-                                 {<Image
-                                     src={`http://localhost:3001/6470d56a96413a392efbfb37.jpg?${new Date().getTime()}`}
-                                     width={'110'}
-                                     height={'110'}
-                                     /> ?? 
-                                     <Avatar
-                                         name={selectDataUser?.name ?? ''}
-                                         round={true}
-                                         size="60px"
-                                         color="transparent"
-                                         alt="Sem Imagem"
-                                     />
-                                 }
-                        {/* )}
-                 */}
+                {avatar ? (
+                    <Image
+                        src={avatar}
+                        width={'110'}
+                        height={'110'}
+                    />
+                ) : (
+                    <Avatar
+                        name={selectDataUser?.name ?? ''}
+                        round={true}
+                        size="60px"
+                        color="transparent"
+                        alt="Sem Imagem"
+                    />
+                )}
             </S.DropMenu>
             <S.Content showOptions={showOptions}>
                 <S.Item onClick={() => router.push('/profilePage')}>

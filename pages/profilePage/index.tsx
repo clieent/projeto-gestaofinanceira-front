@@ -26,7 +26,7 @@ export default function UserPage({}: IUsers) {
         cpf: '',
     })
     const [refresh, setRefresh] = useState<boolean>(true)
-    const { userId } = useStore()
+    const { userId, avatar, setAvatar } = useStore()
     const [selectedImage, setSelectedImage] = useState('')
     const [selectedFile, setSelectedFile] = useState<File>()
 
@@ -38,6 +38,7 @@ export default function UserPage({}: IUsers) {
                 { headers: { 'Content-Type': 'multipart/form-data' } }
             )
             .then((res) => {
+                setAvatar(`http://localhost:3001/6470d56a96413a392efbfb37.jpg?${new Date().getTime()}`)
                 console.log(res)
             })
             .catch((error) => {
@@ -77,7 +78,9 @@ export default function UserPage({}: IUsers) {
         }
     }, [refresh])
 
-
+    useEffect(() => {
+        console.log('AAAABBB', avatar, userId)
+    }, [])
 
     return (
         <S.Container>
@@ -105,18 +108,14 @@ export default function UserPage({}: IUsers) {
                                 width={'110'}
                                 height={'110'}
                             />
-                        ) : selectedFile ? (
+                        ) : avatar ? (
+                            <Image src={avatar} width={'112'} height={'112'} />
+                        ) : (
                             <Avatar
                                 name={selectDataUser?.name ?? ''}
                                 round={true}
                                 size="114px"
                                 color="transparent"
-                            />
-                        ) : (
-                            <Image
-                                src={`http://localhost:3001/6470d56a96413a392efbfb37.jpg?${new Date().getTime()}`}
-                                width={'112'}
-                                height={'112'}
                             />
                         )}
                     </S.PreviewImage>

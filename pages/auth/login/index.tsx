@@ -16,7 +16,7 @@ interface ILogin {
 export default function Login() {
     const [login, setLogin] = useState<ILogin>()
     const router = useRouter()
-    const { setUserId, setName, setCpf, setEmail, setPhone } = useStore()
+    const { setUserId, setName, setCpf, setEmail, setPhone, setAvatar } = useStore()
 
     const handleClick = (e: any) => {
         e.preventDefault()
@@ -37,6 +37,7 @@ export default function Login() {
         setEmail(resp.data.user.email)
         setName(resp.data.user.name)
         setPhone(resp.data.user.phone)
+        setAvatar(`http://localhost:3001/6470d56a96413a392efbfb37.jpg`)
         if (resp != null) {
             setCookie('AccessToken', resp.data.user.token)
             return true
