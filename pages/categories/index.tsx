@@ -4,7 +4,7 @@ import * as S from '../../styles/categories'
 import DefaultButton from '@/src/components/defaultButton'
 import api from '@/src/config/api/api'
 import useStore from '../../src/zustand/store'
-import { light } from '@fortawesome/fontawesome-svg-core/import.macro'
+import { light, solid } from '@fortawesome/fontawesome-svg-core/import.macro'
 import CreateCategories from '../../src/components/createCategories'
 
 type categoryType = {
@@ -25,7 +25,9 @@ export default function Categories() {
     const [update, setUpdate] = useState<ICategories>()
     const [refresh, setRefresh] = useState<boolean>(false)
     const inputRefs = useRef<(HTMLInputElement | any)[any]>([])
-    
+    const [showAlertMessage, setShowAlertMessage] = useState(false)
+    const [timer, setTimer] = useState(4)
+
     async function loadDateCategories() {
         await api
             .get<categoryType>('/categories', {
@@ -39,16 +41,14 @@ export default function Categories() {
                 console.log(error)
             })
     }
-    
+
     const handleClickButton = () => {
         setCreate(!create)
     }
 
-
     useEffect(() => {
         loadDateCategories()
     }, [])
-
 
     function setArray(data: any) {
         setTrash(new Array(data.length).fill(false))
@@ -62,6 +62,29 @@ export default function Categories() {
             title: value,
         }))
     }
+
+    useEffect(() => {
+        if (showAlertMessage) {
+            const closeMessageTimer = setTimeout(() => {
+                setShowAlertMessage(false)
+            }, 4000)
+
+            const intervalTimer = setInterval(() => {
+                setTimer((prevTimer) => prevTimer - 1)
+            }, 1000)
+
+            if (timer == 0) {
+                clearInterval(closeMessageTimer)
+                clearInterval(intervalTimer)
+            }
+
+            return () => {
+                clearTimeout(closeMessageTimer)
+                clearInterval(intervalTimer)
+                setTimer(4)
+            }
+        }
+    }, [showAlertMessage])
 
     const handleClickPatch = (id: string, index: number) => {
         api.patch(`/categories/${id}`, update)
@@ -110,7 +133,6 @@ export default function Categories() {
         }
     }, [refresh])
 
-        
     function handleClickDelete(id: string) {
         api.delete(`/categories/${id}`)
             .then((reponse) => {
@@ -122,7 +144,6 @@ export default function Categories() {
             })
     }
 
-
     return (
         <S.Container>
             <S.Header>
@@ -130,16 +151,17 @@ export default function Categories() {
             </S.Header>
 
             <S.WrapperCategories>
-            <S.WrapperButton create={create ?? false}>
-                <DefaultButton 
-                    onClick={handleClickButton}
-                    ctaButton={'Nova Categoria'}
-                />
-            </S.WrapperButton>
+                <S.WrapperButton create={create ?? false}>
+                    <DefaultButton
+                        onClick={handleClickButton}
+                        ctaButton={'Nova Categoria'}
+                    />
+                </S.WrapperButton>
                 <CreateCategories
                     create={create}
                     setRefresh={setRefresh}
                     setCreate={setCreate}
+                    setShowToast={setShowAlertMessage}
                 />
             </S.WrapperCategories>
             <S.WrapperList>
@@ -158,7 +180,6 @@ export default function Categories() {
                         />
 
                         <S.WrapperIcon>
-
                             {trash[index] ? (
                                 <>
                                     <S.Icon
@@ -170,18 +191,20 @@ export default function Categories() {
                                         onClick={() => handleClickTrash(index)}
                                     />{' '}
                                 </>
-                            ) : edit[index] ?
+                            ) : edit[index] ? (
                                 <>
                                     <S.Icon
                                         icon={light('check')}
-                                        onClick={() => handleClickPatch(_id, index)}
+                                        onClick={() =>
+                                            handleClickPatch(_id, index)
+                                        }
                                     />{' '}
                                     <S.Icon
                                         icon={light('xmark')}
                                         onClick={() => handleClickTrash(index)}
                                     />{' '}
                                 </>
-                            : (
+                            ) : (
                                 <>
                                     <S.Icon
                                         icon={light('pencil')}
@@ -200,6 +223,15 @@ export default function Categories() {
                     </S.Content>
                 ))}
             </S.WrapperList>
+            <S.WrapperAlertBox showAlertMessage={showAlertMessage}>
+                <S.IconItem
+                    icon={solid('circle-check')}
+                    style={{ color: '#00cb62' }}
+                />
+                <S.AlertMessage>
+                    Categoria cadastrada com <strong>SUCESSO</strong>
+                </S.AlertMessage>
+            </S.WrapperAlertBox>
         </S.Container>
     )
 }

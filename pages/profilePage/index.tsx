@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react'
 import api from '@/src/config/api/api'
 import useStore from '@/src/zustand/store'
 import Avatar from 'react-avatar'
-import { light } from '@fortawesome/fontawesome-svg-core/import.macro'
+import { light, solid } from '@fortawesome/fontawesome-svg-core/import.macro'
 import Image from 'next/image'
 
 type usersType = {
@@ -29,6 +29,9 @@ export default function UserPage({}: IUsers) {
     const { userId, avatar, setAvatar } = useStore()
     const [selectedImage, setSelectedImage] = useState('')
     const [selectedFile, setSelectedFile] = useState<File>()
+    const [showAlertMessage, setShowAlertMessage] = useState(false)
+    const [timer, setTimer] = useState(3)
+
 
     const onSubmit = async () => {
         await api
@@ -63,6 +66,7 @@ export default function UserPage({}: IUsers) {
         api.patch(`/users/update/${userId}`, { user: selectDataUser })
             .then((reponse) => {
                 loadDateUsers()
+                setShowAlertMessage(true)
                 console.log(reponse.status)
             })
             .catch((error) => {
@@ -79,8 +83,27 @@ export default function UserPage({}: IUsers) {
     }, [refresh])
 
     useEffect(() => {
-        console.log('AAAABBB', avatar, userId)
-    }, [])
+        if (showAlertMessage) {
+            const closeMessageTimer = setTimeout(() => {
+                setShowAlertMessage(false)
+            }, 3000)
+
+            const intervalTimer = setInterval(() => {
+                setTimer((prevTimer) => prevTimer - 1)
+            }, 1000)
+
+            if (timer == 0) {
+                clearInterval(closeMessageTimer)
+                clearInterval(intervalTimer)
+            }
+
+            return () => {
+                clearTimeout(closeMessageTimer)
+                clearInterval(intervalTimer)
+                setTimer(3)
+            }
+        }
+    }, [showAlertMessage])
 
     return (
         <S.Container>
@@ -170,6 +193,16 @@ export default function UserPage({}: IUsers) {
                         ctaButton={'Alterar Dados'}
                     />
                 </S.WrapperButton>
+
+                <S.WrapperAlertBox showAlertMessage={showAlertMessage}>
+                    <S.IconItem
+                        icon={solid('circle-check')}
+                        style={{ color: '#00cb62' }}
+                    />
+                    <S.AlertMessage>
+                        Dados alterados com <strong>SUCESSO</strong>
+                    </S.AlertMessage>
+                </S.WrapperAlertBox>
             </S.Content>
         </S.Container>
     )
