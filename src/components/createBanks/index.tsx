@@ -33,7 +33,6 @@ export default function CreateBanks({
         api.post('/banks', banks)
             .then((response) => {
                 setShowToast && setShowToast(true)
-                console.log(response.status)
                 setRefresh(true)
                 setCreate(false)
                 setBanks((prevBanks) => ({

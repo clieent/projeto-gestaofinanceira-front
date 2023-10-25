@@ -73,7 +73,6 @@ export default function CashFlow() {
             })
     }
     useEffect(() => {
-        console.log(releaseData)
     }, [releaseData])
 
     async function loadDateCategories() {

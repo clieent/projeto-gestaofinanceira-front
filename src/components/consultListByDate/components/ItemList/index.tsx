@@ -37,6 +37,7 @@ type ItemListProps = {
     isSelected?: boolean
     setSelectedBoxes?: any
     selectedBoxes?: any
+    setCashFlow?: any
 }
 
 export default function ItemList({
@@ -44,6 +45,7 @@ export default function ItemList({
     isSelected,
     setSelectedBoxes,
     selectedBoxes,
+    setCashFlow,
 }: ItemListProps) {
     const date = item.createdAt.toString().split('T')[0]
     const currentDay = date.split('-')[2]
@@ -73,15 +75,13 @@ export default function ItemList({
     const handleClickDelete = (id: string) => {
         api.delete(`/cashFlows/${id}`)
             .then((response) => {
-                console.log(response.status)
-                router.push('/cashCheck')
+                setCashFlow((prev: any) => prev.filter((item: any) => item._id != id))
             })
             .catch((error) => {
                 console.log(error)
             })
     }
 
-    console.log(item.installment)
 
     return (
         <S.Container showDetails={showDetails}>
@@ -241,10 +241,6 @@ export default function ItemList({
                         <S.WrapperDataFixed>
                             <span>
                                 {item.dueDate}
-                                {/* {item.installment > 1 ? `
-                                Parcela ${item.installment} de ${item.installment}`
-                            : null} */}
-                                Parcela {item.installment} de {item.installment}
                             </span>
                         </S.WrapperDataFixed>
                         <S.WrapperDataFixed>

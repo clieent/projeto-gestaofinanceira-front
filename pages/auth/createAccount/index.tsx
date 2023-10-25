@@ -124,7 +124,6 @@ export default function CreateAccount() {
         delete user?.confirmPassword
         api.post('/users', user)
             .then((response) => {
-                console.log(response)
                 router.push('/auth/login')
             })
             .catch((error) => {

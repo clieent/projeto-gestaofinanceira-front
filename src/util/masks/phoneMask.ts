@@ -5,7 +5,5 @@ export default function phoneMask(phone: string | any) {
         .replace(/(\d{2})(\d)/, '($1)$2')
         .replace(/(\d{5})(\d)/, '$1-$2')
 
-    console.log(noMask)
-
     return noMask
 }

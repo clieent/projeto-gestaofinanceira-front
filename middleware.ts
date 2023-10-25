@@ -10,30 +10,38 @@ export async function middleware(req: NextRequest) {
 
     const token = req.cookies.get('AccessToken')?.valueOf() ?? ''
 
-    if(!token) {
-        if(pathname.startsWith('/auth')) {
-            return NextResponse.rewrite(req.nextUrl)
-        } else {
-            return NextResponse.redirect(new URL('/auth/login', req.url))
-        }
+    if (!token) {
+            if (pathname.startsWith('/auth')) {
+                return NextResponse.rewrite(req.nextUrl)
+            } else {
+                return NextResponse.redirect(new URL('/auth/login', req.url))
+            }
     }
-    
-    if(token) {
+
+    if (token) {
         if (await validateToken(token?.toString())) {
-            if(pathname.startsWith('/auth')) {
+            if (pathname.startsWith('/auth')) {
                 return NextResponse.redirect(new URL('/home', req.url))
             } else {
                 return NextResponse.next()
             }
         }
-        const expiredTokenResponse = NextResponse.redirect(new URL('/auth/expiredSection', req.url))
-        expiredTokenResponse.cookies.set('AccessToken', '', { expires: new Date(0) })
+        const expiredTokenResponse = NextResponse.redirect(
+            new URL('/auth/expiredSection', req.url)
+        )
+        expiredTokenResponse.cookies.set('AccessToken', '', {
+            expires: new Date(0),
+        })
         return expiredTokenResponse
     } else {
-        const expiredTokenResponse = NextResponse.redirect(new URL('/auth/login', req.url))
-        expiredTokenResponse.cookies.set('AccessToken', '', { expires: new Date(0) })
+        const expiredTokenResponse = NextResponse.redirect(
+            new URL('/auth/login', req.url)
+        )
+        expiredTokenResponse.cookies.set('AccessToken', '', {
+            expires: new Date(0),
+        })
         return expiredTokenResponse
-    } 
+    }
 }
 
 export const config = {
@@ -48,7 +56,7 @@ export const config = {
         '/categories',
         '/banks',
         '/profilePage',
-        
-    ]
+        '/auth/forgotPassword',
+        '/auth/forgotPassword/resetPassword',
+    ],
 }
-

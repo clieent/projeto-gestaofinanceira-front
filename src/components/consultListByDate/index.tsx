@@ -48,9 +48,6 @@ export default function ConsultListByDate({}: ConsultListByDateProps) {
     const [cashFlow, setCashFlow] = useState<ICashFlow[]>()
     const [atualDate, setAtualDate] = useState({ date: '', maskDate: '' })
     const [searchCashFlow, setSearchCashFlow] = useState<Partial<ICashFlow>>()
-    const [releaseData, setReleaseData] = useState<IReleaseData>({
-        categoryId: '',
-    })
     const [showInputsOutputs, setShowInputsOutputs] = useState({
         type: 'Todas',
     })
@@ -59,6 +56,8 @@ export default function ConsultListByDate({}: ConsultListByDateProps) {
     const [showButton, setShowButton] = useState<boolean>(false)
     const [showAlertMessage, setShowAlertMessage] = useState(false)
     const [timer, setTimer] = useState(4)
+    const [refresh, setRefresh] = useState<boolean>(false)
+
 
     // PEGAR OS LANÇAMENTOS NO cashFlows \/ \/ \/
     const getCashFlow = async () => {
@@ -77,6 +76,13 @@ export default function ConsultListByDate({}: ConsultListByDateProps) {
     useEffect(() => {
         getCashFlow()
     }, [userId])
+
+    useEffect(() => {
+        if (refresh) {
+            getCashFlow()
+            setRefresh(false)
+        }
+    }, [refresh])
 
     // MÁSCARA DE DATA ATUAL
     const initialValue = () => {
@@ -134,6 +140,7 @@ export default function ConsultListByDate({}: ConsultListByDateProps) {
                 year: 'numeric',
             }) ? (
             <ItemList
+                setCashFlow={setCashFlow}
                 item={item}
                 key={index}
                 isSelected={selectedBoxes.includes(item._id)}
@@ -204,7 +211,6 @@ export default function ConsultListByDate({}: ConsultListByDateProps) {
         await api
             .patch(`cashFlows/${userId}`, selectedBoxes)
             .then((response) => {
-                console.log(response)
                 setCashFlow([])
                 getCashFlow()
                 setShowAlertMessage(true)

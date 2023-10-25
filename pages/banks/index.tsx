@@ -67,7 +67,6 @@ export default function Banks() {
         api.patch(`/banks/${id}`, update)
             .then((reponse) => {
                 loadDateBanks()
-                console.log(reponse.status)
                 edit[index] = false
             })
             .catch((error) => {
@@ -76,7 +75,6 @@ export default function Banks() {
     }
 
     useEffect(() => {
-        console.log(update)
     }, [update])
 
     const handleClickEdit = (index: number) => {
@@ -107,7 +105,6 @@ export default function Banks() {
         api.delete(`/banks/${id}`)
             .then((reponse) => {
                 loadDateBanks()
-                console.log(reponse.status)
             })
             .catch((error) => {
                 console.log(error)

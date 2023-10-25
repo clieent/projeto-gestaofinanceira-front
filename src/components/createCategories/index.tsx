@@ -36,7 +36,6 @@ export default function CreateCategories({
         api.post('/categories', categories)
             .then((response) => {
                 setShowToast && setShowToast(true)
-                console.log(response.status)
                 setRefresh(true)
                 setCreate(false)
                 setCategories((prevCategories) => ({

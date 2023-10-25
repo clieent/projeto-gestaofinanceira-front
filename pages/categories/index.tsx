@@ -90,7 +90,6 @@ export default function Categories() {
         api.patch(`/categories/${id}`, update)
             .then((reponse) => {
                 loadDateCategories()
-                console.log(reponse.status)
                 edit[index] = false
             })
             .catch((error) => {
@@ -99,7 +98,6 @@ export default function Categories() {
     }
 
     useEffect(() => {
-        console.log(update)
     }, [update])
 
     const handleClickEdit = (index: number) => {
@@ -137,7 +135,6 @@ export default function Categories() {
         api.delete(`/categories/${id}`)
             .then((reponse) => {
                 loadDateCategories()
-                console.log(reponse.status)
             })
             .catch((error) => {
                 console.log(error)

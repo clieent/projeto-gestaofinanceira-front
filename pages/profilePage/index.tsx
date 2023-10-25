@@ -42,7 +42,6 @@ export default function UserPage({}: IUsers) {
             )
             .then((res) => {
                 setAvatar(`http://localhost:3001/6470d56a96413a392efbfb37.jpg?${new Date().getTime()}`)
-                console.log(res)
             })
             .catch((error) => {
                 console.log(error)
@@ -54,7 +53,6 @@ export default function UserPage({}: IUsers) {
             .get('/users/' + `${userId}`)
             .then((response) => {
                 setSelectDataUser(response.data.user)
-                console.log(response)
             })
             .catch((error) => {
                 console.log(error)
@@ -67,7 +65,6 @@ export default function UserPage({}: IUsers) {
             .then((reponse) => {
                 loadDateUsers()
                 setShowAlertMessage(true)
-                console.log(reponse.status)
             })
             .catch((error) => {
                 console.log(error)
@@ -77,7 +74,6 @@ export default function UserPage({}: IUsers) {
     useEffect(() => {
         if (refresh) {
             loadDateUsers()
-            console.log(selectDataUser)
             setRefresh(false)
         }
     }, [refresh])
