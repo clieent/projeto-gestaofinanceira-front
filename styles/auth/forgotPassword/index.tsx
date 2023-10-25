@@ -2,29 +2,30 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import styled from 'styled-components'
 
 type ContainerProps = {
-    create?: boolean
     showAlertMessage?: boolean
-
 }
 
-export const Container = styled.div<ContainerProps>`
-    width: 450px;
-    display: ${({ create }) => (create ? 'flex' : 'none')};
+export const Container = styled.div`
+    display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    `
+
+export const Content = styled.div`
+    margin: 60px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    
 `
 
-export const DataInputs = styled.div`
-    `
+export const WrapperInput = styled.div``
 
 export const WrapperButton = styled.div`
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
-    `
-export const Content = styled.div<ContainerProps>`
-    display: grid;
-    gap: 10px;
-
+    align-self: center;
+    width: 200px;
 `
 
 export const WrapperAlertBox = styled.div<ContainerProps>`

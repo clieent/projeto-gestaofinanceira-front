@@ -28,7 +28,6 @@ export default function DropdownMenu({}: DropdownMenuProps) {
             .get('/users/' + `${userId}`)
             .then((response) => {
                 setSelectDataUser(response.data.user)
-                console.log(response)
             })
             .catch((error) => {
                 console.log(error)
@@ -38,7 +37,6 @@ export default function DropdownMenu({}: DropdownMenuProps) {
     useEffect(() => {
         if (refresh) {
             loadDateUsers()
-            console.log(selectDataUser)
             setRefresh(false)
         }
     }, [refresh])

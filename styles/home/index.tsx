@@ -162,5 +162,5 @@ export const AlertMessage = styled.div``
 export const IconItem = styled(FontAwesomeIcon)<ContainerProps>`
     font-size: 25px;
     color: var(--color-branco1);
-    margin: 20px;
+    margin-left: 15px;
 `

@@ -4,7 +4,7 @@ import * as S from '../../styles/banks'
 import DefaultButton from '@/src/components/defaultButton'
 import api from '@/src/config/api/api'
 import useStore from '../../src/zustand/store'
-import { light } from '@fortawesome/fontawesome-svg-core/import.macro'
+import { light, solid } from '@fortawesome/fontawesome-svg-core/import.macro'
 import CreateBanks from '@/src/components/createBanks'
 
 type banksType = {
@@ -25,6 +25,8 @@ export default function Banks() {
     const [update, setUpdate] = useState<IBanks>()
     const [refresh, setRefresh] = useState<boolean>(false)
     const inputRefs = useRef<(HTMLInputElement | any)[any]>([])
+    const [showAlertMessage, setShowAlertMessage] = useState(false)
+    const [timer, setTimer] = useState(4)
 
     async function loadDateBanks() {
         await api
@@ -65,7 +67,6 @@ export default function Banks() {
         api.patch(`/banks/${id}`, update)
             .then((reponse) => {
                 loadDateBanks()
-                console.log(reponse.status)
                 edit[index] = false
             })
             .catch((error) => {
@@ -74,7 +75,6 @@ export default function Banks() {
     }
 
     useEffect(() => {
-        console.log(update)
     }, [update])
 
     const handleClickEdit = (index: number) => {
@@ -105,7 +105,6 @@ export default function Banks() {
         api.delete(`/banks/${id}`)
             .then((reponse) => {
                 loadDateBanks()
-                console.log(reponse.status)
             })
             .catch((error) => {
                 console.log(error)
@@ -118,6 +117,29 @@ export default function Banks() {
             setRefresh(false)
         }
     }, [refresh])
+
+    useEffect(() => {
+        if (showAlertMessage) {
+            const closeMessageTimer = setTimeout(() => {
+                setShowAlertMessage(false)
+            }, 4000)
+
+            const intervalTimer = setInterval(() => {
+                setTimer((prevTimer) => prevTimer - 1)
+            }, 1000)
+
+            if (timer == 0) {
+                clearInterval(closeMessageTimer)
+                clearInterval(intervalTimer)
+            }
+
+            return () => {
+                clearTimeout(closeMessageTimer)
+                clearInterval(intervalTimer)
+                setTimer(4)
+            }
+        }
+    }, [showAlertMessage])
 
     return (
         <S.Container>
@@ -137,6 +159,7 @@ export default function Banks() {
                     create={create}
                     setRefresh={setRefresh}
                     setCreate={setCreate}
+                    setShowToast={setShowAlertMessage}
                 />
             </S.WrapperBanks>
 
@@ -198,6 +221,15 @@ export default function Banks() {
                     </S.Content>
                 ))}
             </S.WrapperList>
+            <S.WrapperAlertBox showAlertMessage={showAlertMessage}>
+                <S.IconItem
+                    icon={solid('circle-check')}
+                    style={{ color: '#00cb62' }}
+                />
+                <S.AlertMessage>
+                    Banco cadastrado com <strong>SUCESSO</strong>
+                </S.AlertMessage>
+            </S.WrapperAlertBox>
         </S.Container>
     )
 }

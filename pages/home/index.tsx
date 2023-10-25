@@ -64,7 +64,6 @@ export default function Home({ item }: HomeProps) {
     function handleClickButton(id: string) {
         api.patch(`cashFlows/${userId}`, [id])
             .then((response) => {
-                console.log(response)
                 getCashFlow()
                 setShowAlertMessage(true)
             })

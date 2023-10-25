@@ -78,7 +78,7 @@ export default function Login() {
                         Cadastre aqui
                     </strong>
                 </span>
-                <strong onClick={() => router.push('/auth/password')}>Esqueceu sua senha</strong>
+                <strong onClick={() => router.push('/auth/forgotPassword')}>Esqueceu sua senha</strong>
             </S.WrapperFoot>
         </S.Container>
     )

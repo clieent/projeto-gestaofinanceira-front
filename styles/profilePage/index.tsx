@@ -1,6 +1,11 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import styled from 'styled-components'
 
+type ContainerProps = {
+    showAlertMessage?: boolean
+    style?: any
+}
+
 export const Container = styled.div`
     display: flex;
     flex-direction: column;
@@ -95,4 +100,35 @@ export const WrapperButton = styled.div`
     justify-self: center;
     align-self: center;
     padding: 35px 0px 25px;
+`
+
+export const WrapperAlertBox = styled.div<ContainerProps>`
+    visibility: ${({ showAlertMessage }) =>
+        showAlertMessage ? 'visible' : 'hidden'};
+    height: auto;
+    text-align: center;
+    font-weight: 500;
+    font-size: 22px;
+    gap: 30px;
+    display: flex;
+    border: 3px solid;
+    border-radius: 10px;
+    color: var(--color-branco1);
+    border-color: var(--color-verde-exclusivo);
+    margin: 0px auto;
+    position: absolute;
+    bottom: 30px;
+    padding: 15px;
+    z-index: 1;
+    background-color: var(--color-preto2);
+    align-items: center;
+    right: 30px;
+`
+
+export const AlertMessage = styled.div``
+
+export const IconItem = styled(FontAwesomeIcon)<ContainerProps>`
+    font-size: 25px;
+    color: var(--color-branco1);
+    margin-left: 15px;
 `

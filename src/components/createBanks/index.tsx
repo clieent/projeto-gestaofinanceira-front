@@ -14,11 +14,13 @@ type CreateBanksProps = {
     create: boolean
     setRefresh: React.Dispatch<SetStateAction<boolean>>
     setCreate: React.Dispatch<SetStateAction<boolean>>
+    setShowToast?: React.Dispatch<SetStateAction<boolean>>
 }
 export default function CreateBanks({
     create,
     setRefresh,
     setCreate,
+    setShowToast
 }: CreateBanksProps) {
     const [banks, setBanks] = useState<banksProps>({
         title: '',
@@ -30,7 +32,7 @@ export default function CreateBanks({
         e.preventDefault()
         api.post('/banks', banks)
             .then((response) => {
-                console.log(response.status)
+                setShowToast && setShowToast(true)
                 setRefresh(true)
                 setCreate(false)
                 setBanks((prevBanks) => ({
@@ -71,7 +73,7 @@ export default function CreateBanks({
                     />
                 </S.DataInputs>
                 <S.WrapperButton>
-                    <DefaultButton onClick={handleClick} ctaButton={'Criar'} />
+                    <DefaultButton onClick={handleClick} ctaButton={'Cadastrar'} />
                     <DefaultButton
                         onClick={handleCancelClick}
                         ctaButton={'Cancelar'}
