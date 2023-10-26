@@ -41,7 +41,7 @@ export default function UserPage({}: IUsers) {
                 { headers: { 'Content-Type': 'multipart/form-data' } }
             )
             .then((res) => {
-                setAvatar(`http://localhost:3001/6470d56a96413a392efbfb37.jpg?${new Date().getTime()}`)
+                setAvatar(`http://localhost:3001/${userId}.jpg?${new Date().getTime()}`)
             })
             .catch((error) => {
                 console.log(error)

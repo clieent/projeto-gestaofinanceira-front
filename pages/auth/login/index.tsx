@@ -37,7 +37,7 @@ export default function Login() {
         setEmail(resp.data.user.email)
         setName(resp.data.user.name)
         setPhone(resp.data.user.phone)
-        setAvatar(`http://localhost:3001/6470d56a96413a392efbfb37.jpg`)
+        setAvatar(`http://localhost:3001/${resp.data.user._id}.jpg`)
         if (resp != null) {
             setCookie('AccessToken', resp.data.user.token)
             return true
